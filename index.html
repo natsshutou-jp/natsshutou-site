@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="natsshutou | Curator / Art Director | Contemporary Art" />
+  <title>natsshutou</title>
+  <style>
+    :root{
+      --bg:#ffffff;
+      --fg:#111111;
+      --muted:#6b6b6b;
+      --hair:#e9e9e9;
+      --max:900px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--fg);
+      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      line-height:1.9;
+      letter-spacing:.01em;
+    }
+    a{color:inherit;text-decoration:none}
+    a:hover{opacity:.75}
+    .wrap{max-width:var(--max);margin:0 auto;padding:56px 20px 80px}
+    header{padding:12px 0 30px;border-bottom:1px solid var(--hair)}
+    .brand{display:flex;flex-direction:column;gap:8px}
+    .brand h1{margin:0;font-size:18px;letter-spacing:.08em;font-weight:650}
+    .brand .kana{font-size:12px;color:var(--muted);letter-spacing:.18em}
+    .brand .role{font-size:13px;color:var(--muted)}
+    .lead{margin:26px 0 0;font-size:14px}
+    .lead strong{font-weight:650}
+    section{padding:34px 0;border-bottom:1px solid var(--hair)}
+    h2{margin:0 0 16px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:1fr;gap:18px}
+    .card{padding:18px 18px 16px;border:1px solid var(--hair);border-radius:14px}
+    .card h3{margin:0 0 8px;font-size:13px;letter-spacing:.08em}
+    .card p{margin:0;color:#222;font-size:14px}
+    .list{margin:0;padding-left:18px;color:#222}
+    .list li{margin:6px 0}
+    footer{padding-top:34px}
+    .contact{display:flex;flex-direction:column;gap:10px}
+    .pill{
+      display:inline-flex;align-items:center;gap:10px;
+      border:1px solid var(--hair);border-radius:999px;
+      padding:10px 14px;font-size:14px;width:fit-content
+    }
+    .muted{color:var(--muted)}
+    @media (min-width:860px){
+      .grid{grid-template-columns:1fr 1fr 1fr}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <h1>natsshutou</h1>
+        <div class="kana">ナッツシュウトウ</div>
+        <div class="role">Curator / Art Director｜現代美術</div>
+      </div>
+
+      <p class="lead">
+        <strong>作品と鑑賞者のあいだを、無理なく整える。</strong><br>
+        展示構成、空間、言葉を組み立てます。
+      </p>
+    </header>
+
+    <section>
+      <h2>About</h2>
+      <p style="margin:0;font-size:14px;color:#222;">
+        この名前に、正しい綴りや決まった意味はありません。<br>
+        友人が、あるアーティストに相談して付けてくれた名前です。<br>
+        聞き間違いと書き間違いのまま、そのズレごと使い続けています。
+      </p>
+    </section>
+
+    <section>
+      <h2>Services</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>curation</h3>
+          <p>
+            展示の「前提」をつくります。<br>
+            テーマ／作家／作品の選定と、関係性の配置を決めます。
+          </p>
+        </div>
+        <div class="card">
+          <h3>direction</h3>
+          <p>
+            決まった前提を「形」にします。<br>
+            空間・動線・見せ方として、物理的な配置を設計します。
+          </p>
+        </div>
+        <div class="card">
+          <h3>writing</h3>
+          <p>
+            意図や制作背景を整理します。<br>
+            鑑賞者が受け取れる文章として整えます。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Background / Career</h2>
+      <ul class="list">
+        <li>東京藝術大学 美術学部 絵画科油画専攻 卒業</li>
+        <li>東京藝術大学大学院 油画・技法材料研究室 修了</li>
+        <li>商業ギャラリーのアシスタントを経ず、飲食店を母体とした企画ギャラリーでキュレーション業務に携わる</li>
+        <li>その後、飲食店併設ギャラリーの立ち上げと運営、展示企画を行い独立</li>
+        <li>現在は、キュレーターとして、作品を軸に展示と活動の設計を行っています</li>
+      </ul>
+    </section>
+
+    <footer>
+      <h2>Contact</h2>
+      <div class="contact">
+        <div class="pill">Mail：<a href="mailto:natsshutou@gmail.com">natsshutou@gmail.com</a></div>
+        <div class="muted" style="font-size:13px;">
+          展示企画・空間構成・ステートメント制作など、規模や形態に応じてご相談ください。
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
