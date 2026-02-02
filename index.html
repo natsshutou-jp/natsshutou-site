@@ -55,7 +55,19 @@
     @media (min-width:860px){
       .grid{grid-template-columns:1fr 1fr 1fr}
     }
-    .hero-space{ margin: 12px 0 24px; } .hero-space img{ width: 100%; height: auto; display: block; border-radius: 0 }
+    .hero-space{
+  margin: 12px 0 24px;
+  max-height: 50vh;
+  overflow: hidden;
+}
+
+.hero-space img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+}
   </style>
 </head>
 
