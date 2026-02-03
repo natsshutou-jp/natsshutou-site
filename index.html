@@ -69,7 +69,8 @@
 .hero-space img{
   width: 100%;
   height: auto;
-  object-fit: 50% 75%;;
+  object-fit: cover;
+  object-position: 50% 75%;
   display: block;
   border-radius: 0;
 }
@@ -80,6 +81,14 @@
   letter-spacing: .04em;
   opacity: .85;
 } 
+    @media (max-width: 640px){
+  .hero-space{
+    aspect-ratio: 4 / 3;
+  }
+  .hero-space img{
+    object-position: 50% 82%;
+  }
+}
   </style>
 </head>
 
@@ -160,11 +169,4 @@
   </div>
 </body>
 </html>
-@media (max-width: 640px){
-  .hero-space{
-    aspect-ratio: 4 / 3;
-  }
-  .hero-space img{
-    object-position: 50% 82%;
-  }
-}
+
