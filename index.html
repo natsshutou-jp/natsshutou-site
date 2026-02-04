@@ -13,8 +13,8 @@
       --hair:#e9e9e9;
       --max:900px;
 
-      space-1: 12px;
-      space-2: 28px;
+      --space-1: 12px;
+      --space-2: 28px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -79,9 +79,9 @@
     }
     
 .hero-space{
-  margin: 8px 0 2px;
+  margin: var(--space-1) 0 (--space-2);
   max-width: 680px;
-  padding-bottom:12px;
+  padding-bottom:0px;
 }
 .hero-space img{
   width: 100%;
