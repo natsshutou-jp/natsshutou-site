@@ -22,7 +22,11 @@
       margin:0;
       background:var(--bg);
       color:var(--fg);
-      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      font-family: var(--font-sans);
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+text-rendering: geometricPrecision;
+font-feature-settings: "palt" 1;
       line-height:1.75;
       letter-spacing:.01em;
     }
