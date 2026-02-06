@@ -180,12 +180,14 @@ section.no-divider .profile{
     }
    @media (min-width:860px){
   .grid{
-    grid-template-columns: repeat(3, max-content);
+    grid-template-columns: repeat(3, minmax(0, 26ch));
     column-gap: 56px;
     row-gap: 36px;
     justfy-content: start;
-    align-items: start;
     justfy-items: start;
+    align-items: start;
+    width: fit-content;
+    max-width: 100%;  
   }
    section.no-divider{
   margin-top: 18px;
