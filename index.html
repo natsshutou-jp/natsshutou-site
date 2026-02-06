@@ -180,15 +180,21 @@ section.no-divider .profile{
     }
    @media (min-width:860px){
   .grid{
-    grid-template-columns: repeat(3, minmax(0, 26ch));
+    grid-template-columns: repeat(3, 26ch);
     column-gap: 56px;
     row-gap: 36px;
-    justfy-content: start;
-    justfy-items: start;
+
+  
+    width: max-content;
+    max-width: 100%;
+    margin: 0 auto;
+
+    justify-content: start;
+    justify-items: start;
     align-items: start;
-    width: fit-content;
-    max-width: 100%;  
   }
+}
+
    section.no-divider{
   margin-top: 18px;
 }
