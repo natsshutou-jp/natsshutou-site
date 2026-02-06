@@ -182,6 +182,15 @@ section.no-divider .profile{
     @media (max-width:460px){
       section > h2{ opacity:.62; }
     }
+    .services-grid{
+  display: grid;
+  grid-template-columns: 1fr; /* スマホは1列 */
+  column-gap: 56px;
+  row-gap: 36px;
+  max-width: 100%;
+  margin: 0 auto;
+  align-items: start;
+}
  @media (min-width:860px){
   .services-grid{
     display: grid;
