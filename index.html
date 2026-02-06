@@ -180,9 +180,10 @@ section.no-divider .profile{
     }
    @media (min-width:860px){
   .grid{
-    grid-template-columns: repeat(3, minmax(220px, 1fr));
+    grid-template-columns: repeat(3, max-content);
     column-gap: 56px;
     row-gap: 36px;
+    justify-content: start;
     align-items: start;
   }
    section.no-divider{
