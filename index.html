@@ -129,7 +129,12 @@ section.services{
   line-height:inherit;
 }
     section > h2{margin:0 0 18px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg);opacity:.62;font-weight:650}
-    .grid{display:grid;grid-template-columns:1fr;gap:28px}
+    section > h2 br{
+      display:block;
+      content:"";
+      margin-top:8px;
+    }
+      .grid{display:grid;grid-template-columns:1fr;gap:28px}
     .card{padding:0;border:none;border-radius:0;background:transparent;}
     .card h3{margin:0 0 8px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--fg);opacity:9}
     .card p{margin:0;color:var(--muted);font-size:13px;line-height:1.7;max-width:32ch}
