@@ -178,18 +178,15 @@ section.no-divider .profile{
     @media (max-width:460px){
       section > h2{ opacity:.62; }
     }
-  @media (min-width:860px){
+ @media (min-width:860px){
   .services-grid{
-    grid-template-columns: repeat(3, 26ch);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(220px, 1fr));
     column-gap: 56px;
     row-gap: 36px;
-    width: max-content;
-    max-width: 100%;
-    margin: 0 auto;
     align-items: start;
   }
 }
-
    section.no-divider{
   margin-top: 18px;
 }
