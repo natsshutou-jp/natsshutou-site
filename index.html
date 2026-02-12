@@ -296,10 +296,22 @@ footer > .muted{
   max-width: var(--media);
   margin-left: auto;
   margin-right: auto;
+} /* ← これが必要（閉じ括弧） */
 
-  @media (max-width: 860px){
+@media (max-width: 860px){
   footer .contact{
     justify-content: center;
+  }
+
+  /* スマホ：左右の余白（文章が端で切れる対策） */
+  body{
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* スマホ：Contact末尾に余白を作る */
+  footer{
+    padding-bottom: 24px;
   }
 }
   @media (max-width: 860px){
