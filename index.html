@@ -303,17 +303,19 @@ footer > .muted{
   margin-left: auto;
   margin-right: auto;
 
+  @media (max-width: 860px){
+  footer .contact{
+    justify-content: center;
+  }
+}
+
   /* スマホの文章が端で切れるのを防ぐ */
   padding-left: 16px;
   padding-right: 16px;
   box-sizing: border-box;
 }
 
-    .pill{
-      display:inline-flex;align-items:center;gap:10px;
-      border:1px solid var(--hair);border-radius:999px;
-      padding:10px 14px;font-size:14px;width:fit-content
-    }
+  
     .muted{
       color:var(--muted);
     font-size:13px;
