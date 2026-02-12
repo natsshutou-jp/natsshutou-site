@@ -44,6 +44,50 @@
   display:inline-block;
   margin-top:8px;
 }
+    .exhibition-meta a{
+  display:inline-block;
+  margin-top:8px;
+}
+
+/* 追加ここから：Exhibition を 2カラム化 */
+.exhibition-layout{
+  max-width: var(--max);
+  margin: 24px auto 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+}
+
+.exhibition-media img{
+  display:block;
+  width: 100%;
+  height: auto;
+  /* DM画像を「半分」に：--media(720px) の半分 = 360px */
+  max-width: calc(var(--media) / 2);
+}
+
+/* 右カラムのプレスをここに収める */
+.exhibition-press{
+  max-width: none; /* 2カラム内で幅を殺さない */
+}
+
+@media (max-width: 860px){
+  .exhibition-layout{
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .exhibition-media img{
+    max-width: 100%;
+  }
+}
+/* 追加ここまで */
+
+.contact { margin-bottom: 16px; }
+.section p{
+  margin: 0 0 22px;
+}
+
 .contact { margin-bottom: 16px; }
 .section p{
   margin: 0 0 22px;
