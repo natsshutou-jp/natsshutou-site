@@ -44,9 +44,50 @@
   display:inline-block;
   margin-top:8px;
 }
-    .exhibition-meta a{
-  display:inline-block;
-  margin-top:8px;
+ /* Exhibition 2-column layout */
+.exhibition-grid{
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.exhibition-left{
+  min-width: 0;
+}
+
+.exhibition-right{
+  min-width: 0;
+}
+
+/* DM image: half size */
+.hero-image--half img{
+  width: 100%;
+  height: auto;
+  display: block;
+  max-width: calc(var(--media) / 2);
+}
+
+/* Right column heading */
+.subhead{
+  margin: 0 0 14px;
+  font-size: 12px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  opacity: .62;
+}
+
+/* Responsive: stack */
+@media (max-width: 860px){
+  .exhibition-grid{
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .hero-image--half img{
+    max-width: 100%;
+  }
 }
 
 /* 追加ここから：Exhibition を 2カラム化 */
