@@ -279,18 +279,19 @@ section.no-divider .profile{
 }
 
 
-    @media (max-width:460px){
- 
-    .services-grid{
-  display: grid;
-  grid-template-columns: 1fr; 
-  column-gap: 32px;
-  row-gap: 36px;
-  max-width: var(--media);
-  margin: 0 auto;
-  align-items: start;
+   @media (max-width:460px){
+  .services-grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: 32px;
+    row-gap: 36px;
+    max-width: var(--media);
+    margin: 0 auto;
+    align-items: start;
+  }
 }
- @media (min-width:860px){
+
+@media (min-width:860px){
   .services-grid{
     grid-template-columns: repeat(3, minmax(200px, 1fr));
   }
