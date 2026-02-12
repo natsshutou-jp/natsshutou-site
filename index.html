@@ -290,14 +290,17 @@ section.no-divider .profile{
   }
 }
 
-@media (min-width:860px){
-  .services-grid{
-    grid-template-columns: repeat(3, minmax(200px, 1fr));
-  }
+@media (min-width:760px){
+.services-grid{
+grid-template-columns: repeat(3, minmax(220px, 1fr));
 }
-
-
-
+}
+.services-grid{
+display: grid;
+grid-template-columns: 1fr;
+gap: 32px;
+width: 100%;
+}
   .card{
     max-width: none;
   }
