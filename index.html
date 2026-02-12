@@ -44,6 +44,41 @@
   display:inline-block;
   margin-top:8px;
 }
+    .exhibition-grid{
+  max-width: var(--max);
+  margin: 24px auto 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+}
+
+/* 左カラム：DMを「半分」 */
+.hero-image--half img{
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: calc(var(--media) / 2);
+  margin: 16px 0 0; /* 左寄せで積む */
+}
+
+/* 右カラム：press-release-body の幅制限を解除（中央寄せをやめる） */
+.exhibition-right .press-release-body{
+  max-width: none;
+  margin: 0;
+}
+
+/* 1カラム（スマホ/狭幅） */
+@media (max-width: 860px){
+  .exhibition-grid{
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .hero-image--half img{
+    max-width: 100%;
+  }
+}
+/* 追加ここまで */
  /* Exhibition 2-column layout */
 .exhibition-grid{
   max-width: var(--max);
