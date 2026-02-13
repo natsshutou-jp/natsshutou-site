@@ -208,13 +208,24 @@
       color:var(--muted);
     }
     .ex-grid{
-      display:grid;
-      grid-template-columns: minmax(0,1fr) minmax(0,1fr);
-      gap: 48px;
-      align-items:start;
-      max-width: var(--container);
-      margin: 0 auto;
-    }
+  display:grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap: 48px;
+  align-items:stretch;
+  max-width: var(--container);
+  margin: 0 auto;
+}
+.ex-grid > :first-child{
+  display:flex;
+  flex-direction:column;
+  min-height:100%;
+}
+
+/* 左カラムの中にある画像ブロックを下へ寄せる */
+.ex-grid > :first-child .ex-flyer{
+  margin-top:auto;
+}
+
     .ex-meta{
       font-size:13px;
       color:var(--muted);
