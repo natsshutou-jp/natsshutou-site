@@ -275,14 +275,16 @@ footer{ padding-top: var(--space-4); }             /* Contact へ入る前の間
       letter-spacing:.01em;
     }
     /* PCだけ：右カラム（.press）を縦中央に寄せる */
-@media (min-width: 900px){
+/* PCだけ：右カラム（.press）を縦中央に寄せる */
+@media (min-width: 760px){
   .press{
     display: flex;
     flex-direction: column;
     justify-content: center;
     min-height: 100%;
   }
-    /* PCだけ：Hero〜Servicesの余白を詰めて1画面に寄せる */
+
+  /* PCだけ：Hero〜Servicesの余白を詰めて1画面に寄せる */
   .hero{
     padding-bottom: var(--space-3);
   }
@@ -290,6 +292,7 @@ footer{ padding-top: var(--space-4); }             /* Contact へ入る前の間
     padding-top: var(--space-3);
   }
 }
+
 
 .cta-block{
   margin-top:18px;
