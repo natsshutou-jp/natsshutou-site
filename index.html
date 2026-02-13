@@ -5,369 +5,337 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="natsshutou | Curator / Art Director | Contemporary Art" />
   <title>natsshutou</title>
+
   <style>
-   :root{
-  --bg:#ffffff;
-  --fg:#0f0f0f;
-  --muted:#1a1a1a;
-  --hair:rgba(0,0,0,.22);
+    :root{
+      --bg:#ffffff;
+      --fg:#0f0f0f;
+      --muted:rgba(15,15,15,.72);
+      --hair:rgba(0,0,0,.16);
 
-  --max:900px;     /* site container */
-  --media:720px;   /* image width */
-  --measure:520px; /* text measure */
+      --container: 960px;   /* page container */
+      --measure: 62ch;      /* text measure */
+      --media: 760px;       /* large media width */
 
-  --space-1:10px;
-  --space-2:24px;
+      --space-1: 10px;
+      --space-2: 18px;
+      --space-3: 28px;
+      --space-4: 44px;
+      --space-5: 72px;
 
-  --font-sans:
-    "Helvetica Neue", Helvetica, Arial,
-    "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Hiragino Kaku Gothic Pro",
-    "Yu Gothic UI", "Yu Gothic", "YuGothic",
-    "Noto Sans JP",
-    system-ui, -apple-system, sans-serif;
-}
+      --font-sans:
+        ui-sans-serif, system-ui, -apple-system,
+        "Helvetica Neue", Helvetica, Arial,
+        "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Hiragino Kaku Gothic Pro",
+        "Yu Gothic UI", "Yu Gothic", "YuGothic",
+        "Noto Sans JP",
+        sans-serif;
+    }
 
-/* Base */
-*{ box-sizing:border-box; }
-html,body{ height:100%; }
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--fg);
-  font-family:var(--font-sans);
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  text-rendering:geometricPrecision;
-  font-feature-settings:"palt" 1;
-  line-height:1.75;
-  letter-spacing:.005em;
-  font-weight:400;
-  font-synthesis:none;
-}
-a{ color:inherit; text-decoration:none; }
-a:hover{ opacity:.75; }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--fg);
+      font-family:var(--font-sans);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      text-rendering:geometricPrecision;
+      font-feature-settings:"palt" 1;
+      line-height:1.75;
+      letter-spacing:.004em;
+      font-weight:400;
+    }
+    a{ color:inherit; text-decoration:none; }
+    a:hover{ opacity:.75; }
 
-/* Layout */
-.wrap{
-  max-width:var(--max);
-  margin:0 auto;
-  padding:40px 22px 72px;
-}
+    /* Layout */
+    .wrap{
+      max-width:var(--container);
+      margin:0 auto;
+      padding: clamp(28px, 4vw, 44px) clamp(16px, 3vw, 22px) clamp(56px, 7vw, 88px);
+    }
 
-/* Header */
-header{
-  padding:12px 0 16px;
-  border-bottom:none;
-  margin-bottom:var(--space-1);
-}
-.brand{
-  display:flex;
-  flex-direction:column;
-  gap:0;
-  margin-top:8px;
-}
-.brand h1{
-  margin:0;
-  font-size:18px;
-  letter-spacing:.08em;
-  font-weight:650;
-  line-height:1.12;
-}
-.brand .kana{
-  font-size:12px;
-  color:var(--muted);
-  letter-spacing:.12em;
-  margin-top:0;
-  line-height:1.10;
-}
-.brand .role{
-  font-size:13px;
-  color:var(--muted);
-  margin-top:12px;
-  margin-bottom:12px;
-  line-height:1.20;
-}
-.lead{
-  margin:0;
-  font-size:14px;
-  max-width:42ch;
-  color:var(--muted);
-}
-.lead.lead-concept{
-  font-weight:450;
-  letter-spacing:-0.01em;
-  line-height:1.6;
-  color:var(--fg);
-  opacity:.78;
-  margin-bottom:6px;
-}
+    /* Typographic primitives */
+    .kicker{
+      font-size:11px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:var(--muted);
+      font-weight:600;
+    }
+    .h1{
+      margin:0;
+      font-size:18px;
+      letter-spacing:.08em;
+      font-weight:650;
+      line-height:1.15;
+    }
+    .sub{
+      margin:0;
+      font-size:12px;
+      letter-spacing:.12em;
+      color:var(--muted);
+      line-height:1.25;
+    }
+    .role{
+      margin:12px 0 0;
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.35;
+    }
+    .lead{
+      margin: var(--space-2) 0 0;
+      max-width: 44ch;
+      font-size:14px;
+      color:rgba(15,15,15,.78);
+      line-height:1.6;
+      letter-spacing:-.01em;
+    }
 
-/* Sections */
-section{
-  padding:56px 0;
-  border-bottom:none;
-}
-section.no-divider{ border-bottom:none; }
+    /* Sections */
+    .section{
+      padding: var(--space-5) 0;
+    }
+    .section + .section{
+      border-top:1px solid transparent; /* intentionally none; keeps rhythm predictable */
+    }
+    .section h2{
+      margin:0 0 var(--space-3);
+      font-size:12px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:var(--muted);
+      font-weight:600;
+    }
 
-/* Section headings (centered measure) */
-section > h2{
-  max-width: var(--measure);
-  margin: 0 auto 20px;
+    /* Header */
+    header{
+      padding: 8px 0 var(--space-4);
+    }
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
 
-  font-size: 12px;
-  font-weight: 550;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: var(--muted);
-  opacity: 1;
-}
- 
+    /* Hero image */
+    .hero{
+      padding: 0 0 var(--space-5);
+    }
+    .hero-media{
+      max-width:var(--media);
+      margin: 0 auto;
+    }
+    .hero-media img{
+      display:block;
+      width:100%;
+      height:auto;
+      object-fit:contain;
+    }
+    .credit{
+      max-width:var(--media);
+      margin: 8px auto 0;
+      font-size:11px;
+      letter-spacing:.04em;
+      color:var(--muted);
+      text-align:right;
+    }
 
-section.services > h2{
-  max-width: var(--media);
-}
+    /* Services */
+    .services{
+      padding-top: var(--space-4);
+    }
+    .services h2{
+      max-width:var(--media);
+      margin-left:auto;
+      margin-right:auto;
+    }
+    .services-grid{
+      max-width:var(--media);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 36px;
+      align-items:start;
+    }
+    .card h3{
+      margin:0 0 10px;
+      font-size:11.5px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-weight:650;
+      color:rgba(15,15,15,.86);
+    }
+    .card p{
+      margin:0;
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.75;
+      max-width: 34ch;
+    }
 
-/* Hero image */
-.hero-space{
-  margin:20px auto 40px;
-  max-width:var(--media);
-  width:100%;
-  padding:18px 0 40px;
-  border-bottom:none;
-}
-.hero-image{ width:100%; }
-.hero-image img{
-  width:100%;
-  max-width:var(--media);
-  height:auto;
-  display:block;
-  object-fit:contain;
-  margin:24px auto 0;
-}
-.credit{
-  max-width:var(--media);
-  margin:6px auto 0;
-  font-size:11px;
-  color:var(--fg);
-  letter-spacing:.04em;
-  opacity:.45;
-  text-align:right;
-}
+    /* Two-column editorial block (Background/Career + Note) */
+    .duo{
+      display:grid;
+      grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+      gap: 56px;
+      align-items:start;
+      max-width: var(--container);
+      margin: 0 auto;
+    }
+    .panel{
+      max-width: var(--measure);
+    }
+    .panel p{
+      margin:0 0 18px;
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.85;
+    }
+    .profile{
+      margin-top: 14px;
+      font-size:12px;
+      color:rgba(15,15,15,.62);
+      line-height:1.7;
+    }
 
-/* Services */
-.services-grid{
-  display:grid;
-  grid-template-columns:repeat(3, minmax(220px, 1fr));
-  gap:32px;
-  max-width:var(--media);
-  margin:0 auto;
-  align-items:start;
-}
-.card{
-  padding:0;
-  border:none;
-  border-radius:0;
-  background:transparent;
-  max-width:none;
-}
-.card h3{
-  margin:0 0 8px;
-  font-size:11.5px;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:var(--fg);
-  opacity:.82;
-}
+    /* Exhibition */
+    .exhibition .subline{
+      margin: -10px 0 var(--space-3);
+      font-size:13px;
+      color:var(--muted);
+    }
+    .ex-grid{
+      display:grid;
+      grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+      gap: 48px;
+      align-items:start;
+      max-width: var(--container);
+      margin: 0 auto;
+    }
+    .ex-meta{
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.95;
+      letter-spacing:.01em;
+      max-width: var(--measure);
+    }
+    .ex-meta a{
+      display:inline-block;
+      margin-top:8px;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+      opacity:.9;
+    }
+    .ex-flyer{
+      margin-top: 18px;
+      max-width: 420px;
+    }
+    .ex-flyer img{
+      display:block;
+      width:100%;
+      height:auto;
+    }
+    .subhead{
+      margin:0 0 14px;
+      font-size:12px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:rgba(15,15,15,.62);
+      font-weight:600;
+    }
+    .press{
+      max-width: var(--measure);
+    }
+    .press p{
+      margin:0 0 18px;
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.9;
+      letter-spacing:.01em;
+    }
 
-.card p{
-  margin:0;
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.7;
-  max-width:32ch;
-}
+    /* Footer */
+    footer{
+      padding-top: var(--space-5);
+    }
+    footer h2{
+      margin:0 0 16px;
+      font-size:11px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:rgba(15,15,15,.6);
+      font-weight:650;
+      max-width: var(--media);
+      margin-left:auto;
+      margin-right:auto;
+    }
+    .contact{
+      max-width: var(--media);
+      margin: 0 auto 16px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:flex-start;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      border:1px solid var(--hair);
+      border-radius:999px;
+      padding:10px 14px;
+      font-size:11.5px;
+      line-height:1.1;
+      max-width:100%;
+      background:transparent;
+    }
+    .pill a{
+      display:inline-block;
+      max-width:100%;
+      overflow-wrap:anywhere;
+      word-break:break-word;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+      opacity:.95;
+    }
+    footer .note{
+      max-width: var(--media);
+      margin: 0 auto;
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.85;
+    }
 
-/* Text blocks */
-p{ margin:0 0 22px; }
-.muted{
-  color:var(--muted);
-  font-size:13px;
-  margin-bottom:6px;
-}
-p.muted{ line-height:1.65; }
-.profile{
-  margin-top:14px;
-  font-size:12px;
-  line-height:1.6;
-  opacity:.7;
-}
-
-/* Bio / About widths */
-section.bio{
-  max-width:var(--media);
-  margin:0 auto;
-}
-section.bio p,
-section.bio .profile{
-  max-width:56ch;
-  margin-left:auto;
-  margin-right:auto;
-}
-
-section.about{
-  padding-top:56px;
-  padding-bottom:56px;
-  max-width:var(--media);
-  margin:0 auto;
-}
-section.about p{
-  max-width:var(--measure);
-  margin:0 auto 22px;
-  font-size:13px;
-  line-height:1.75;
-}
-.about-lead{
-  display:block;
-  margin-bottom:0;
-  font-weight:400;
-  font-size:inherit;
-  line-height:inherit;
-}
-
-/* Exhibition */
-.exhibition-meta{
-  max-width:var(--measure);
-  font-size:13px;
-  line-height:1.9;
-  margin:16px auto 20px;
-  letter-spacing:.02em;
-}
-.exhibition-meta a{
-  display:inline-block;
-  margin-top:8px;
-}
-
-.exhibition-grid{
-  max-width:var(--max);
-  margin:24px auto 0;
-  display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-  gap:40px;
-  align-items:start;
-}
-.hero-image--half img{
-  display:block;
-  width:100%;
-  height:auto;
-  max-width:calc(var(--media) / 2);
-  margin:16px 0 0;
-}
-
-.subhead{
-  margin:0 0 14px;
-  font-size:12px;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  opacity:.62;
-}
-
-.press-release-body{
-  max-width:var(--measure);
-  margin:0 auto;
-  font-size:13px;
-  line-height:1.9;
-  letter-spacing:.02em;
-  text-align:left;
-}
-.press-release-body p{ text-align:left; }
-
-/* Footer */
-footer{
-  padding-top: 34px;
-  padding-bottom: 40px;
-  margin: 0 auto;
-}
-
-footer > h2{
-  max-width:var(--media);
-  margin:0 auto 16px;
-  color:var(--fg);
-  opacity:.6;
-  letter-spacing:.18em;
-  font-size:10.5px;
-  font-weight:600;
-  text-transform:uppercase;
-}
-
-footer .contact,
-footer > .muted{
-  max-width:var(--media);
-  margin-left:auto;
-  margin-right:auto;
-}
-
-.contact{
-  margin-bottom:16px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  max-width:100%;
-  justify-content:flex-start;
-}
-.pill{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  border:1px solid var(--hair);
-  border-radius:999px;
-  padding:10px 14px;
-  font-size:14px;
-  width:fit-content;
-  max-width:100%;
-}
-footer .pill{
-  font-size:10.5px;
-  opacity:.80;
-  border-color:var(--hair);
-  line-height:1;
-  padding:10px 14px;
-}
-.contact a{
-  overflow-wrap:anywhere;
-  word-break:break-word;
-}
-
-/* Responsive: one place only */
-@media (max-width:860px){
-  .wrap{ padding:32px 16px 56px; }
- 
-  .services-grid{
-    grid-template-columns: 1fr;
-    max-width: var(--measure);
-    gap: 24px;
-  }
-  
-  .exhibition-grid{
-    grid-template-columns:1fr;
-    gap:28px;
-  }
-   
-
-  footer{
-    padding-left:16px;
-    padding-right:16px;
-  }
-
-  footer{ padding-bottom:24px; }
-  footer .contact{ justify-content:center; }
-}
-
-@media (max-width:460px){
-  .hero-image--half img{
-    max-width:100%;
-  }
-}
-}
+    /* Responsive */
+    @media (max-width: 900px){
+      .services-grid{ gap: 28px; }
+      .duo{ gap: 40px; }
+      .ex-grid{ gap: 36px; }
+    }
+    @media (max-width: 860px){
+      .services-grid{
+        grid-template-columns: 1fr;
+        max-width: var(--measure);
+      }
+      .card p{ max-width: 56ch; }
+      .duo{
+        grid-template-columns: 1fr;
+        gap: 44px;
+        max-width: var(--measure);
+      }
+      .ex-grid{
+        grid-template-columns: 1fr;
+        gap: 32px;
+        max-width: var(--measure);
+      }
+      .ex-flyer{ max-width: 100%; }
+      .contact{ justify-content:center; }
+    }
   </style>
 </head>
 
@@ -375,135 +343,122 @@ footer .pill{
   <div class="wrap">
     <header>
       <div class="brand">
-       <h1 style="margin:0;">natsshutou</h1>
-<div class="kana" style="margin-top:8px;">ナッッシュウトウ</div>
-<div class="role">Curator / Art Director｜現代美術</div>
+        <h1 class="h1">natsshutou</h1>
+        <p class="sub">ナッッシュウトウ</p>
+        <p class="role">Curator / Art Director｜現代美術</p>
       </div>
-
-      <p class="lead lead-concept">
-        作品と場の関係を見立てる。
-      </p>
+      <p class="lead">作品と場の関係を見立てる。</p>
     </header>
-    <section class="hero-space">
-  <div class="hero-image">
- <img src="images/moriya.jpg" alt="Tsutomu Morya" />
-</div>
 
+    <section class="hero" aria-label="Hero">
+      <div class="hero-media">
+        <img src="images/moriya.jpg" alt="Tsutomu Morya" />
+      </div>
       <div class="credit">©Tsutomu Morya</div>
-</section>
-   
+    </section>
 
-    <section class="services section">
+    <section class="section services" aria-label="Services">
       <h2>Services</h2>
       <div class="services-grid">
         <div class="card">
           <h3>curation</h3>
           <p>
-            展示の「前提」をつくります。
+            展示の「前提」をつくります。<br>
             テーマ・作家・作品を選び、見せ方の構造を組み立てます。
           </p>
         </div>
         <div class="card">
           <h3>direction</h3>
           <p>
-            前提を「形」にします。
+            前提を「形」にします。<br>
             空間・動線・視線の配置を設計します。
           </p>
         </div>
         <div class="card">
           <h3>writing</h3>
           <p>
-            制作意図や背景を整理します。
+            制作意図や背景を整理します。<br>
             鑑賞者に届く言葉へ翻訳します。
           </p>
         </div>
       </div>
     </section>
 
-   <section class="section bio">
-  <h2 class="split-title">Background ／ Career</h2>
+    <!-- ここが「2と3（Background/Career と Note）」：PCは横並び、スマホは縦 -->
+    <section class="section" aria-label="Background and Note">
+      <div class="duo">
+        <div class="panel">
+          <h2>Background / Career</h2>
+          <p>展示は、答えではなく「問いの配置」だと考えています。</p>
+          <p>作家と作品の背景を読み解き、場の条件から逆算して、見るための構造を設計します。</p>
+          <p>言葉で作品を固定せず、鑑賞者が立ち止まれる余白を残すことを大切にしています。</p>
 
-  <p class="muted">
-    展示は、答えではなく「問いの配置」だと考えています。
-    </p>
-    <p class="muted"> 
-    作家と作品の背景を読み解き、場の条件から逆算して、
-    見るための構造を設計します。
-    </p>
-    <p class="muted"> 
-    言葉で作品を固定せず、鑑賞者が立ち止まれる余白を残すことを大切にしています。
-  </p>
+          <div class="profile">
+            大安晴美<br><br>
+            東京藝術大学 美術学部 絵画科油画専攻 卒業<br>
+            東京藝術大学大学院 油画・技法材料研究室 修了
+          </div>
+        </div>
 
-  <p class="muted profile">
-    大安晴美
-    </p>
+        <div class="panel">
+          <h2>Note</h2>
+          <p>natsshutou という名前に、正しい綴りや決まった意味はありません。</p>
+          <p>友人が、あるアーティストに相談して付けてくれた名前です。</p>
+          <p>聞き間違いと書き間違いのまま、その「偶然の名残」として使い続けています。</p>
+        </div>
+      </div>
+    </section>
 
-    <p class="muted profile"> 
-    東京藝術大学 美術学部 絵画科油画専攻 卒業<br>
-    東京藝術大学大学院 油画・技法材料研究室 修了
-  </p>
-</section>
-   <section class="about section">
-  <h2>Note</h2>
-  <p>
-    <span class="about-lead">
-      natsshutou という名前に、正しい綴りや決まった意味はありません。
-    </span><br>
-    友人が、あるアーティストに相談して付けてくれた名前です。<br>
-    聞き間違いと書き間違いのまま、その「偶然の名残」として使い続けています。
-  </p>
-</section>
-<section class="section no-divider exhibition">
-  <h2>Exhibition</h2>
-  <p class="muted">Curated by natsshutou</p>
+    <section class="section exhibition" aria-label="Exhibition">
+      <h2>Exhibition</h2>
+      <div class="subline">Curated by natsshutou</div>
 
-  <div class="exhibition-grid">
-    <!-- 左：展覧会情報 + DM -->
-    <div class="exhibition-left">
-      <div class="exhibition-meta">
-        miare / みあれ<br>守矢努 個展<br>
-        2026.2.21-2.28<br>
-        cafe.the market maimai (2F Gallery) OKAYAMA<br>
-        <a href="https://www.instagram.com/tsutomu_moriya/" target="_blank" rel="noopener noreferrer">作家 Instagram @tsutomu_moriya</a><br>
+      <div class="ex-grid">
+        <div>
+          <div class="ex-meta">
+            miare / みあれ<br>
+            守矢努 個展<br>
+            2026.2.21-2.28<br>
+            cafe.the market maimai (2F Gallery) OKAYAMA<br>
+            <a href="https://www.instagram.com/tsutomu_moriya/" target="_blank" rel="noopener noreferrer">作家 Instagram @tsutomu_moriya</a>
+          </div>
+
+          <div class="ex-flyer">
+            <img src="images/moriya-flyer.jpg" alt="守矢努 個展「miare／みあれ」メインビジュアル">
+          </div>
+        </div>
+
+        <div class="press">
+          <div class="subhead">Press Release</div>
+          <p>100年前のハガキ。幾人もの手を渡ってきた古布。1950年代の雑誌LIFEの切り抜き。使い終わった型紙。かつて誰かの生活の一部だったもの。</p>
+          <p>使われ、役目を終えていった素材たち。それらの古物は、過去の時間を抱えたまま、守矢努の手に委ねられます。</p>
+          <p>古いものは、古い姿のまま。けれど、見え方だけが変わる。現代の視点を「レイヤー（層）」として重ねていく。新しく何かを「足す」というよりも、すでにそこに在るものと、静かに向き合う行為。</p>
+          <p>新たな一層が加わることで、見慣れたはずの素材は、新しい価値を帯びた「作品」へと変貌します。</p>
+          <p>本展のテーマ「みあれ」は、新しい命が宿る「再生」を指す言葉です。終わったと思っていたものの中に、潜んでいた気配が別の形を借りて現れる瞬間。そこには、終わりを一つの確かな在り方として受け入れ、その上に「いま」を積層させるという、静かな構造が横たわっています。</p>
+          <p>そして最後に作品の意味を決定づけるのは、鑑賞者自身のフィルターです。素材・守矢努・鑑賞者。それぞれのレイヤーが重なる作品は、どう響きあうのか。作品の奥に潜む記憶と、新たに立ち上がる気配。</p>
+          <p>会期中、守矢努も在廊します。この機会に是非ご高覧ください。</p>
+        </div>
+      </div>
+    </section>
+
+    <footer aria-label="Contact">
+      <h2>Contact</h2>
+
+      <div class="contact">
+        <div class="pill">
+          <span>Email:</span>
+          <a href="mailto:natsshutou@gmail.com">natsshutou@gmail.com</a>
+        </div>
+        <div class="pill">
+          <span>Instagram:</span>
+          <a href="https://www.instagram.com/natsshutou" target="_blank" rel="noopener noreferrer">@natsshutou</a>
+        </div>
       </div>
 
-      <div class="hero-image hero-image--half">
-        <img src="images/moriya-flyer.jpg" alt="守矢努 個展「miare／みあれ」メインビジュアル">
+      <div class="note">
+        展示企画、空間構成、ステートメント制作など。規模や形態に応じてご相談ください。
       </div>
-    </div>
-
-    <!-- 右：プレスリリース -->
-    <div class="exhibition-right">
-      <h3 class="subhead">Press Release</h3>
-
-        <div class="press-release-body">
-        <p>100年前のハガキ。幾人もの手を渡ってきた古布。1950年代の雑誌LIFEの切り抜き。使い終わった型紙。かつて誰かの生活の一部だったもの。</p>
-        <p>使われ、役目を終えていった素材たち。それらの古物は、過去の時間を抱えたまま、守矢努の手に委ねられます。</p>
-        <p>古いものは、古い姿のまま。けれど、見え方だけが変わる。現代の視点を「レイヤー（層）」として重ねていく。新しく何かを「足す」というよりも、すでにそこに在るものと、静かに向き合う行為。</p>
-        <p>新たな一層が加わることで、見慣れたはずの素材は、新しい価値を帯びた「作品」へと変貌します。</p>
-        <p>本展のテーマ「みあれ」は、新しい命が宿る「再生」を指す言葉です。終わったと思っていたものの中に、潜んでいた気配が別の形を借りて現れる瞬間。そこには、終わりを一つの確かな在り方として受け入れ、その上に「いま」を積層させるという、静かな構造が横たわっています。</p>
-        <p>そして最後に作品の意味を決定づけるのは、鑑賞者自身のフィルターです。素材・守矢努・鑑賞者。それぞれのレイヤーが重なる作品は、どう響きあうのか。作品の奥に潜む記憶と、新たに立ち上がる気配。</p>
-        <p>会期中、守矢努も在廊します。この機会に是非ご高覧ください。</p>
-      </div>
-      </div>
-    </div>
-  </div>
-</section>
-     <footer>
-  <h2>Contact</h2>
-  <div class="contact">
-    <div class="pill">Email:<a href="mailto:natsshutou@gmail.com">natsshutou@gmail.com</a></div>
-    <div class="pill">Instagram:
-      <a href="https://www.instagram.com/natsshutou" target="_blank" rel="noopener noreferrer">
-        @natsshutou
-      </a>
-    </div>
-  </div>
-
-  <div class="muted">
-    展示企画、空間構成、ステートメント制作など。規模や形態に応じてご相談ください。
-  </div>
-</footer>
+    </footer>
   </div>
 </body>
 </html>
