@@ -274,6 +274,16 @@ footer{ padding-top: var(--space-4); }             /* Contact へ入る前の間
       line-height:1.9;
       letter-spacing:.01em;
     }
+    /* PCだけ：右カラム（.press）を縦中央に寄せる */
+@media (min-width: 900px){
+  .press{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100%;
+  }
+}
+
 .cta-block{
   margin-top:18px;
 }
