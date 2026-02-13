@@ -101,6 +101,12 @@
     .section + .section{
       border-top:1px solid transparent; /* intentionally none; keeps rhythm predictable */
     }
+    /* Section spacing tuning (reduce “empty” feeling) */
+.section.services{ padding-top: var(--space-4); }  /* 念のため：services上の詰め */
+.section.bio{ padding: var(--space-4) 0; }         /* Background/Career + Note を詰める */
+.section.exhibition{ padding-top: var(--space-4); }/* Exhibition 開始を少し詰める */
+footer{ padding-top: var(--space-4); }             /* Contact へ入る前の間延びを抑える */
+
     .section h2{
       margin:0 0 var(--space-3);
       font-size:12px;
