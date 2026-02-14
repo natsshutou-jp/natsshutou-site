@@ -16,6 +16,7 @@
       --container: 960px;   /* page container */
       --measure: 62ch;      /* mobile text measure */
       --media: 760px;       /* large media width */
+      --panel: 46ch;        /* Statement/Exhibition text measure (PC) */
 
       --space-1: 10px;
       --space-2: 18px;
@@ -176,13 +177,13 @@
       margin: 0 auto;
     }
 
-    /* ここが肝：左右の「文章の箱」を同一幅に固定 */
+    /* 左右の文章箱を同一幅に固定 */
     .panel{
-      max-width: 48ch;            /* 48ch = 約48文字分の横幅（フォント依存） */
+      max-width: var(--panel);
     }
     .panel p{
       margin: 0 0 18px;
-      max-width: 48ch;
+      max-width: var(--panel);
       font-size:13px;
       color:var(--muted);
       line-height:1.85;
@@ -195,22 +196,17 @@
       font-size: 13px;
       line-height: 1.85;
       color: var(--muted);
-      max-width: 48ch;
+      max-width: var(--panel);
     }
 
-    /* Exhibition */
-    .subline{
-      margin: -10px 0 var(--space-3);
-      font-size:13px;
-      color:var(--muted);
-    }
-
-    /* Exhibition：INFOを消して階層を余白で作る */
+    /* Exhibition：淡々と並べる（線・階層演出を消す） */
     .ex-meta{
-      margin-top: 10px;
+      margin-top: 0;
       line-height: 1.85;
       letter-spacing: .01em;
-      max-width: 48ch; /* 右側も48chに揃える（ここ重要） */
+      max-width: var(--panel);
+      font-size:13px;
+      color:var(--muted);
     }
 
     .ex-links{ margin-top: 14px; }
@@ -223,28 +219,11 @@
     }
 
     .ex-note{
-      margin-top: 16px;
-      padding-top: 14px;
-      border-top: 1px solid rgba(15,15,15,.10);
-      max-width: 48ch;
-    }
-    .ex-note-text{ margin: 0 0 12px; }
-
-    .cta-link{
-      display:inline-block;
-      font-size:12px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      text-decoration-thickness: 1px;
-      opacity:.95;
-    }
-    .cta-sub{
-      margin-top: 8px;
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.85;
+      margin-top: 16px;   /* 仕切りは余白だけ */
+      max-width: var(--panel);
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.85;
     }
 
     /* Footer */
@@ -373,9 +352,12 @@
         <!-- Left: Statement -->
         <div class="panel">
           <h2>Statement</h2>
-          <p>展示は、答えではなく「問いの配置」だと考えています。</p>
-          <p>作家と作品の背景を読み解き、場の条件から逆算して、見るための構造を設計します。</p>
-          <p>言葉で意味を固定せず、鑑賞者が立ち止まる余白を残します。</p>
+          <p>
+            展示は、答えではなく「問いの配置」だと考えています。作家と作品の背景を読み解き、場の条件から逆算して、見るための構造を設計します。
+          </p>
+          <p>
+            言葉で意味を固定せず、鑑賞者が立ち止まる余白を残します。
+          </p>
 
           <div class="profile">
             大安晴美<br>
@@ -387,10 +369,10 @@
         <!-- Right: Exhibition -->
         <div class="panel">
           <h2>Exhibition</h2>
-          <div class="subline">Curated by natsshutou</div>
 
           <div class="ex-meta">
-            miаре / みあれ<br>
+            Curated by natsshutou<br>
+            miape / みあれ<br>
             守矢努 個展<br>
             2026.2.21–2.28<br>
             cafe.the market maimai (2F Gallery) OKAYAMA
@@ -403,14 +385,7 @@
           </div>
 
           <div class="ex-note">
-            <div class="ex-note-text">展示情報は Instagram にて更新しています。</div>
-
-            <div class="cta-block">
-              <a class="cta-link" href="https://www.instagram.com/natsshutou/" target="_blank" rel="noopener">
-                VIEW ON INSTAGRAM →
-              </a>
-              <div class="cta-sub">展示企画・空間構成のご相談は下記Contactよりお願いします。</div>
-            </div>
+            展示情報は Instagram にて更新しています。
           </div>
         </div>
       </div>
@@ -437,4 +412,3 @@
   </div>
 </body>
 </html>
-
