@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="natsshutou | Curator / Art Director | Contemporary Art" />
   <title>natsshutou</title>
- 
+
   <style>
     :root{
       --bg:#ffffff;
@@ -93,25 +93,24 @@
       line-height:1.6;
       letter-spacing:-.01em;
     }
-     @media (min-width: 900px){
-  .lead{
-    font-size:15px;
-    letter-spacing:-.015em;
-  }
-}
+    @media (min-width: 900px){
+      .lead{
+        font-size:15px;
+        letter-spacing:-.015em;
+      }
+    }
 
     /* Sections */
     .section{
       padding: var(--space-5) 0;
     }
     .section + .section{
-      border-top:1px solid transparent; /* intentionally none; keeps rhythm predictable */
+      border-top:1px solid transparent;
     }
-    /* Section spacing tuning (reduce “empty” feeling) */
-.section.services{ padding-top: var(--space-4); }  /* 念のため：services上の詰め */
-.section.bio{ padding: var(--space-4) 0; }         /* Background/Career + Note を詰める */
 
-footer{ padding-top: var(--space-4); }             /* Contact へ入る前の間延びを抑える */
+    /* Section spacing tuning */
+    .section.services{ padding-top: var(--space-4); }
+    footer{ padding-top: var(--space-4); }
 
     .section h2{
       margin:0 0 var(--space-3);
@@ -121,25 +120,6 @@ footer{ padding-top: var(--space-4); }             /* Contact へ入る前の間
       color:var(--muted);
       font-weight:600;
     }
-    /* Panel typography: unify “measure” + rhythm */
-.panel{
-  max-width: var(--measure);
-}
-
-.panel p{
-  margin: 0 0 14px;
-  max-width: 52ch;
-  line-height: 1.9;
-  letter-spacing: .01em;
-}
-
-.panel .profile{
-  margin-top: 18px;
-  font-size: 13px;
-  line-height: 1.85;
-  color: var(--muted);
-}
-
 
     /* Header */
     header{
@@ -175,9 +155,6 @@ footer{ padding-top: var(--space-4); }             /* Contact へ入る前の間
     }
 
     /* Services */
-    .services{
-      padding-top: var(--space-4);
-    }
     .services h2{
       max-width:var(--media);
       margin-left:auto;
@@ -207,29 +184,36 @@ footer{ padding-top: var(--space-4); }             /* Contact へ入る前の間
       max-width: 34ch;
     }
 
-    /* Two-column editorial block (Background/Career + Note) */
+    /* Statement / Exhibition (2-column) */
     .duo{
       display:grid;
       grid-template-columns: minmax(0,1fr) minmax(0,1fr);
       gap: 56px;
       align-items:start;
-      max-width: var(--container);
+      max-width: var(--media);  /* Servicesと同じ基準線に揃える */
       margin: 0 auto;
     }
+
     .panel{
-      max-width: var(--measure);
+      max-width: 52ch; /* 左右の文章幅を揃える */
     }
     .panel p{
-      margin:0 0 18px;
+      margin: 0 0 18px;
+      max-width: 52ch;
       font-size:13px;
       color:var(--muted);
       line-height:1.85;
+      letter-spacing:.01em;
     }
-    .profile{
-      margin-top: 14px;
-      font-size:12px;
-      color:rgba(15,15,15,.62);
-      line-height:1.7;
+    .panel p:last-of-type{
+      margin-bottom: 0;
+    }
+    .panel .profile{
+      margin-top: 18px;
+      font-size: 13px;
+      line-height: 1.85;
+      color: var(--muted);
+      max-width: 52ch;
     }
 
     /* Exhibition */
@@ -238,30 +222,13 @@ footer{ padding-top: var(--space-4); }             /* Contact へ入る前の間
       font-size:13px;
       color:var(--muted);
     }
-  .ex-grid{
-    display:block;
-    max-width: var(--measure);
-    margin: 0 auto;
-  }
-
-/* 追加：Statement / Exhibition の2カラム塊をページ中央に固定 */
-  .duo{
-    max-width: var(--measure);
-    margin: 0 auto;
-  }
-
-  /* Statement / Exhibition : 左右の“文章の幅”を揃えて視線を安定させる */
-  .duo .panel{
-    max-width: 52ch;
-  }
-
 
     .ex-meta{
       font-size:13px;
       color:var(--muted);
-      line-height:1.85;
+      line-height:1.7;     /* 固有名詞＋英数字は詰める */
       letter-spacing:.01em;
-      max-width: var(--measure);
+      max-width: 52ch;
     }
     .ex-meta a{
       display:inline-block;
@@ -271,15 +238,7 @@ footer{ padding-top: var(--space-4); }             /* Contact へ入る前の間
       text-decoration-thickness: 1px;
       opacity:.9;
     }
-    .ex-flyer{
-      margin-top: 10px;
-      max-width: 420px;
-    }
-    .ex-flyer img{
-      display:block;
-      width:100%;
-      height:auto;
-    }
+
     .subhead{
       margin:0 0 14px;
       font-size:12px;
@@ -288,73 +247,41 @@ footer{ padding-top: var(--space-4); }             /* Contact へ入る前の間
       color:rgba(15,15,15,.62);
       font-weight:600;
     }
-   .press{
-  max-width: 52ch;
-}
- 
-.duo .panel p,
-.duo .panel .profile,
-.ex-meta{
-  max-width: 48ch;
-}
-    /* Duo(Statement/Exhibition) paragraph rhythm */
-.duo .panel p{
-  margin: 0 0 18px;
-  line-height: 1.85;
-  letter-spacing: .01em;
-}
-.duo .panel p:last-of-type{
-  margin-bottom: 0;
-}
-.duo .panel .profile{
-  margin-top: 18px;
-  line-height: 1.85;
-}
 
-/* 740〜980px（“中間PC幅”）だけ：Hero〜Servicesを1画面寄りに詰める */
-@media (min-width: 740px) and (max-width: 980px){
-  .hero{
-    padding-bottom: var(--space-2);
-  }
+    /* Info block: “塊”を分節して読みやすく */
+    .press{
+      max-width: 52ch;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--hair);
+    }
+    .press p{
+      margin: 0 0 16px;
+      max-width: 52ch;
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.85;
+      letter-spacing:.01em;
+    }
+    .press p:last-of-type{ margin-bottom:0; }
 
-  .section.services{
-    padding-top: var(--space-2);
-  }
+    .cta-block{ margin-top:20px; }
+    .cta-link{
+      display:inline-block;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+    .cta-link:hover{ opacity:.6; }
 
-  /* 中間幅だけヒーロー画像の面積を抑える（大画面では820pxのまま） */
-  .hero-media{
-    max-width: 740px;
-  }
-}
-
-
-
-.cta-block{
-  margin-top:12px;
-}
-
- .cta-link{
-  display:inline-block;
-  font-size:12px;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-}
-
-.cta-link:hover{
-  opacity:.6;
-}
-
-  .cta-note{
-    margin-top:16px;
-    font-size:12px;
-    line-height:1.8;
-    color:var(--muted);
-  }
+    .cta-note{
+      margin-top:16px;
+      font-size:12px;
+      line-height:1.8;
+      color:var(--muted);
+    }
 
     /* Footer */
-    footer{
-      padding-top: var(--space-5);
-    }
     footer h2{
       margin:0 0 16px;
       font-size:11px;
@@ -404,11 +331,19 @@ footer{ padding-top: var(--space-4); }             /* Contact へ入る前の間
       line-height:1.85;
     }
 
+    /* 740〜980px（中間PC幅）だけ：Hero〜Servicesを詰める */
+    @media (min-width: 740px) and (max-width: 980px){
+      .hero{ padding-bottom: var(--space-2); }
+      .section.services{ padding-top: var(--space-2); }
+      .hero-media{ max-width: 740px; }
+    }
+
     /* Responsive */
     @media (max-width: 900px){
       .services-grid{ gap: 28px; }
       .duo{ gap: 40px; }
-    
+    }
+
     @media (max-width: 860px){
       .services-grid{
         grid-template-columns: 1fr;
@@ -420,7 +355,6 @@ footer{ padding-top: var(--space-4); }             /* Contact へ入る前の間
         gap: 44px;
         max-width: var(--measure);
       }
-      .ex-flyer{ max-width: 100%; }
       .contact{ justify-content:center; }
     }
   </style>
@@ -434,10 +368,7 @@ footer{ padding-top: var(--space-4); }             /* Contact へ入る前の間
         <p class="sub">ナッッシュウトウ</p>
         <p class="role">Curator / Art Director｜現代美術</p>
       </div>
-     <p class="lead">
-  作品と空間の関係を再構築する。
-</p>
-
+      <p class="lead">作品と空間の関係を再構築する。</p>
     </header>
 
     <section class="hero" aria-label="Hero">
@@ -474,59 +405,56 @@ footer{ padding-top: var(--space-4); }             /* Contact へ入る前の間
       </div>
     </section>
 
-   <!-- ここが「2カラム (Background/Career × Exhibition)」：PCは横並び、スマホは縦 -->
-<section class="section" aria-label="Background and Exhibition">
-  <div class="duo">
+    <section class="section" aria-label="Statement and Exhibition">
+      <div class="duo">
+        <!-- Left: Statement -->
+        <div class="panel">
+          <h2>Statement</h2>
+          <p>展示は、答えではなく「問いの配置」だと考えています。</p>
+          <p>作家と作品の背景を読み解き、場の条件から逆算して、見るための構造を設計します。</p>
+          <p>言葉で意味を固定せず、鑑賞者が立ち止まる余白を残します。</p>
 
-    <!-- 左：Background / Career -->
-    <div class="panel">
-     <h2>Statement</h2>
-     <p>展示は、答えではなく「問いの配置」だと考えています。</p>
-<p>作家と作品の背景を読み解き、場の条件から逆算して、見るための構造を設計します。</p>
-<p>言葉で意味を固定せず、鑑賞者が立ち止まる余白を残します。</p>
-
-    <div class="profile">
-大安晴美<br>
-東京藝術大学 美術学部 絵画科油画専攻 卒業<br>
-東京藝術大学大学院 油画・技法材料研究室 修了
-      </div>
-    </div>
-
-    <!-- 右：Exhibition / Info -->
-    <div class="panel">
-      <h2>Exhibition</h2>
-      <div class="subline">Curated by natsshutou</div>
-
-      <div class="ex-meta">
-        miare / みあれ<br>
-        守矢努 個展<br>
-        2026.2.21–2.28<br>
-        cafe.the market maimai (2F Gallery) OKAYAMA<br>
-        <a href="https://www.instagram.com/tsutomu_moriya/" target="_blank" rel="noopener noreferrer">作家 Instagram @tsutomu_moriya</a>
-      </div>
-
-      <div class="press">
-        <div class="subhead">Info</div>
-        <p>展示情報は Instagram にて更新しています。</p>
-
-        <div class="cta-block">
-          <a class="cta-link"
-            href="https://www.instagram.com/natsshutou"
-            target="_blank"
-            rel="noopener noreferrer">
-            View on Instagram →
-          </a>
+          <div class="profile">
+            大安晴美<br>
+            東京藝術大学 美術学部 絵画科油画専攻 卒業<br>
+            東京藝術大学大学院 油画・技法材料研究室 修了
+          </div>
         </div>
 
-        <p class="cta-note">
-          展示企画・空間構成のご相談は下記Contactよりお願いします。
-        </p>
+        <!-- Right: Exhibition -->
+        <div class="panel">
+          <h2>Exhibition</h2>
+          <div class="subline">Curated by natsshutou</div>
+
+          <div class="ex-meta">
+            miare / みあれ<br>
+            守矢努 個展<br>
+            2026.2.21–2.28<br>
+            cafe.the market maimai (2F Gallery) OKAYAMA<br>
+            <a href="https://www.instagram.com/tsutomu_moriya/" target="_blank" rel="noopener noreferrer">作家 Instagram @tsutomu_moriya</a>
+          </div>
+
+          <div class="press">
+            <div class="subhead">Info</div>
+            <p>展示情報は Instagram にて更新しています。</p>
+
+            <div class="cta-block">
+              <a class="cta-link"
+                 href="https://www.instagram.com/natsshutou"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                View on Instagram →
+              </a>
+            </div>
+
+            <p class="cta-note">展示企画・空間構成のご相談は下記Contactよりお願いします。</p>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
-  </div>
-</section>
-
+    <footer aria-label="Contact">
+      <h2>Contact</h2>
 
       <div class="contact">
         <div class="pill">
