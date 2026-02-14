@@ -290,7 +290,19 @@ footer{ padding-top: var(--space-4); }             /* Contact へ入る前の間
 .ex-meta{
   max-width: 48ch;
 }
-
+    /* Duo(Statement/Exhibition) paragraph rhythm */
+.duo .panel p{
+  margin: 0 0 18px;
+  line-height: 1.85;
+  letter-spacing: .01em;
+}
+.duo .panel p:last-of-type{
+  margin-bottom: 0;
+}
+.duo .panel .profile{
+  margin-top: 18px;
+  line-height: 1.85;
+}
 
 /* 740〜980px（“中間PC幅”）だけ：Hero〜Servicesを1画面寄りに詰める */
 @media (min-width: 740px) and (max-width: 980px){
