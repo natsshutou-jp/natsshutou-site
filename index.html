@@ -223,63 +223,42 @@
       color:var(--muted);
     }
 
-    .ex-meta{
-      font-size:13px;
-      color:var(--muted);
-      line-height:1.7;     /* 固有名詞＋英数字は詰める */
-      letter-spacing:.01em;
-      max-width: 52ch;
-    }
-    .ex-meta a{
-      display:inline-block;
-      margin-top:8px;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      text-decoration-thickness: 1px;
-      opacity:.9;
-    }
+    /* Exhibition：INFOを消して階層を余白で作る */
+.ex-meta{
+  margin-top: 10px;
+  line-height: 1.85;
+  letter-spacing: .01em;
+  max-width: var(--measure);
+}
 
-    .subhead{
-      margin:0 0 14px;
-      font-size:12px;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      color:rgba(15,15,15,.62);
-      font-weight:600;
-    }
+.ex-links{
+  margin-top: 14px;
+}
 
-    /* Info block: “塊”を分節して読みやすく */
-    .press{
-      max-width: 52ch;
-      margin-top: 18px;
-      padding-top: 14px;
-      border-top: 1px solid var(--hair);
-    }
-    .press p{
-      margin: 0 0 16px;
-      max-width: 52ch;
-      font-size:13px;
-      color:var(--muted);
-      line-height:1.85;
-      letter-spacing:.01em;
-    }
-    .press p:last-of-type{ margin-bottom:0; }
+.ex-links a{
+  display: inline-block;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  opacity: .9;
+}
 
-    .cta-block{ margin-top:20px; }
-    .cta-link{
-      display:inline-block;
-      font-size:12px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-    }
-    .cta-link:hover{ opacity:.6; }
+.ex-note{
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(15,15,15,.10);
+}
 
-    .cta-note{
-      margin-top:16px;
-      font-size:12px;
-      line-height:1.8;
-      color:var(--muted);
-    }
+.ex-note-text{
+  margin: 0 0 12px;
+}
+
+.cta-block{ margin-top: 0; } /* 既存が強いなら抑える */
+.cta-sub{
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
 
     /* Footer */
     footer h2{
