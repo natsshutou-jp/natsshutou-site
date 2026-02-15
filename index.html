@@ -128,7 +128,7 @@
       align-items:start;
     }
 
-    /* ここが重要：本文のサイズは“必ず同一” */
+    /* 本文のサイズは“必ず同一” */
     .body{
       font-size: var(--base-size);
       line-height: var(--base-line);
@@ -182,13 +182,10 @@
     .underline-soft{
       display:inline-block;
       padding-bottom: 2px;
-      border-bottom: 1px solid rgba(0,0,0,.18);
+      border-bottom: 1px solid rgba(0,0,0,.12);
     }
-
-    /* Exhibitionのリンクや日付も同じ扱いに揃える */
-    .exhibit a.underline-soft:hover,
-    .contact-row a.underline-soft:hover{
-      border-bottom-color: rgba(0,0,0,.30);
+    a.underline-soft:hover{
+      border-bottom-color: rgba(0,0,0,.22);
     }
 
     /* レスポンシブ：順序を“変えない” */
@@ -212,9 +209,9 @@
       <p class="lead">作品と空間の関係を再構築する。</p>
 
       <div class="hero">
-        <!-- 必要なら画像パスを差し替え -->
-       <img src="images/moriya.jpg" alt="Tsutomu Moriya work" />
-        <div class="credit">©Tsutomu Morya</div>
+        <!-- 相対パス揺れ対策： ./ を付けて固定 -->
+        <img src="./images/moriya.jpg" alt="Tsutomu Moriya work" loading="eager" decoding="async" />
+        <div class="credit">©Tsutomu Moriya</div>
       </div>
     </section>
 
@@ -259,13 +256,17 @@
           <div class="kicker">Exhibition</div>
           <div class="body">
             miape / みあれ（守矢努 個展）<br><br>
-            <a class="underline-soft" href="#" target="_blank" rel="noopener">2026.2.21–2.28</a><br><br>
+
+            <span class="underline-soft">2026.2.21–2.28</span><br><br>
+
             cafe.the market maimai（2F Gallery）OKAYAMA<br>
             Curated by natsshutou<br><br>
             展示情報は Instagram にて更新しています。<br><br>
-            <a class="pill" href="#" target="_blank" rel="noopener">
+
+            <!-- URLが確定したら href を入れる（#は禁止） -->
+            <span class="pill">
               作家 Instagram <span class="underline-soft">@tsutomu_moriya</span>
-            </a>
+            </span>
           </div>
         </div>
 
@@ -280,9 +281,9 @@
         <a class="pill" href="mailto:natsshutou@gmail.com">
           Email: <span class="underline-soft">natsshutou@gmail.com</span>
         </a>
-        <a class="pill" href="#" target="_blank" rel="noopener">
+        <span class="pill">
           Instagram: <span class="underline-soft">@natsshutou</span>
-        </a>
+        </span>
       </div>
 
       <p class="body muted" style="margin-top: var(--space-2);">
