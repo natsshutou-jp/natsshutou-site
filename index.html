@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="natsshutou | Curator / Art Director | Contemporary Art" />
   <title>natsshutou</title>
- 
+
   <style>
     :root{
       --bg:#ffffff;
@@ -114,12 +114,19 @@
       display:flex;
       flex-direction:column;
       gap:6px;
+      max-width: var(--media);
+      margin: 0 auto;
+    }
+    header .lead{
+      max-width: var(--media);
+      margin-left:auto;
+      margin-right:auto;
     }
 
     /* Hero image */
     .hero{ padding: 0 0 var(--space-3); }
     .hero-media{
-      max-width: 760px;
+      max-width: var(--media);
       margin: 0 auto;
     }
     .hero-media img{
@@ -173,14 +180,12 @@
       grid-template-columns: minmax(0,1fr) minmax(0,1fr);
       gap: 56px;
       align-items:start;
-      max-width: var(--media);   /* Servicesと同じ基準線 */
+      max-width: var(--media);
       margin: 0 auto;
     }
 
-    /* 左右の文章箱を同一幅に固定 */
-    .panel{
-      max-width: var(--panel);
-    }
+    .panel{ max-width: var(--panel); }
+
     .panel p{
       margin: 0 0 18px;
       max-width: var(--panel);
@@ -199,14 +204,42 @@
       max-width: var(--panel);
     }
 
-    /* Exhibition：淡々と並べる（線・階層演出を消す） */
-    .ex-meta{
-      margin-top: 0;
-      line-height: 1.85;
-      letter-spacing: .01em;
+    /* Exhibition (structured) */
+    .ex-list{
+      margin: 0;
+      padding: 0;
+      list-style: none;
       max-width: var(--panel);
       font-size:13px;
       color:var(--muted);
+      line-height:1.85;
+      letter-spacing:.01em;
+    }
+    .ex-item{
+      display:flex;
+      gap:12px;
+      margin: 0 0 10px;
+    }
+    .ex-item:last-child{ margin-bottom: 0; }
+    .ex-k{
+      flex: 0 0 9ch;
+      color: rgba(15,15,15,.62);
+      letter-spacing:.08em;
+      text-transform: uppercase;
+      font-size:11px;
+      padding-top: 2px;
+    }
+    .ex-v{
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .ex-note{
+      margin-top: 16px;
+      max-width: var(--panel);
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.85;
     }
 
     .ex-links{ margin-top: 14px; }
@@ -216,14 +249,6 @@
       text-underline-offset: 3px;
       text-decoration-thickness: 1px;
       opacity: .9;
-    }
-
-    .ex-note{
-      margin-top: 16px;   /* 仕切りは余白だけ */
-      max-width: var(--panel);
-      font-size:13px;
-      color:var(--muted);
-      line-height:1.85;
     }
 
     /* Footer */
@@ -301,6 +326,7 @@
         max-width: var(--measure);
       }
       .contact{ justify-content:center; }
+      .brand, header .lead{ max-width: var(--measure); }
     }
   </style>
 </head>
@@ -328,21 +354,15 @@
       <div class="services-grid">
         <div class="card">
           <h3>curation</h3>
-          <p>
-            展示の「前提」をつくります。テーマ・作家・作品を選び、見せ方の構造を組み立てます。
-          </p>
+          <p>展示の「前提」をつくります。テーマ・作家・作品を選び、見せ方の構造を組み立てます。</p>
         </div>
         <div class="card">
           <h3>direction</h3>
-          <p>
-            前提を「形」にします。空間・動線・視線の配置を設計します。
-          </p>
+          <p>前提を「形」にします。空間・動線・視線の配置を設計します。</p>
         </div>
         <div class="card">
           <h3>writing</h3>
-          <p>
-            制作意図や背景を整理します。鑑賞者に届く言葉へ翻訳します。
-          </p>
+          <p>制作意図や背景を整理します。鑑賞者に届く言葉へ翻訳します。</p>
         </div>
       </div>
     </section>
@@ -353,7 +373,7 @@
         <div class="panel">
           <h2>Statement</h2>
           <p>
-            展示は、答えではなく「問いの配置」だと考えています。作家と作品の背景を読み解き、場の条件から逆算して、見るための構造を設計します。
+            展示は、答えではなく「問いを配置する装置」だと考えています。作家と作品の文脈を読み、場の条件から逆算して、見るための構造を設計します。
           </p>
           <p>
             言葉で意味を固定せず、鑑賞者が立ち止まる余白を残します。
@@ -366,28 +386,42 @@
           </div>
         </div>
 
-<!-- Right: Exhibition -->
-<div class="panel">
-  <h2>Exhibition</h2>
+        <!-- Right: Exhibition -->
+        <div class="panel">
+          <h2>Exhibition</h2>
 
-  <div class="ex-meta">
-    <p>Curated by natsshutou</p>
-    <p>miape / みあれ</p>
-    <p>守矢努 個展</p>
-    <p>2026.2.21–2.28</p>
-    <p>cafe.the market maimai（2F Gallery）OKAYAMA</p>
-  </div>
+          <ul class="ex-list">
+            <li class="ex-item">
+              <span class="ex-k">Role</span>
+              <span class="ex-v">Curated by natsshutou</span>
+            </li>
+            <li class="ex-item">
+              <span class="ex-k">Title</span>
+              <span class="ex-v">miape / みあれ</span>
+            </li>
+            <li class="ex-item">
+              <span class="ex-k">Artist</span>
+              <span class="ex-v">守矢努 個展</span>
+            </li>
+            <li class="ex-item">
+              <span class="ex-k">Date</span>
+              <span class="ex-v">2026.2.21–2.28</span>
+            </li>
+            <li class="ex-item">
+              <span class="ex-k">Venue</span>
+              <span class="ex-v">cafe.the market maimai（2F Gallery）OKAYAMA</span>
+            </li>
+          </ul>
 
-  <div class="ex-note">
-    展示情報は Instagram にて更新しています。
-  </div>
+          <div class="ex-note">展示情報は Instagram にて更新しています。</div>
 
-  <div class="ex-links">
-    <a href="https://www.instagram.com/tsutomu_moriya/" target="_blank" rel="noopener">
-      作家 Instagram @tsutomu_moriya
-    </a>
-  </div>
-　</div>
+          <div class="ex-links">
+            <a href="https://www.instagram.com/tsutomu_moriya/" target="_blank" rel="noopener">
+              作家 Instagram @tsutomu_moriya
+            </a>
+          </div>
+        </div>
+      </div>
     </section>
 
     <footer aria-label="Contact">
