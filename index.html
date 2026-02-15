@@ -13,20 +13,15 @@
       --muted:rgba(15,15,15,.72);
       --hair:rgba(0,0,0,.14);
 
-      /* PC幅：少し絞る（読みの密度を上げる） */
+      /* PCの幅：少し狭める */
       --container: 880px;
 
-      /* 余白 */
       --space-1: 10px;
       --space-2: 18px;
       --space-3: 28px;
       --space-4: 44px;
       --space-5: 72px;
 
-      /* ガター（左右余白） */
-      --gutter: 56px; /* = 左右28px */
-
-      /* 角ゴ寄り（丸み少なめ）を優先した安全フォールバック */
       --font-sans:
         ui-sans-serif, system-ui, -apple-system,
         "Hiragino Kaku Gothic ProN", "Hiragino Kaku Gothic Pro",
@@ -35,19 +30,13 @@
         "Helvetica Neue", Helvetica, Arial,
         sans-serif;
 
-      /* タイポの基準 */
       --base-size: 14px;
       --base-line: 1.85;
       --base-track: .04em;
-
-      /* Heroの画像フレーム（見せる比率を固定して“装置化”） */
-      --hero-aspect: 16/9;
-      --hero-max-h: clamp(360px, 52svh, 520px);
     }
 
     *{ box-sizing:border-box; }
     html, body{ height:100%; }
-
     html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
 
     body{
@@ -69,12 +58,11 @@
     a:hover{ text-decoration:underline; }
 
     .wrap{
-      width:min(var(--container), calc(100% - var(--gutter)));
+      width:min(var(--container), calc(100% - 56px));
       margin: 0 auto;
       padding: var(--space-5) 0;
     }
 
-    /* セクション間隔 */
     section{ margin-top: calc(var(--space-5) + var(--space-2)); }
     section:first-child{ margin-top: 0; }
 
@@ -83,13 +71,13 @@
       letter-spacing: .22em;
       text-transform: uppercase;
       color: var(--muted);
-      font-weight: 650;
+      font-weight: 600;
     }
 
     .title{
       font-size: 20px;
       letter-spacing: .02em;
-      font-weight: 750;
+      font-weight: 700;
       margin: 0 0 var(--space-1) 0;
     }
 
@@ -103,7 +91,7 @@
       max-width: 56ch;
     }
 
-    /* 重要：本文は“必ず同一” */
+    /* 本文のサイズは常に固定 */
     .body{
       font-size: var(--base-size);
       line-height: var(--base-line);
@@ -111,42 +99,27 @@
       color: var(--fg);
       max-width: 62ch;
     }
-
     .muted{ color: var(--muted); }
 
-    /* HERO：1スクリーン完結（Servicesへ“降りる”設計） */
-    .hero-section{
-      min-height: 100svh;
-      display:flex;
-      flex-direction:column;
-      justify-content:flex-start;
-      padding-top: var(--space-5);
-      padding-bottom: var(--space-4);
-    }
-
-    /* HERO 画像：固定フレーム＋crop（周辺のグレーを“見せない”） */
+    /* HERO：トップで画像が“でかすぎる”問題を止める */
     .hero{
       margin-top: var(--space-3);
-      flex: 1;
-      display:flex;
-      align-items:flex-start;
     }
-
     .hero-frame{
-      width:100%;
-      max-height: var(--hero-max-h);
-      aspect-ratio: var(--hero-aspect);
-      overflow:hidden;
+      /* 画像の背後に色は載せない（=グレーが出る余地を消す） */
+      background: transparent;
       border-radius: 2px;
-      background: transparent; /* グレー背景は不要 */
-    }
+      overflow: hidden;
 
-    .hero-frame img{
+      /* 1画面の主役にしつつ、食い過ぎない高さに制限 */
+      max-height: min(52vh, 460px);
+    }
+    .hero img{
       width:100%;
       height:100%;
       display:block;
-      object-fit: cover;       /* ここで余白（グレー）を切る */
-      object-position: 50% 45%;/* 少し上寄せ：文字が上にある作品で破綻しにくい */
+      object-fit: cover;     /* 余白がある画像でも“余白を見せない”方向 */
+      object-position: center;
     }
 
     .credit{
@@ -157,7 +130,7 @@
       letter-spacing: .06em;
     }
 
-    /* 2カラム（Services / Statement+Exhibition） */
+    /* レイアウト */
     .grid-3{
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -178,62 +151,66 @@
       letter-spacing: .22em;
       text-transform: uppercase;
       color: var(--fg);
-      font-weight: 750;
+      font-weight: 700;
     }
-
-    .service p{ margin: 0; }
+    .service p{
+      margin: 0;
+      color: var(--fg);
+    }
 
     .stack > * + *{ margin-top: var(--space-2); }
 
-    /* ボタン：丸みを弱める（思想整合） */
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap: 10px;
-      padding: 8px 14px;
-      border: 1px solid var(--hair);
-      border-radius: 12px; /* ← 999pxやめる */
-      color: var(--fg);
-      font-size: 12px;
-      letter-spacing: .08em;
-      background: transparent;
-      white-space: nowrap;
-    }
-
-    .contact-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 14px;
-      margin-top: var(--space-2);
-    }
-
+    /* “線”の統一：リンクだけに薄い下線（展示日付は下線なしにする） */
     .underline-soft{
       display:inline-block;
       padding-bottom: 2px;
       border-bottom: 1px solid rgba(0,0,0,.18);
     }
-
-    .exhibit a.underline-soft:hover,
-    .contact-row a.underline-soft:hover{
+    .underline-soft:hover{
       border-bottom-color: rgba(0,0,0,.30);
+      text-decoration: none;
     }
 
-    /* レスポンシブ */
-    @media (max-width: 920px){
-      :root{
-        --gutter: 72px; /* スマホ左右余白：少し増やす（=左右36px） */
-        --hero-aspect: 4/3; /* スマホは縦に強く、1画面内で成立させる */
-        --hero-max-h: clamp(260px, 42svh, 360px);
-      }
+    /* Contact：囲み（ピル/四角）を捨てて、タイポで見せる */
+    .contact{
+      margin-top: var(--space-2);
+      display:flex;
+      flex-wrap:wrap;
+      gap: 18px 28px;
+      align-items:baseline;
+    }
+    .contact-item{
+      font-size: 12px;
+      letter-spacing: .08em;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .contact-item strong{
+      color: var(--fg);
+      font-weight: 600;
+      letter-spacing: .10em;
+      margin-right: 10px;
+    }
 
+    /* スマホ：余白を“少しだけ”増やす（読みやすさ優先） */
+    @media (max-width: 920px){
       .grid-3{ grid-template-columns: 1fr; gap: 26px; }
       .grid-2{ grid-template-columns: 1fr; gap: 34px; }
 
-      /* Heroの余白も詰めすぎない */
-      .hero-section{
-        padding-top: var(--space-4);
-        padding-bottom: var(--space-3);
+      /* ここが余白（左右） */
+      .wrap{ width: min(var(--container), calc(100% - 64px)); }
+
+      section{ margin-top: calc(var(--space-5)); }
+
+      /* スマホでは高さ制限を少し緩める（主役感は残す） */
+      .hero-frame{
+        max-height: min(44vh, 360px);
       }
+    }
+
+    @media (max-width: 520px){
+      /* さらに小さい端末だけ、左右を少し戻す */
+      .wrap{ width: min(var(--container), calc(100% - 52px)); }
     }
   </style>
 </head>
@@ -242,19 +219,17 @@
   <main class="wrap">
 
     <!-- HERO -->
-    <section class="hero-section" aria-label="Hero">
+    <section>
       <div class="title">natsshutou</div>
       <div class="sub">ナッシユウトウ</div>
       <div class="muted">Curator / Art Director | 現代美術</div>
       <p class="lead">作品と空間の関係を再構築する。</p>
 
       <div class="hero">
-        <div style="width:100%;">
-          <div class="hero-frame">
-            <img src="images/moriya.jpg" alt="Tsutomu Moriya work" />
-          </div>
-          <div class="credit">©Tsutomu Moriya</div>
+        <div class="hero-frame">
+          <img src="images/moriya.jpg" alt="Tsutomu Moriya work" />
         </div>
+        <div class="credit">©Tsutomu Moriya</div>
       </div>
     </section>
 
@@ -286,9 +261,10 @@
 
         <div class="stack">
           <div class="kicker">Statement</div>
+
+          <!-- “二つに分けない”：一続きで読ませる -->
           <div class="body">
-            展示は、答えではなく「問いを配置する装置」だと考えています。作家と作品の文脈を読み、場の条件から逆算して、見るための構造を設計します。<br><br>
-            言葉で意味を固定せず、鑑賞者が立ち止まる余白を残します。<br><br>
+            展示は、答えではなく「問いを配置する装置」だと考えています。作家と作品の文脈を読み、場の条件から逆算して、見るための構造を設計します。言葉で意味を固定せず、鑑賞者が立ち止まる余白を残します。<br><br>
             大安晴美<br>
             東京藝術大学 美術学部 絵画科油画専攻 卒業<br>
             東京藝術大学大学院 油画・技法材料研究室 修了
@@ -299,12 +275,18 @@
           <div class="kicker">Exhibition</div>
           <div class="body">
             miape / みあれ（守矢努 個展）<br><br>
-            <a class="underline-soft" href="#" target="_blank" rel="noopener">2026.2.21–2.28</a><br><br>
+
+            <!-- 日付の下線：削除（ただのテキスト） -->
+            2026.2.21–2.28<br><br>
+
             cafe.the market maimai（2F Gallery）OKAYAMA<br>
             Curated by natsshutou<br><br>
+
             展示情報は Instagram にて更新しています。<br><br>
-            <a class="pill" href="#" target="_blank" rel="noopener">
-              作家 Instagram <span class="underline-soft">@tsutomu_moriya</span>
+
+            <!-- 囲みをやめる：リンクとして静かに提示 -->
+            <a class="underline-soft" href="#" target="_blank" rel="noopener">
+              作家 Instagram&nbsp;&nbsp;@tsutomu_moriya
             </a>
           </div>
         </div>
@@ -316,13 +298,17 @@
     <section aria-label="Contact">
       <div class="kicker">Contact</div>
 
-      <div class="contact-row">
-        <a class="pill" href="mailto:natsshutou@gmail.com">
-          Email: <span class="underline-soft">natsshutou@gmail.com</span>
-        </a>
-        <a class="pill" href="#" target="_blank" rel="noopener">
-          Instagram: <span class="underline-soft">@natsshutou</span>
-        </a>
+      <!-- 囲み（ピル/四角）を廃止して、ラベル＋リンクで整える -->
+      <div class="contact">
+        <div class="contact-item">
+          <strong>Email</strong>
+          <a class="underline-soft" href="mailto:natsshutou@gmail.com">natsshutou@gmail.com</a>
+        </div>
+
+        <div class="contact-item">
+          <strong>Instagram</strong>
+          <a class="underline-soft" href="#" target="_blank" rel="noopener">@natsshutou</a>
+        </div>
       </div>
 
       <p class="body muted" style="margin-top: var(--space-2);">
