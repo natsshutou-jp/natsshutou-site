@@ -24,16 +24,16 @@
       --space-4: 44px;
       --space-5: 72px;
 
-      /* NOTE:
-         日本語の安定優先なら、本来は和文フォントを前に置く方が安全。
-         ただし全体の既存見た目を崩さないため、bodyは現状に近い並びを維持し、
-         Statementだけ和文優先に固定する（下で .statement-panel に指定）。 */
+      /* 角ゴシック寄りで統一（丸みの少ない順に優先） */
       --font-sans:
-        ui-sans-serif, system-ui, -apple-system,
-        "Helvetica Neue", Helvetica, Arial,
-        "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Hiragino Kaku Gothic Pro",
-        "Yu Gothic UI", "Yu Gothic", "YuGothic",
         "Noto Sans JP",
+        "Hiragino Kaku Gothic ProN",
+        "Hiragino Kaku Gothic Pro",
+        "Yu Gothic UI",
+        "Yu Gothic",
+        "YuGothic",
+        system-ui, -apple-system,
+        "Helvetica Neue", Helvetica, Arial,
         sans-serif;
     }
 
@@ -45,11 +45,11 @@
       background:var(--bg);
       color:var(--fg);
       font-family:var(--font-sans);
+
+      /* ここは見た目の安定用（フォント選択を揺らしにくい） */
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      text-rendering:auto;
-      font-feature-settings: normal;
-      font-synthesis: none;
+
       line-height:1.75;
       letter-spacing:.004em;
       font-weight:400;
@@ -190,58 +190,36 @@
       max-width: var(--media);
       margin: 0 auto;
     }
+    @media (max-width: 900px){
+      .duo{ gap: 44px; }
+    }
 
-    /* IMPORTANT: panel 基礎（これがないと位置が不安定になりやすい） */
+    /* Panels */
     .panel{
       max-width: var(--panel);
     }
     .panel p{
-      margin:0 0 16px;
+      margin:0 0 14px;
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.85;
+      letter-spacing:.01em;
+      font-weight:400;
     }
-    .panel p:last-of-type{
-      margin-bottom: 0;
-    }
+    .panel p:last-of-type{ margin-bottom: 0; }
 
-    /* Statementだけ：Safari + 日本語フォールバック崩れ対策（ここが本丸） */
-    .statement-panel{
-      /* 日本語を同一フォントで統一し、文字ごとのフォールバックを抑止 */
-      font-family:
-        "Hiragino Sans",
-        "Hiragino Kaku Gothic ProN",
-        "Hiragino Kaku Gothic Pro",
-        "Yu Gothic",
-        "YuGothic",
-        "Noto Sans JP",
-        sans-serif;
-
-      color: rgba(15,15,15,.86);
-      font-weight: 400;
-
-      font-feature-settings: normal !important;
-      font-synthesis: none !important;
-
-      /* ここは “-webkit-” でハイフン1つ（CSS変数ではない） */
-      -webkit-text-size-adjust: 100%;
-
-      text-rendering: auto !important;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    .statement-panel p{
-      font-weight: 400 !important;
-      letter-spacing: .01em !important;
-      line-height: 1.85;
-      color: rgba(15,15,15,.86);
-    }
     .profile{
       margin-top: 18px;
-      line-height: 1.85;
-      letter-spacing: .01em;
-      color: rgba(15,15,15,.86);
+      font-size:13px;
+      color:var(--fg);
+      line-height:1.85;
+      letter-spacing:.01em;
+      font-weight:400;
     }
 
-    /* Exhibition (services-like block) */
+    /* Exhibition block */
     .ex-block{
+      max-width: var(--panel);
       font-size:13px;
       color:var(--muted);
       line-height:1.85;
@@ -252,6 +230,7 @@
       font-size:13px;
       color: rgba(15,15,15,.82);
       letter-spacing:.01em;
+      font-weight:400;
     }
     .ex-lines{ margin: 0; }
     .ex-lines div{ margin: 0 0 6px; }
@@ -259,12 +238,12 @@
 
     .ex-note{
       margin-top: 16px;
+      max-width: var(--panel);
       font-size:13px;
       color:var(--muted);
       line-height:1.85;
     }
 
-    /* 作家Instagram：悪目立ち抑制（細線のボタン風） */
     .ex-links{ margin-top: 12px; }
     .ex-links a{
       display:inline-flex;
@@ -340,7 +319,7 @@
     /* Responsive */
     @media (max-width: 900px){
       .services-grid{ gap: 28px; }
-      .duo{ gap: 44px; } /* ここは1箇所に統一 */
+      .duo{ gap: 40px; }
     }
 
     @media (max-width: 860px){
@@ -349,17 +328,12 @@
         max-width: var(--measure);
       }
       .card p{ max-width: 56ch; }
-
       .duo{
         grid-template-columns: 1fr;
         gap: 44px;
         max-width: var(--measure);
       }
-
-      .panel{
-        max-width: var(--measure);
-      }
-
+      .panel{ max-width: var(--measure); }
       .contact{ justify-content:center; }
       .brand, header .lead{ max-width: var(--measure); }
     }
@@ -404,9 +378,8 @@
 
     <section class="section" aria-label="Statement and Exhibition">
       <div class="duo">
-
         <!-- Left: Statement -->
-        <div class="panel statement-panel">
+        <div class="panel">
           <h2>Statement</h2>
           <p>
             展示は、答えではなく「問いを配置する装置」だと考えています。作家と作品の文脈を読み、場の条件から逆算して、見るための構造を設計します。
@@ -444,7 +417,6 @@
             </a>
           </div>
         </div>
-
       </div>
     </section>
 
