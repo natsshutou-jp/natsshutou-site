@@ -13,8 +13,8 @@
       --muted:rgba(15,15,15,.72);
       --hair:rgba(0,0,0,.14);
 
-      /* PC幅：少し狭め */
-      --container: 880px;
+      /* PC幅を少し狭める */
+      --container: 900px;
 
       --space-1: 10px;
       --space-2: 18px;
@@ -22,7 +22,7 @@
       --space-4: 44px;
       --space-5: 72px;
 
-      /* 角ゴ寄り（丸み少なめ）優先の安全フォールバック */
+      /* 角ゴ寄り（丸み少なめ）を優先した安全フォールバック */
       --font-sans:
         ui-sans-serif, system-ui, -apple-system,
         "Hiragino Kaku Gothic ProN", "Hiragino Kaku Gothic Pro",
@@ -31,14 +31,10 @@
         "Helvetica Neue", Helvetica, Arial,
         sans-serif;
 
-      /* タイポ基準（ここで固定） */
+      /* タイポの“基準”をここで固定（局所で勝手に変えない） */
       --base-size: 14px;
       --base-line: 1.85;
       --base-track: .04em;
-
-      /* HEROサイズ（ファーストビュー制御） */
-      --hero-maxh: 52vh;     /* PCで“上に収まりやすい”上限 */
-      --hero-maxh-sp: 38vh;  /* スマホはさらに低め */
     }
 
     *{ box-sizing:border-box; }
@@ -66,7 +62,8 @@
     a:hover{ text-decoration:underline; }
 
     .wrap{
-      width:min(var(--container), calc(100% - 56px));
+      /* スマホの左右余白を少し増やす（48px→60px） */
+      width:min(var(--container), calc(100% - 60px));
       margin: 0 auto;
       padding: var(--space-5) 0;
     }
@@ -100,28 +97,20 @@
       max-width: 56ch;
     }
 
-    /* HERO：フレームで高さ上限＋トリミング（グレー面を見せない） */
+    /* 画像（グレー背景を完全撤去） */
     .hero{
       margin-top: var(--space-3);
+      background: none;
     }
-    .hero-frame{
-      width: 100%;
-      /* 横長作品を“トップに収める”ための比率 */
-      aspect-ratio: 16 / 9;
-      max-height: var(--hero-maxh);
-      overflow: hidden;
-      border-radius: 2px;
-      background: transparent; /* グレー背景は不要 */
+    .hero img{
+      width:100%;
+      height:auto;
+      display:block;
+      background: none;       /* 重要：背後グレーを持たせない */
+      border-radius: 0;       /* 角丸不要 */
+      max-height: 55vh;       /* トップ内に収まりやすく */
+      object-fit: contain;    /* 切らない（作品欠け防止） */
     }
-    .hero-frame img{
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;       /* 余白（グレー）を見せない */
-      object-position: 50% 45%;
-      background: transparent;
-    }
-
     .credit{
       margin-top: var(--space-1);
       text-align:right;
@@ -130,7 +119,7 @@
       letter-spacing: .06em;
     }
 
-    /* グリッド */
+    /* 3カラム（Services） */
     .grid-3{
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -138,6 +127,7 @@
       align-items:start;
     }
 
+    /* 2カラム（Statement + Exhibition） */
     .grid-2{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -145,7 +135,7 @@
       align-items:start;
     }
 
-    /* 本文サイズは必ず同一 */
+    /* 本文のサイズは“必ず同一” */
     .body{
       font-size: var(--base-size);
       line-height: var(--base-line);
@@ -165,10 +155,14 @@
       font-weight: 700;
     }
 
-    .service p{ margin: 0; color: var(--fg); }
+    .service p{
+      margin: 0;
+      color: var(--fg);
+    }
+
     .stack > * + *{ margin-top: var(--space-2); }
 
-    /* pill */
+    /* ボタン（Instagram） */
     .pill{
       display:inline-flex;
       align-items:center;
@@ -183,6 +177,7 @@
       white-space: nowrap;
     }
 
+    /* Contact の2つを並べる */
     .contact-row{
       display:flex;
       flex-wrap:wrap;
@@ -190,34 +185,32 @@
       margin-top: var(--space-2);
     }
 
-    /* 下線：統一＆弱め */
+    /* “線”の統一（存在感弱め） */
     .underline-soft{
       display:inline-block;
       padding-bottom: 2px;
       border-bottom: 1px solid rgba(0,0,0,.18);
     }
+
+    /* Exhibitionのリンクや日付も同じ扱いに揃える */
     .exhibit a.underline-soft:hover,
     .contact-row a.underline-soft:hover{
       border-bottom-color: rgba(0,0,0,.30);
     }
 
-    /* レスポンシブ：スマホは余白を増やす */
+    /* レスポンシブ */
     @media (max-width: 920px){
       .grid-3{ grid-template-columns: 1fr; gap: 26px; }
       .grid-2{ grid-template-columns: 1fr; gap: 34px; }
 
-      /* スマホ左右余白を “少し増やす” */
-      .wrap{ width: min(var(--container), calc(100% - 64px)); }
+      /* ここはスマホの余白を“少しだけ”増やしたまま維持 */
+      .wrap{ width: min(var(--container), calc(100% - 60px)); }
 
       section{ margin-top: calc(var(--space-5)); }
 
-      /* スマホのヒーローはさらにファーストビュー優先 */
-      .hero-frame{
-        aspect-ratio: 4 / 3;
-        max-height: var(--hero-maxh-sp);
-      }
-      .hero-frame img{
-        object-position: 50% 42%;
+      /* モバイルでは縦が詰まりすぎないよう少し緩める */
+      .hero img{
+        max-height: 46vh;
       }
     }
   </style>
@@ -234,9 +227,7 @@
       <p class="lead">作品と空間の関係を再構築する。</p>
 
       <div class="hero">
-        <div class="hero-frame">
-          <img src="images/moriya.jpg" alt="Tsutomu Moriya work" />
-        </div>
+        <img src="images/moriya.jpg" alt="Tsutomu Moriya work" />
         <div class="credit">©Tsutomu Moriya</div>
       </div>
     </section>
