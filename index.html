@@ -42,8 +42,9 @@
       font-family:var(--font-sans);
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      text-rendering:geometricPrecision;
-      font-feature-settings:"palt" 1;
+      text-rendering:auto;
+      font-feature-settings: normal;
+      font-synthesis: none;
       line-height:1.75;
       letter-spacing:.004em;
       font-weight:400;
@@ -308,6 +309,11 @@
       .contact{ justify-content:center; }
       .brand, header .lead{ max-width: var(--measure); }
     }
+    .panel p{
+  font-weight: 400;
+  letter-spacing: .01em;
+}
+
   </style>
 </head>
 
