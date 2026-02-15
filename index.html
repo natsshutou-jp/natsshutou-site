@@ -24,31 +24,34 @@
       --space-4: 44px;
       --space-5: 72px;
 
-      /* 角ゴシック寄りで統一（丸みの少ない順に優先） */
+      /* 角ゴシック寄りの安定スタック（全体統一） */
       --font-sans:
+        "Hiragino Kaku Gothic ProN", "Hiragino Kaku Gothic Pro",
+        "Yu Gothic", "YuGothic", "Yu Gothic UI",
         "Noto Sans JP",
-        "Hiragino Kaku Gothic ProN",
-        "Hiragino Kaku Gothic Pro",
-        "Yu Gothic UI",
-        "Yu Gothic",
-        "YuGothic",
-        system-ui, -apple-system,
         "Helvetica Neue", Helvetica, Arial,
+        system-ui, -apple-system,
         sans-serif;
     }
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
-
+    html{
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
     body{
       margin:0;
       background:var(--bg);
       color:var(--fg);
       font-family:var(--font-sans);
-
-      /* ここは見た目の安定用（フォント選択を揺らしにくい） */
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
+
+      /* 合成/崩れ抑制（全体統一） */
+      font-feature-settings: normal;
+      font-synthesis: none;
+      text-rendering: auto;
 
       line-height:1.75;
       letter-spacing:.004em;
@@ -93,12 +96,6 @@
       color:rgba(15,15,15,.78);
       line-height:1.6;
       letter-spacing:-.01em;
-    }
-    @media (min-width: 900px){
-      .lead{
-        font-size:15px;
-        letter-spacing:-.015em;
-      }
     }
 
     /* Sections */
@@ -190,47 +187,42 @@
       max-width: var(--media);
       margin: 0 auto;
     }
-    @media (max-width: 900px){
-      .duo{ gap: 44px; }
-    }
 
-    /* Panels */
+    /* 右/左の本文ブロック（統一） */
     .panel{
       max-width: var(--panel);
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.85;
+      letter-spacing:.01em;
+    }
+    .panel h2{
+      color:var(--muted);
     }
     .panel p{
-      margin:0 0 14px;
-      font-size:13px;
-      color:var(--muted);
-      line-height:1.85;
-      letter-spacing:.01em;
+      margin:0 0 16px;
       font-weight:400;
     }
-    .panel p:last-of-type{ margin-bottom: 0; }
-
+    .panel p:last-of-type{
+      margin-bottom: 22px;
+    }
     .profile{
-      margin-top: 18px;
-      font-size:13px;
-      color:var(--fg);
-      line-height:1.85;
-      letter-spacing:.01em;
-      font-weight:400;
+      margin-top: 10px;
+      color: rgba(15,15,15,.78);
+      line-height: 1.9;
+      letter-spacing: .01em;
+      font-size: 13px;
+      font-weight: 400;
     }
 
-    /* Exhibition block */
-    .ex-block{
-      max-width: var(--panel);
-      font-size:13px;
-      color:var(--muted);
-      line-height:1.85;
-      letter-spacing:.01em;
-    }
+    /* Exhibition details */
+    .ex-block{ max-width: var(--panel); }
     .ex-title{
       margin: 0 0 10px;
       font-size:13px;
       color: rgba(15,15,15,.82);
       letter-spacing:.01em;
-      font-weight:400;
+      font-weight: 400;
     }
     .ex-lines{ margin: 0; }
     .ex-lines div{ margin: 0 0 6px; }
@@ -244,6 +236,7 @@
       line-height:1.85;
     }
 
+    /* 作家Instagram：悪目立ち抑制 */
     .ex-links{ margin-top: 12px; }
     .ex-links a{
       display:inline-flex;
@@ -256,6 +249,7 @@
       letter-spacing:.02em;
       text-decoration:none;
       opacity:.9;
+      white-space: nowrap;
     }
     .ex-links a:hover{ opacity:.75; }
 
@@ -319,7 +313,7 @@
     /* Responsive */
     @media (max-width: 900px){
       .services-grid{ gap: 28px; }
-      .duo{ gap: 40px; }
+      .duo{ gap: 44px; }
     }
 
     @media (max-width: 860px){
@@ -328,15 +322,21 @@
         max-width: var(--measure);
       }
       .card p{ max-width: 56ch; }
+
       .duo{
         grid-template-columns: 1fr;
         gap: 44px;
         max-width: var(--measure);
       }
-      .panel{ max-width: var(--measure); }
+
+      .panel{
+        max-width: var(--measure);
+      }
+
       .contact{ justify-content:center; }
       .brand, header .lead{ max-width: var(--measure); }
     }
+
   </style>
 </head>
 
@@ -416,6 +416,7 @@
               作家 Instagram <span>@tsutomu_moriya</span>
             </a>
           </div>
+
         </div>
       </div>
     </section>
