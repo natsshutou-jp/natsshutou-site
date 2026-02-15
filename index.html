@@ -288,7 +288,18 @@
       .section.services{ padding-top: var(--space-2); }
       .hero-media{ max-width: 740px; }
     }
+/* Statementだけ：日本語詰め・合成を完全停止（Safari対策） */
+.panel{
+  font-feature-settings: normal !important;
+  font-synthesis: none !important;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: auto !important;
+}
 
+.panel p{
+  font-weight: 400 !important;
+  letter-spacing: .01em !important;
+}
     /* Responsive */
     @media (max-width: 900px){
       .services-grid{ gap: 28px; }
@@ -309,19 +320,6 @@
       .contact{ justify-content:center; }
       .brand, header .lead{ max-width: var(--measure); }
     }
-/* Statementだけ：日本語詰め・合成を完全停止（Safari対策） */
-.panel{
-  font-feature-settings: normal !important;
-  font-synthesis: none !important;
-  -webkit-text-size-adjust: 100%;
-  text-rendering: auto !important;
-}
-
-.panel p{
-  font-weight: 400 !important;
-  letter-spacing: .01em !important;
-}
-
 
   </style>
 </head>
