@@ -95,13 +95,14 @@
       max-width: 56ch;
     }
 
-    /* 画像 */
+    /* 画像（ファーストビューに収める：高さで制御） */
     .hero{
       margin-top: var(--space-3);
     }
     .hero img{
       width:100%;
-      height:auto;
+      height: min(56vh, 520px); /* ← ここが主制御：トップを1画面に寄せる */
+      object-fit: cover;        /* トリミングしてでも形を保つ */
       display:block;
       border-radius: 2px;
     }
@@ -128,7 +129,7 @@
       align-items:start;
     }
 
-    /* 本文のサイズは“必ず同一” */
+    /* ここが重要：本文のサイズは“必ず同一” */
     .body{
       font-size: var(--base-size);
       line-height: var(--base-line);
@@ -182,10 +183,13 @@
     .underline-soft{
       display:inline-block;
       padding-bottom: 2px;
-      border-bottom: 1px solid rgba(0,0,0,.12);
+      border-bottom: 1px solid rgba(0,0,0,.18);
     }
-    a.underline-soft:hover{
-      border-bottom-color: rgba(0,0,0,.22);
+
+    /* Exhibitionのリンクや日付も同じ扱いに揃える */
+    .exhibit a.underline-soft:hover,
+    .contact-row a.underline-soft:hover{
+      border-bottom-color: rgba(0,0,0,.30);
     }
 
     /* レスポンシブ：順序を“変えない” */
@@ -194,6 +198,11 @@
       .grid-2{ grid-template-columns: 1fr; gap: 34px; }
       .wrap{ width: min(var(--container), calc(100% - 36px)); }
       section{ margin-top: calc(var(--space-5)); }
+
+      /* モバイルは高さを少し抑える（画面が短いので） */
+      .hero img{
+        height: min(42vh, 360px);
+      }
     }
   </style>
 </head>
@@ -209,8 +218,7 @@
       <p class="lead">作品と空間の関係を再構築する。</p>
 
       <div class="hero">
-        <!-- 相対パス揺れ対策： ./ を付けて固定 -->
-        <img src="./images/moriya.jpg" alt="Tsutomu Moriya work" loading="eager" decoding="async" />
+        <img src="images/moriya.jpg" alt="Tsutomu Moriya work" />
         <div class="credit">©Tsutomu Moriya</div>
       </div>
     </section>
@@ -256,17 +264,13 @@
           <div class="kicker">Exhibition</div>
           <div class="body">
             miape / みあれ（守矢努 個展）<br><br>
-
-            <span class="underline-soft">2026.2.21–2.28</span><br><br>
-
+            <a class="underline-soft" href="#" target="_blank" rel="noopener">2026.2.21–2.28</a><br><br>
             cafe.the market maimai（2F Gallery）OKAYAMA<br>
             Curated by natsshutou<br><br>
             展示情報は Instagram にて更新しています。<br><br>
-
-            <!-- URLが確定したら href を入れる（#は禁止） -->
-            <span class="pill">
+            <a class="pill" href="#" target="_blank" rel="noopener">
               作家 Instagram <span class="underline-soft">@tsutomu_moriya</span>
-            </span>
+            </a>
           </div>
         </div>
 
@@ -281,9 +285,9 @@
         <a class="pill" href="mailto:natsshutou@gmail.com">
           Email: <span class="underline-soft">natsshutou@gmail.com</span>
         </a>
-        <span class="pill">
+        <a class="pill" href="#" target="_blank" rel="noopener">
           Instagram: <span class="underline-soft">@natsshutou</span>
-        </span>
+        </a>
       </div>
 
       <p class="body muted" style="margin-top: var(--space-2);">
