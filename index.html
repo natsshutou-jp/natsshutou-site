@@ -42,9 +42,8 @@
       font-family:var(--font-sans);
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      text-rendering:auto;
-      font-feature-settings: normal;
-      font-synthesis: none;
+      text-rendering:geometricPrecision;
+      font-feature-settings:"palt" 1;
       line-height:1.75;
       letter-spacing:.004em;
       font-weight:400;
@@ -175,62 +174,77 @@
       max-width: 34ch;
     }
 
-/* Statement / Exhibition (2-column) */
-.duo{
-  display:grid;
-  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
-  gap: 68px; /* 56px → 68px：柱間を少し広げる */
-  align-items:start;
-  max-width: var(--media);
-  margin: 0 auto;
-}
+    /* Statement / Exhibition (2-column) */
+    .duo{
+      display:grid;
+      grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+      gap: 68px; /* 56px → 68px：柱間を少し広げる */
+      align-items:start;
+      max-width: var(--media);
+      margin: 0 auto;
+    }
 
-@media (max-width: 900px){
-  .duo{ gap: 44px; } /* モバイルは現状維持でOK */
-}
+    .panel{ max-width: var(--panel); }
 
-/* Exhibition (services-like block) */
-.ex-block{
-  max-width: var(--panel);
-  font-size:13px;
-  color:var(--muted);
-  line-height:1.85;
-  letter-spacing:.01em;
-}
-.ex-title{
-  margin: 0 0 10px;
-  font-size:13px;
-  color: rgba(15,15,15,.82);
-  letter-spacing:.01em;
-}
-.ex-lines{ margin: 0; }
-.ex-lines div{ margin: 0 0 6px; }
-.ex-lines div:last-child{ margin-bottom: 0; }
+    .panel p{
+      margin: 0 0 18px;
+      max-width: var(--panel);
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.85;
+      letter-spacing:.01em;
+    }
+    .panel p:last-of-type{ margin-bottom: 0; }
 
-.ex-note{
-  margin-top: 16px;
-  max-width: var(--panel);
-  font-size:13px;
-  color:var(--muted);
-  line-height:1.85;
-}
+    .panel .profile{
+      margin-top: 18px;
+      font-size: 13px;
+      line-height: 1.85;
+      color: var(--muted);
+      max-width: var(--panel);
+    }
 
-/* 作家Instagram：悪目立ち抑制（下線撤去→細線のボタン風） */
-.ex-links{ margin-top: 12px; }
-.ex-links a{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 10px;
-  border:1px solid var(--hair);
-  border-radius:999px;
-  font-size:12px;
-  letter-spacing:.02em;
-  text-decoration:none;
-  opacity:.9;
-}
-.ex-links a:hover{ opacity:.75; }
+    /* Exhibition (services-like block) */
+    .ex-block{
+      max-width: var(--panel);
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.85;
+      letter-spacing:.01em;
+    }
+    .ex-title{
+      margin: 0 0 10px;
+      font-size:13px;
+      color: rgba(15,15,15,.82);
+      letter-spacing:.01em;
+    }
+    .ex-lines{ margin: 0; }
+    .ex-lines div{ margin: 0 0 6px; }
+    .ex-lines div:last-child{ margin-bottom: 0; }
 
+    .ex-note{
+      margin-top: 16px;
+      max-width: var(--panel);
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.85;
+    }
+
+    /* 作家Instagram：悪目立ち抑制（下線撤去→細線のボタン風） */
+    .ex-links{ margin-top: 12px; }
+    .ex-links a{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border:1px solid var(--hair);
+      border-radius:999px;
+      font-size:12px;
+      letter-spacing:.02em;
+      text-decoration:none;
+      opacity:.9;
+    }
+    .ex-links a:hover{ opacity:.75; }
 
     /* Footer */
     footer h2{
@@ -289,20 +303,19 @@
       .hero-media{ max-width: 740px; }
     }
 
-/* Statementだけ：Safariで文字崩れ対策 */
-.statement-panel{
-  font-feature-settings: normal !important;
-  font-synthesis: none !important;
-  -webkit-text-size-adjust: 100%;
-  text-rendering: auto !important;
-}
+    /* Statementだけ：Safariで文字崩れ対策（対象を限定） */
+    .statement-panel{
+      font-feature-settings: normal !important;
+      font-synthesis: none !important;
+      -webkit-text-size-adjust: 100%;
+      text-rendering: auto !important;
+    }
+    .statement-panel p{
+      font-weight: 400 !important;
+      letter-spacing: .01em !important;
+    }
 
-.statement-panel p{
-  font-weight: 400 !important;
-  letter-spacing: .01em !important;
-}
-
-    /* Responsive */
+    /* Responsive（重複を排除して1本化） */
     @media (max-width: 900px){
       .services-grid{ gap: 28px; }
       .duo{ gap: 40px; }
@@ -322,7 +335,6 @@
       .contact{ justify-content:center; }
       .brand, header .lead{ max-width: var(--measure); }
     }
-
   </style>
 </head>
 
@@ -364,8 +376,8 @@
 
     <section class="section" aria-label="Statement and Exhibition">
       <div class="duo">
-       <!-- Left: Statement -->
-       <div class="panel statement-panel">
+        <!-- Left: Statement -->
+        <div class="panel statement-panel">
           <h2>Statement</h2>
           <p>
             展示は、答えではなく「問いを配置する装置」だと考えています。作家と作品の文脈を読み、場の条件から逆算して、見るための構造を設計します。
@@ -385,25 +397,23 @@
         <div class="panel">
           <h2>Exhibition</h2>
 
-         
-<div class="ex-block">
-  <div class="ex-title">miape / みあれ（守矢努 個展）</div>
+          <div class="ex-block">
+            <div class="ex-title">miape / みあれ（守矢努 個展）</div>
 
-  <div class="ex-lines">
-    <div>2026.2.21–2.28</div>
-    <div>cafe.the market maimai（2F Gallery）OKAYAMA</div>
-    <div>Curated by natsshutou</div>
-  </div>
-</div>
+            <div class="ex-lines">
+              <div>2026.2.21–2.28</div>
+              <div>cafe.the market maimai（2F Gallery）OKAYAMA</div>
+              <div>Curated by natsshutou</div>
+            </div>
+          </div>
 
-<div class="ex-note">展示情報は Instagram にて更新しています。</div>
+          <div class="ex-note">展示情報は Instagram にて更新しています。</div>
 
-<div class="ex-links">
-  <a href="https://www.instagram.com/tsutomu_moriya/" target="_blank" rel="noopener noreferrer">
-    作家 Instagram <span>@tsutomu_moriya</span>
-  </a>
-</div>
-
+          <div class="ex-links">
+            <a href="https://www.instagram.com/tsutomu_moriya/" target="_blank" rel="noopener noreferrer">
+              作家 Instagram <span>@tsutomu_moriya</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
