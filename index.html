@@ -174,82 +174,62 @@
       max-width: 34ch;
     }
 
-    /* Statement / Exhibition (2-column) */
-    .duo{
-      display:grid;
-      grid-template-columns: minmax(0,1fr) minmax(0,1fr);
-      gap: 56px;
-      align-items:start;
-      max-width: var(--media);
-      margin: 0 auto;
-    }
+/* Statement / Exhibition (2-column) */
+.duo{
+  display:grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap: 68px; /* 56px → 68px：柱間を少し広げる */
+  align-items:start;
+  max-width: var(--media);
+  margin: 0 auto;
+}
 
-    .panel{ max-width: var(--panel); }
+@media (max-width: 900px){
+  .duo{ gap: 44px; } /* モバイルは現状維持でOK */
+}
 
-    .panel p{
-      margin: 0 0 18px;
-      max-width: var(--panel);
-      font-size:13px;
-      color:var(--muted);
-      line-height:1.85;
-      letter-spacing:.01em;
-    }
-    .panel p:last-of-type{ margin-bottom: 0; }
+/* Exhibition (services-like block) */
+.ex-block{
+  max-width: var(--panel);
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.85;
+  letter-spacing:.01em;
+}
+.ex-title{
+  margin: 0 0 10px;
+  font-size:13px;
+  color: rgba(15,15,15,.82);
+  letter-spacing:.01em;
+}
+.ex-lines{ margin: 0; }
+.ex-lines div{ margin: 0 0 6px; }
+.ex-lines div:last-child{ margin-bottom: 0; }
 
-    .panel .profile{
-      margin-top: 18px;
-      font-size: 13px;
-      line-height: 1.85;
-      color: var(--muted);
-      max-width: var(--panel);
-    }
+.ex-note{
+  margin-top: 16px;
+  max-width: var(--panel);
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.85;
+}
 
-    /* Exhibition (structured) */
-    .ex-list{
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      max-width: var(--panel);
-      font-size:13px;
-      color:var(--muted);
-      line-height:1.85;
-      letter-spacing:.01em;
-    }
-    .ex-item{
-      display:flex;
-      gap:12px;
-      margin: 0 0 10px;
-    }
-    .ex-item:last-child{ margin-bottom: 0; }
-    .ex-k{
-      flex: 0 0 9ch;
-      color: rgba(15,15,15,.62);
-      letter-spacing:.08em;
-      text-transform: uppercase;
-      font-size:11px;
-      padding-top: 2px;
-    }
-    .ex-v{
-      flex: 1 1 auto;
-      min-width: 0;
-    }
+/* 作家Instagram：悪目立ち抑制（下線撤去→細線のボタン風） */
+.ex-links{ margin-top: 12px; }
+.ex-links a{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
+  border:1px solid var(--hair);
+  border-radius:999px;
+  font-size:12px;
+  letter-spacing:.02em;
+  text-decoration:none;
+  opacity:.9;
+}
+.ex-links a:hover{ opacity:.75; }
 
-    .ex-note{
-      margin-top: 16px;
-      max-width: var(--panel);
-      font-size:13px;
-      color:var(--muted);
-      line-height:1.85;
-    }
-
-    .ex-links{ margin-top: 14px; }
-    .ex-links a{
-      display: inline-block;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      text-decoration-thickness: 1px;
-      opacity: .9;
-    }
 
     /* Footer */
     footer h2{
