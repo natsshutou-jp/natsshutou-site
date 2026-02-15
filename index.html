@@ -13,14 +13,18 @@
       --muted:rgba(15,15,15,.72);
       --hair:rgba(0,0,0,.14);
 
-      /* PC幅を少し狭める */
-      --container: 900px;
+      /* PC幅：少し絞る（読みの密度を上げる） */
+      --container: 880px;
 
+      /* 余白 */
       --space-1: 10px;
       --space-2: 18px;
       --space-3: 28px;
       --space-4: 44px;
       --space-5: 72px;
+
+      /* ガター（左右余白） */
+      --gutter: 56px; /* = 左右28px */
 
       /* 角ゴ寄り（丸み少なめ）を優先した安全フォールバック */
       --font-sans:
@@ -31,16 +35,19 @@
         "Helvetica Neue", Helvetica, Arial,
         sans-serif;
 
-      /* タイポの“基準”をここで固定（局所で勝手に変えない） */
+      /* タイポの基準 */
       --base-size: 14px;
       --base-line: 1.85;
       --base-track: .04em;
+
+      /* Heroの画像フレーム（見せる比率を固定して“装置化”） */
+      --hero-aspect: 16/9;
+      --hero-max-h: clamp(360px, 52svh, 520px);
     }
 
     *{ box-sizing:border-box; }
     html, body{ height:100%; }
 
-    /* iOS/Chrome系の自動文字サイズ調整を抑制 */
     html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
 
     body{
@@ -62,13 +69,12 @@
     a:hover{ text-decoration:underline; }
 
     .wrap{
-      /* スマホの左右余白を少し増やす（48px→60px） */
-      width:min(var(--container), calc(100% - 60px));
+      width:min(var(--container), calc(100% - var(--gutter)));
       margin: 0 auto;
       padding: var(--space-5) 0;
     }
 
-    /* セクションの“空気”を一定にする */
+    /* セクション間隔 */
     section{ margin-top: calc(var(--space-5) + var(--space-2)); }
     section:first-child{ margin-top: 0; }
 
@@ -77,13 +83,13 @@
       letter-spacing: .22em;
       text-transform: uppercase;
       color: var(--muted);
-      font-weight: 600;
+      font-weight: 650;
     }
 
     .title{
       font-size: 20px;
       letter-spacing: .02em;
-      font-weight: 700;
+      font-weight: 750;
       margin: 0 0 var(--space-1) 0;
     }
 
@@ -97,45 +103,7 @@
       max-width: 56ch;
     }
 
-    /* 画像（グレー背景を完全撤去） */
-    .hero{
-      margin-top: var(--space-3);
-      background: none;
-    }
-    .hero img{
-      width:100%;
-      height:auto;
-      display:block;
-      background: none;       /* 重要：背後グレーを持たせない */
-      border-radius: 0;       /* 角丸不要 */
-      max-height: 55vh;       /* トップ内に収まりやすく */
-      object-fit: contain;    /* 切らない（作品欠け防止） */
-    }
-    .credit{
-      margin-top: var(--space-1);
-      text-align:right;
-      color: var(--muted);
-      font-size: 12px;
-      letter-spacing: .06em;
-    }
-
-    /* 3カラム（Services） */
-    .grid-3{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 48px;
-      align-items:start;
-    }
-
-    /* 2カラム（Statement + Exhibition） */
-    .grid-2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 72px;
-      align-items:start;
-    }
-
-    /* 本文のサイズは“必ず同一” */
+    /* 重要：本文は“必ず同一” */
     .body{
       font-size: var(--base-size);
       line-height: var(--base-line);
@@ -146,30 +114,85 @@
 
     .muted{ color: var(--muted); }
 
+    /* HERO：1スクリーン完結（Servicesへ“降りる”設計） */
+    .hero-section{
+      min-height: 100svh;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
+      padding-top: var(--space-5);
+      padding-bottom: var(--space-4);
+    }
+
+    /* HERO 画像：固定フレーム＋crop（周辺のグレーを“見せない”） */
+    .hero{
+      margin-top: var(--space-3);
+      flex: 1;
+      display:flex;
+      align-items:flex-start;
+    }
+
+    .hero-frame{
+      width:100%;
+      max-height: var(--hero-max-h);
+      aspect-ratio: var(--hero-aspect);
+      overflow:hidden;
+      border-radius: 2px;
+      background: transparent; /* グレー背景は不要 */
+    }
+
+    .hero-frame img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit: cover;       /* ここで余白（グレー）を切る */
+      object-position: 50% 45%;/* 少し上寄せ：文字が上にある作品で破綻しにくい */
+    }
+
+    .credit{
+      margin-top: var(--space-1);
+      text-align:right;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: .06em;
+    }
+
+    /* 2カラム（Services / Statement+Exhibition） */
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 48px;
+      align-items:start;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items:start;
+    }
+
     .service h3{
       margin: var(--space-2) 0 var(--space-1);
       font-size: 12px;
       letter-spacing: .22em;
       text-transform: uppercase;
       color: var(--fg);
-      font-weight: 700;
+      font-weight: 750;
     }
 
-    .service p{
-      margin: 0;
-      color: var(--fg);
-    }
+    .service p{ margin: 0; }
 
     .stack > * + *{ margin-top: var(--space-2); }
 
-    /* ボタン（Instagram） */
+    /* ボタン：丸みを弱める（思想整合） */
     .pill{
       display:inline-flex;
       align-items:center;
       gap: 10px;
       padding: 8px 14px;
       border: 1px solid var(--hair);
-      border-radius: 999px;
+      border-radius: 12px; /* ← 999pxやめる */
       color: var(--fg);
       font-size: 12px;
       letter-spacing: .08em;
@@ -177,7 +200,6 @@
       white-space: nowrap;
     }
 
-    /* Contact の2つを並べる */
     .contact-row{
       display:flex;
       flex-wrap:wrap;
@@ -185,14 +207,12 @@
       margin-top: var(--space-2);
     }
 
-    /* “線”の統一（存在感弱め） */
     .underline-soft{
       display:inline-block;
       padding-bottom: 2px;
       border-bottom: 1px solid rgba(0,0,0,.18);
     }
 
-    /* Exhibitionのリンクや日付も同じ扱いに揃える */
     .exhibit a.underline-soft:hover,
     .contact-row a.underline-soft:hover{
       border-bottom-color: rgba(0,0,0,.30);
@@ -200,17 +220,19 @@
 
     /* レスポンシブ */
     @media (max-width: 920px){
+      :root{
+        --gutter: 72px; /* スマホ左右余白：少し増やす（=左右36px） */
+        --hero-aspect: 4/3; /* スマホは縦に強く、1画面内で成立させる */
+        --hero-max-h: clamp(260px, 42svh, 360px);
+      }
+
       .grid-3{ grid-template-columns: 1fr; gap: 26px; }
       .grid-2{ grid-template-columns: 1fr; gap: 34px; }
 
-      /* ここはスマホの余白を“少しだけ”増やしたまま維持 */
-      .wrap{ width: min(var(--container), calc(100% - 60px)); }
-
-      section{ margin-top: calc(var(--space-5)); }
-
-      /* モバイルでは縦が詰まりすぎないよう少し緩める */
-      .hero img{
-        max-height: 46vh;
+      /* Heroの余白も詰めすぎない */
+      .hero-section{
+        padding-top: var(--space-4);
+        padding-bottom: var(--space-3);
       }
     }
   </style>
@@ -220,15 +242,19 @@
   <main class="wrap">
 
     <!-- HERO -->
-    <section>
+    <section class="hero-section" aria-label="Hero">
       <div class="title">natsshutou</div>
       <div class="sub">ナッシユウトウ</div>
       <div class="muted">Curator / Art Director | 現代美術</div>
       <p class="lead">作品と空間の関係を再構築する。</p>
 
       <div class="hero">
-        <img src="images/moriya.jpg" alt="Tsutomu Moriya work" />
-        <div class="credit">©Tsutomu Moriya</div>
+        <div style="width:100%;">
+          <div class="hero-frame">
+            <img src="images/moriya.jpg" alt="Tsutomu Moriya work" />
+          </div>
+          <div class="credit">©Tsutomu Moriya</div>
+        </div>
       </div>
     </section>
 
