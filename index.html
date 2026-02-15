@@ -13,8 +13,8 @@
       --muted:rgba(15,15,15,.72);
       --hair:rgba(0,0,0,.14);
 
-      /* PC幅：少し狭める（読みやすさ優先） */
-      --container: 860px;
+      /* PC幅：少し狭め */
+      --container: 880px;
 
       --space-1: 10px;
       --space-2: 18px;
@@ -22,7 +22,7 @@
       --space-4: 44px;
       --space-5: 72px;
 
-      /* 角ゴ寄り（丸み少なめ）を優先した安全フォールバック */
+      /* 角ゴ寄り（丸み少なめ）優先の安全フォールバック */
       --font-sans:
         ui-sans-serif, system-ui, -apple-system,
         "Hiragino Kaku Gothic ProN", "Hiragino Kaku Gothic Pro",
@@ -31,17 +31,14 @@
         "Helvetica Neue", Helvetica, Arial,
         sans-serif;
 
-      /* タイポの基準（ここで固定） */
+      /* タイポ基準（ここで固定） */
       --base-size: 14px;
       --base-line: 1.85;
       --base-track: .04em;
 
-      /* Hero（トップ画像）の高さ上限：ファーストビューを守る */
-      --hero-h: clamp(240px, 46vh, 420px);
-
-      /* 余白（PC/モバイルで別にする） */
-      --pad-pc: 56px;
-      --pad-sp: 22px;
+      /* HEROサイズ（ファーストビュー制御） */
+      --hero-maxh: 52vh;     /* PCで“上に収まりやすい”上限 */
+      --hero-maxh-sp: 38vh;  /* スマホはさらに低め */
     }
 
     *{ box-sizing:border-box; }
@@ -69,7 +66,7 @@
     a:hover{ text-decoration:underline; }
 
     .wrap{
-      width:min(var(--container), calc(100% - (var(--pad-pc) * 2)));
+      width:min(var(--container), calc(100% - 56px));
       margin: 0 auto;
       padding: var(--space-5) 0;
     }
@@ -103,36 +100,28 @@
       max-width: 56ch;
     }
 
-    /* 本文：どこでも“必ず同一” */
-    .body{
-      font-size: var(--base-size);
-      line-height: var(--base-line);
-      letter-spacing: var(--base-track);
-      color: var(--fg);
-      max-width: 62ch;
-    }
-
-    .muted{ color: var(--muted); }
-
-    /* 画像：高さをvhで抑えてトップに収める */
+    /* HERO：フレームで高さ上限＋トリミング（グレー面を見せない） */
     .hero{
       margin-top: var(--space-3);
     }
     .hero-frame{
-      height: var(--hero-h);
-      border-radius: 2px;
-      background: rgba(0,0,0,.04);
+      width: 100%;
+      /* 横長作品を“トップに収める”ための比率 */
+      aspect-ratio: 16 / 9;
+      max-height: var(--hero-maxh);
       overflow: hidden;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      border-radius: 2px;
+      background: transparent; /* グレー背景は不要 */
     }
     .hero-frame img{
-      width:100%;
-      height:100%;
-      object-fit: contain; /* 作品全体を見せる（切らない） */
-      display:block;
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;       /* 余白（グレー）を見せない */
+      object-position: 50% 45%;
+      background: transparent;
     }
+
     .credit{
       margin-top: var(--space-1);
       text-align:right;
@@ -141,7 +130,7 @@
       letter-spacing: .06em;
     }
 
-    /* 2カラム（Services / Statement+Exhibition） */
+    /* グリッド */
     .grid-3{
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -156,6 +145,17 @@
       align-items:start;
     }
 
+    /* 本文サイズは必ず同一 */
+    .body{
+      font-size: var(--base-size);
+      line-height: var(--base-line);
+      letter-spacing: var(--base-track);
+      color: var(--fg);
+      max-width: 62ch;
+    }
+
+    .muted{ color: var(--muted); }
+
     .service h3{
       margin: var(--space-2) 0 var(--space-1);
       font-size: 12px;
@@ -165,11 +165,10 @@
       font-weight: 700;
     }
 
-    .service p{ margin: 0; }
-
+    .service p{ margin: 0; color: var(--fg); }
     .stack > * + *{ margin-top: var(--space-2); }
 
-    /* ボタン（Instagram） */
+    /* pill */
     .pill{
       display:inline-flex;
       align-items:center;
@@ -184,7 +183,6 @@
       white-space: nowrap;
     }
 
-    /* Contact の2つを並べる */
     .contact-row{
       display:flex;
       flex-wrap:wrap;
@@ -192,7 +190,7 @@
       margin-top: var(--space-2);
     }
 
-    /* “線”の統一（存在感弱め） */
+    /* 下線：統一＆弱め */
     .underline-soft{
       display:inline-block;
       padding-bottom: 2px;
@@ -203,22 +201,24 @@
       border-bottom-color: rgba(0,0,0,.30);
     }
 
-    /* ===== Responsive ===== */
+    /* レスポンシブ：スマホは余白を増やす */
     @media (max-width: 920px){
-      /* スマホ：前より余白を増やしすぎない（読みやすさ優先） */
-      .wrap{
-        width: min(var(--container), calc(100% - (var(--pad-sp) * 2)));
-        padding: 56px 0;
-      }
-
-      /* スマホは“縦に伸びやすい”ので hero を少し低くする */
-      :root{
-        --hero-h: clamp(220px, 36vh, 320px);
-      }
-
       .grid-3{ grid-template-columns: 1fr; gap: 26px; }
       .grid-2{ grid-template-columns: 1fr; gap: 34px; }
-      section{ margin-top: 56px; }
+
+      /* スマホ左右余白を “少し増やす” */
+      .wrap{ width: min(var(--container), calc(100% - 64px)); }
+
+      section{ margin-top: calc(var(--space-5)); }
+
+      /* スマホのヒーローはさらにファーストビュー優先 */
+      .hero-frame{
+        aspect-ratio: 4 / 3;
+        max-height: var(--hero-maxh-sp);
+      }
+      .hero-frame img{
+        object-position: 50% 42%;
+      }
     }
   </style>
 </head>
@@ -234,7 +234,6 @@
       <p class="lead">作品と空間の関係を再構築する。</p>
 
       <div class="hero">
-        <!-- 画像パス：リポジトリに /images/moriya.jpg がある前提 -->
         <div class="hero-frame">
           <img src="images/moriya.jpg" alt="Tsutomu Moriya work" />
         </div>
@@ -283,15 +282,10 @@
           <div class="kicker">Exhibition</div>
           <div class="body">
             miape / みあれ（守矢努 個展）<br><br>
-
-            <!-- 日付に薄い下線（統一） -->
             <a class="underline-soft" href="#" target="_blank" rel="noopener">2026.2.21–2.28</a><br><br>
-
             cafe.the market maimai（2F Gallery）OKAYAMA<br>
             Curated by natsshutou<br><br>
-
             展示情報は Instagram にて更新しています。<br><br>
-
             <a class="pill" href="#" target="_blank" rel="noopener">
               作家 Instagram <span class="underline-soft">@tsutomu_moriya</span>
             </a>
