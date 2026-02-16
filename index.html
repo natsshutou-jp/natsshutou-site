@@ -6,220 +6,233 @@
   <title>natsshutou</title>
 
   <style>
-    :root{
-      --bg:#ffffff;
-      --text:#111111;
-      --muted:#666666;
-      --rule:#e8e8e8;
-      --max: 1040px;
-      --gutter: 56px;
-    }
+   /* ===== Base ===== */
+:root{
+  --bg: #f6f6f4;
+  --text: #1f1f1f;
+  --muted: #6a6a6a;
+  --rule: rgba(0,0,0,.10);
 
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      background:var(--bg);
-      color:var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
-      line-height:1.75;
-      letter-spacing: 0.01em;
-    }
+  --max: 1040px;
+  --pad: 64px;
 
-    a{
-      color:inherit;
-      text-decoration:none;
-    }
-    a:hover{
-      text-decoration:underline;
-      text-underline-offset: 0.18em;
-    }
+  --title: 28px;
+  --body: 14px;
+  --lh: 1.9;
+}
 
-    .wrap{
-      width:min(var(--max), calc(100% - 48px));
-      margin: 0 auto;
-      padding: 72px 0 96px;
-    }
+*{ box-sizing: border-box; }
+html,body{ height: 100%; }
+body{
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
+  letter-spacing: .02em;
+}
 
-    /* Header */
-    .site-title{
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      margin: 0 0 8px;
-    }
-    .site-sub{
-      font-size: 13px;
-      color: var(--muted);
-      margin: 0 0 10px;
-    }
-    .site-role{
-      font-size: 13px;
-      margin: 0 0 4px;
-      color:#1a1a1a;
-    }
-    .site-tagline{
-      font-size: 13px;
-      margin: 0;
-      color:#1a1a1a;
-    }
+a{ color: inherit; }
+a:hover{ opacity: .8; }
 
-    /* Artwork */
-    .artwork{
-      margin: 28px 0 56px;
-    }
-    .artwork-frame{
-      width: min(850px, 100%);       /* PC: 最大850 */
-      margin: 0 auto;
-    }
-    .artwork-media{
-      width: 100%;
-      height: 420px;                 /* ここでトリミングを制御 */
-      object-fit: cover;
-      object-position: center 85%;   /* 下部を優先して見せる（上を少し切る） */
-      display: block;
-      background: #f6f6f6;
-    }
-    .artwork-credit{
-      width: min(850px, 100%);
-      margin: 10px auto 0;
-      font-size: 12px;
-      color: var(--muted);
-      text-align: right;
-    }
+.page{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: var(--pad) 56px 84px;
+}
 
-    /* Sections */
-    .section{
-      margin-top: 44px;
-    }
-    .kicker{
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      color: var(--muted);
-      margin: 0 0 18px;
-      text-transform: uppercase;
-    }
-    .grid-3{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 44px;
-      align-items: start;
-    }
-    .service h3{
-      font-size: 12px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      margin: 0 0 10px;
-    }
-    .service p{
-      font-size: 13px;
-      margin: 0;
-      color:#1a1a1a;
-    }
+/* ===== Hero ===== */
+.hero{
+  padding-top: 8px;
+}
 
-    .grid-2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 72px;
-      align-items: start;
-      margin-top: 34px;
-    }
+.site-title{
+  margin: 0;
+  font-size: var(--title);
+  font-weight: 700;
+}
 
-    .block h3{
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      margin: 0 0 14px;
-      color: var(--muted);
-    }
-    .block p{
-      font-size: 13px;
-      margin: 0;
-      color:#1a1a1a;
-      white-space: normal;
-    }
+.site-kana{
+  margin: 10px 0 18px;
+  font-size: 12px;
+  color: var(--muted);
+}
 
-    .profile{
-      margin-top: 18px;
-      font-size: 13px;
-      color:#1a1a1a;
-    }
-    .profile .name{
-      margin-top: 16px;
-      font-weight: 600;
-    }
+.site-role{
+  margin: 0 0 6px;
+  font-size: 13px;
+  color: var(--text);
+}
 
-    .exhibition-title{
-      font-size: 14px;
-      font-weight: 600;
-      margin: 0 0 10px;
-    }
-    .exhibition-date{
-      display:inline-block;
-      font-size: 13px;
-      margin: 0 0 18px;
-      color:#1a1a1a;
-      text-decoration: none;       /* 日付の線を消す */
-      border: 0;
-    }
-    .exhibition-meta{
-      font-size: 13px;
-      margin: 0 0 18px;
-      color:#1a1a1a;
-    }
-    .exhibition-note{
-      font-size: 13px;
-      margin: 0 0 10px;
-      color:#1a1a1a;
-    }
-    .inline-link{
-      display:inline-block;
-      font-size: 13px;
-      color:#1a1a1a;
-      padding: 0;
-      border: 0;
-    }
+.site-tagline{
+  margin: 0 0 28px;
+  font-size: 13px;
+  color: var(--text);
+}
 
-    /* Contact (no boxes) */
-    .contact{
-      margin-top: 42px;
-      padding-top: 28px;
-      border-top: 1px solid var(--rule);
-    }
-    .contact-row{
-      display:flex;
-      gap: 44px;
-      flex-wrap: wrap;
-      align-items: baseline;
-      margin-bottom: 10px;
-    }
-    .contact-label{
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-right: 12px;
-    }
-    .contact-item{
-      font-size: 13px;
-      color:#1a1a1a;
-    }
-    .contact-note{
-      font-size: 13px;
-      color:#1a1a1a;
-      margin: 10px 0 0;
-    }
+/* ===== Artwork (PC: 800〜850px) ===== */
+.artwork{
+  margin: 0;
+  width: min(850px, 100%);          /* ★上限850 */
+  /* 800〜850に寄せたい：画面が広いときも850止まり */
+  /* 画面が狭い場合は100%に自然縮小 */
+}
 
-    /* Responsive */
-    @media (max-width: 900px){
-      .grid-3{ grid-template-columns: 1fr; gap: 22px; }
-      .grid-2{ grid-template-columns: 1fr; gap: 34px; }
-      .wrap{ width: calc(100% - 40px); padding: 56px 0 72px; }
-      .artwork-media{ height: 280px; }
-      .artwork-frame, .artwork-credit{ width: 100%; }
-    }
-  </style>
-</head>
+.artwork__img{
+  display: block;
+  width: 100%;
+  height: 420px;                   /* ★トリミング安定用に高さ固定 */
+  object-fit: cover;
+  object-position: center bottom;  /* ★下部を優先して見せる */
+  background: transparent;
+}
+
+.artwork__credit{
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+}
+
+/* ===== Sections ===== */
+.section{
+  margin-top: 72px;
+}
+
+.section-title{
+  margin: 0 0 22px;
+  font-size: 12px;
+  letter-spacing: .28em;
+  color: var(--muted);
+}
+
+/* ===== Services Grid ===== */
+.grid-3{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 44px;
+}
+
+.card-title{
+  margin: 0 0 10px;
+  font-size: 12px;
+  letter-spacing: .18em;
+  font-weight: 700;
+}
+
+.card-text{
+  margin: 0;
+  font-size: var(--body);
+  line-height: var(--lh);
+  color: var(--text);
+}
+
+/* ===== Split (Statement / Exhibition) ===== */
+.split{
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 72px;
+}
+
+.body{
+  margin: 0;
+  font-size: var(--body);
+  line-height: var(--lh);
+}
+
+.profile{
+  margin-top: 22px;
+}
+
+.profile__name{
+  margin: 0 0 6px;
+  font-size: var(--body);
+  font-weight: 600;
+}
+
+.profile__line{
+  margin: 0;
+  font-size: var(--body);
+  line-height: var(--lh);
+}
+
+/* ===== Exhibition ===== */
+.ex{ margin-top: 2px; }
+
+.ex__title{
+  margin: 0 0 14px;
+  font-size: var(--body);
+  font-weight: 600;
+}
+
+.ex__date{
+  margin: 0 0 18px;
+  font-size: var(--body);
+  text-decoration: none; /* ★日付下線を確実に消す */
+}
+
+.ex__place,
+.ex__credit,
+.ex__note{
+  margin: 0 0 10px;
+  font-size: var(--body);
+  line-height: var(--lh);
+}
+
+.ex__link{
+  margin: 10px 0 0;
+  font-size: var(--body);
+}
+
+.ex__link a{
+  text-decoration: none;            /* ★下線を消して洗練 */
+  border-bottom: 1px solid var(--rule); /* ★薄いガイドラインだけ */
+  padding-bottom: 2px;
+}
+
+/* ===== Contact ===== */
+.contact{
+  border-top: 1px solid var(--rule);
+  padding-top: 40px;
+}
+
+.contact-row{
+  display: flex;
+  gap: 56px;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+
+.contact-item{
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+}
+
+.contact-label{
+  font-size: 12px;
+  letter-spacing: .22em;
+  color: var(--muted);
+}
+
+.contact-value{
+  font-size: var(--body);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 2px;
+}
+
+.contact-note{
+  margin: 18px 0 0;
+  font-size: var(--body);
+  line-height: var(--lh);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 980px){
+  :root{ --pad: 48px; }
+  .page{ padding: var(--pad) 28px 72px; }
+
+  .grid-3{ grid-template-columns:
 
 <!doctype html>
 <html lang="ja">
