@@ -5,16 +5,19 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="color-scheme" content="light" />
   <title>natsshutou — Artist / Curator</title>
-  <meta name="description" content="natsshutou（大安晴美）— 作品と空間の関係を構造として見せる。アーティスト／キュレーター。展示記録、作品、思考。" />
+  <meta name="description" content="natsshutou — 作品と空間の関係を、かたちに。" />
 
   <style>
     /* =========================================================
        natsshutou HP — Single-file HTML (White Base)
-       Fixed:
-       - Hero image: /images/moriya.jpg
-       - Kicker removed (per decision A)
-       - Works: credit under image, OUTSIDE frame
-       - Contact: minimal, museum-level
+       Rules (user):
+       - Hero image fixed: /images/moriya.jpg
+       - Credit only: © Tsutomu Moriya (no extra info)
+       - OKAYAMA/JAPAN etc removed
+       - Name label: natsshutou only (no (大安晴美))
+       - About: outside text moved into body (section note minimized)
+       - TONE -> 余白が意味を持つ。
+       - White world view must remain
        ========================================================= */
 
     :root{
@@ -45,7 +48,7 @@
       --radius: 18px;
       --radius-2: 26px;
 
-      /* Hero focal point */
+      /* Hero focal point (tune here if needed) */
       --hero-pos-x: 50%;
       --hero-pos-y: 38%;
 
@@ -53,7 +56,6 @@
       --rule-gap: clamp(18px, 2.2vw, 26px);
 
       --ease: cubic-bezier(.2,.8,.2,1);
-      --dur: 420ms;
     }
 
     @media (max-width: 980px){
@@ -139,12 +141,16 @@
     }
 
     /* =========================
-       HERO (Text moved UP)
+       HERO (height balanced)
        ========================= */
     .hero{
-      /* was: var(--space-3) 0 var(--space-4);  -> tighten bottom */
-      padding: var(--space-3) 0 calc(var(--space-4) - 22px);
+      padding: var(--space-3) 0 calc(var(--space-4) - 26px);
     }
+    .heroWrap{
+      display: grid;
+      gap: 10px; /* allow credit OUTSIDE the card */
+    }
+
     .heroCard{
       border: 1px solid var(--line-2);
       border-radius: var(--radius-2);
@@ -152,17 +158,18 @@
       background: rgba(255,255,255,.62);
       box-shadow: 0 22px 70px var(--shadow);
     }
+
     .heroMedia{
       position: relative;
       aspect-ratio: 16 / 8;
-      min-height: 420px;
+      min-height: 360px; /* reduced to fit text */
       background: #e9eaee;
     }
     @media (max-width: 980px){
-      .heroMedia{ aspect-ratio: 16 / 10; min-height: 360px; }
+      .heroMedia{ aspect-ratio: 16 / 10; min-height: 320px; }
     }
     @media (max-width: 640px){
-      .heroMedia{ aspect-ratio: 4 / 5; min-height: 520px; }
+      .heroMedia{ aspect-ratio: 4 / 5; min-height: 460px; }
     }
     .heroMedia img{
       position: absolute;
@@ -181,65 +188,46 @@
       background: linear-gradient(180deg,
         rgba(251,251,252,.00) 0%,
         rgba(251,251,252,.06) 64%,
-        rgba(251,251,252,.20) 100%);
+        rgba(251,251,252,.18) 100%);
       pointer-events:none;
     }
 
-    /* Text block: move up by tightening top padding */
     .heroBody{
-      /* was: clamp(18px, 2.6vw, 30px) */
-      padding: clamp(14px, 2.2vw, 24px);
-      padding-top: clamp(10px, 1.6vw, 16px); /* move up */
-      padding-bottom: clamp(16px, 2.2vw, 24px);
+      padding: clamp(12px, 2vw, 22px);
+      padding-top: clamp(10px, 1.5vw, 14px);
+      padding-bottom: clamp(14px, 2vw, 22px);
     }
 
-    .heroTop{
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 18px;
-      align-items: start;
-    }
-    @media (max-width: 860px){
-      .heroTop{ grid-template-columns: 1fr; }
-    }
-
-    /* Kicker removed */
     h1{
-      margin: 0; /* was 10px 0 0 -> move up */
+      margin: 0;
       font-weight: 640;
       font-size: clamp(28px, 3.2vw, 44px);
-      line-height: 1.12; /* slightly tighter for fit */
+      line-height: 1.12;
       letter-spacing: .01em;
     }
+
     .lead{
-      margin: 12px 0 0; /* tighten */
+      margin: 12px 0 0;
       font-size: clamp(14px, 1.3vw, 16px);
-      line-height: 1.90;
+      line-height: 1.95;
       color: rgba(15,17,21,.74);
       max-width: 72ch;
     }
 
-    .heroMeta{
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      align-items: flex-end;
-      text-align: right;
-      padding-top: 2px;
-      color: var(--muted);
+    /* credit: OUTSIDE frame, and ONLY credit */
+    .heroCredit{
+      padding-left: 6px;
+      color: rgba(15,17,21,.58);
       font-size: 12px;
-      letter-spacing: .12em;
+      letter-spacing: .14em;
       text-transform: uppercase;
-    }
-    @media (max-width: 860px){
-      .heroMeta{ align-items: flex-start; text-align: left; }
     }
 
     .chips{
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-top: var(--space-1);
+      gap: 8px;
+      margin-top: 14px;
     }
     .chip{
       display: inline-flex;
@@ -262,6 +250,7 @@
     }
 
     section{ padding: var(--space-4) 0; }
+
     .sectionHead{
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -324,6 +313,7 @@
     @media (max-width: 900px){
       .aboutGrid{ grid-template-columns: 1fr; }
     }
+
     .aboutText{
       margin: 0;
       color: rgba(15,17,21,.76);
@@ -476,6 +466,7 @@
     @media (max-width: 780px){
       .exFacts{ justify-items: start; }
     }
+
     .exBody{
       padding: clamp(16px, 2.3vw, 22px);
       display: grid;
@@ -660,38 +651,32 @@
   <main id="top">
     <section class="hero">
       <div class="container">
-        <div class="heroCard">
-          <div class="heroMedia" aria-label="hero image">
-            <!-- Hero fixed (always) -->
-            <img src="/images/moriya.jpg" alt="Tsutomu Moriya artwork (hero)" />
-          </div>
-
-          <div class="heroBody">
-            <div class="heroTop">
-              <div>
-                <h1>作品と空間の関係を、かたちに。</h1>
-                <p class="lead">
-                  natsshutou（大安晴美）。作品を説明するのではなく、空間の中にどう置くかを設計します。
-                  言葉は最小限に。見え方と関係で伝えます。
-                </p>
-              </div>
-
-              <div class="heroMeta" aria-label="meta">
-                <div>Okayama / Japan</div>
-                <div>Artist & Curator</div>
-                <div style="color: rgba(15,17,21,.56); letter-spacing:.14em;">
-                  © Tsutomu Moriya
-                </div>
-              </div>
+        <div class="heroWrap">
+          <div class="heroCard">
+            <div class="heroMedia" aria-label="hero image">
+              <!-- Hero fixed (always) -->
+              <img src="/images/moriya.jpg" alt="Tsutomu Moriya artwork (hero)" />
             </div>
 
-            <div class="chips" aria-label="tags">
-              <span class="chip"><span class="dot"></span>exhibition design</span>
-              <span class="chip"><span class="dot"></span>spatial narrative</span>
-              <span class="chip"><span class="dot"></span>work / context</span>
-              <span class="chip"><span class="dot"></span>documentation</span>
+            <div class="heroBody">
+              <h1>作品と空間の関係を、かたちに。</h1>
+              <p class="lead">
+                natsshutou。
+                作品を単体で捉えずに、空間の中にどう見せるか、
+                インスタレーションとして提示します。
+              </p>
+
+              <div class="chips" aria-label="tags">
+                <span class="chip"><span class="dot"></span>exhibition design</span>
+                <span class="chip"><span class="dot"></span>spatial narrative</span>
+                <span class="chip"><span class="dot"></span>work / context</span>
+                <span class="chip"><span class="dot"></span>documentation</span>
+              </div>
             </div>
           </div>
+
+          <!-- Credit OUTSIDE the frame, and credit only -->
+          <div class="heroCredit">© Tsutomu Moriya</div>
         </div>
       </div>
     </section>
@@ -700,10 +685,8 @@
       <div class="container">
         <div class="sectionHead">
           <h2 class="sectionTitle">about</h2>
-          <p class="sectionNote">
-            アーティストと作品の背景を読み解き、本質を見出し言語化する。制作段階から関わり、作品展開のサポート。
-            緊張と緩和／余白と集中。
-          </p>
+          <!-- outside note minimized (content moved into body) -->
+          <p class="sectionNote"></p>
         </div>
 
         <div class="ruleRow" aria-hidden="true">
@@ -714,16 +697,18 @@
           <div class="panelInner">
             <div class="aboutGrid">
               <p class="aboutText">
+                アーティストと作品の背景を読み解き、本質を見出し言語化する。
+                制作段階から関わり、作品展開のサポートを行う。<br /><br />
                 私は<strong>構造思考型</strong>です。情報を並べるのではなく、関係を編む。
-                作品単体ではなく、<strong>作品と空間／文脈／鑑賞者</strong>の間に張る緊張として提示する。
-                <br /><br />
+                作品単体ではなく、<strong>作品と空間／文脈／鑑賞者</strong>の間に張る緊張として提示する。<br /><br />
                 そのために、言葉は最小限にし、サイトの構成そのものを「展示設計」に寄せます。
+                緊張と緩和／余白と集中。
               </p>
 
               <ul class="aboutList" aria-label="profile">
                 <li class="aboutItem">
                   <div class="aboutKey">name</div>
-                  <div class="aboutVal">大安晴美（natsshutou）</div>
+                  <div class="aboutVal">natsshutou</div>
                 </li>
                 <li class="aboutItem">
                   <div class="aboutKey">base</div>
@@ -735,7 +720,7 @@
                 </li>
                 <li class="aboutItem">
                   <div class="aboutKey">tone</div>
-                  <div class="aboutVal">シック、モダン、余白が意味を持つ。強度は保つが饒舌にしない。</div>
+                  <div class="aboutVal">余白が意味を持つ。</div>
                 </li>
               </ul>
             </div>
@@ -752,9 +737,7 @@
       <div class="container">
         <div class="sectionHead">
           <h2 class="sectionTitle">works</h2>
-          <p class="sectionNote">
-            作品は画像だけ。情報はその下に、展示ラベルとして置く。
-          </p>
+          <p class="sectionNote">作品の下に、クレジット（展示ラベル）を置く。</p>
         </div>
 
         <div class="ruleRow" aria-hidden="true">
@@ -969,9 +952,7 @@
       <div class="container">
         <div class="sectionHead">
           <h2 class="sectionTitle">contact</h2>
-          <p class="sectionNote">
-            ご相談・ご依頼について
-          </p>
+          <p class="sectionNote">ご相談・ご依頼について</p>
         </div>
 
         <div class="ruleRow" aria-hidden="true">
@@ -1022,7 +1003,7 @@
     <div class="container">
       <div class="footRow">
         <div>© <span id="year"></span> natsshutou</div>
-        <div style="color: rgba(15,17,21,.44);"> </div>
+        <div style="color: rgba(15,17,21,.44);">structure is the message</div>
       </div>
     </div>
   </footer>
@@ -1030,7 +1011,6 @@
   <script>
     (function(){
       document.getElementById('year').textContent = new Date().getFullYear();
-
       document.querySelectorAll('a[href^="#"]').forEach(a=>{
         a.addEventListener('click', (e)=>{
           const id = a.getAttribute('href');
