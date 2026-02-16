@@ -2,376 +2,359 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>natsshutou</title>
   <style>
     :root{
-      --bg:#fff;
-      --text:#111;
-      --muted:#666;
-      --rule:#e6e6e6;
-
-      /* 余白（品と静謐）：左右を大きめに、でも崩れない */
-      --pagePad: clamp(20px, 6vw, 120px);
-
-      /* 全体の本文幅（下の文章の左右余白を確保） */
-      --contentMax: 920px;
-
-      /* ヒーロー画像幅（PCで800〜850の中） */
-      --heroMax: 840px;
-
-      --h1: clamp(28px, 3.2vw, 44px);
-      --body: 15px;
-      --lh: 1.9;
-
-      --capsTrack: .22em;
-      --sectionGap: clamp(38px, 5.2vw, 78px);
+      --bg:#ffffff;
+      --text:#111111;
+      --muted:#6f6f6f;
+      --line:#e9e9e9;
+      --max: 980px;     /* テキスト全体の器（静けさ優先で広すぎない） */
+      --hero: 850px;    /* ヒーロー画像の最大幅（指示） */
+      --padX: 72px;     /* PCの左右余白（“品と静謐”の核） */
+      --padX-m: 22px;   /* SPの左右余白 */
     }
 
     *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    html, body{ height:100%; }
     body{
       margin:0;
-      background:var(--bg);   /* ← PC/スマホとも白 */
+      background:var(--bg);     /* ← ベースカラーは純白に固定 */
       color:var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
-      font-size:var(--body);
-      line-height:var(--lh);
-      letter-spacing:.02em;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans JP", Arial, sans-serif;
+      line-height:1.85;
+      letter-spacing:0.02em;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    a{ color:inherit; }
+    a{ color:inherit; text-decoration:none; }
+    a:hover{ text-decoration:underline; text-underline-offset:4px; }
 
-    /* ページ外枠：左右余白で“静謐”を作る */
     .page{
-      padding: clamp(28px, 5vw, 72px) var(--pagePad);
-    }
-
-    /* 本文の基準幅（画像下の文章群） */
-    .content{
-      width: min(var(--contentMax), 100%);
+      max-width: var(--max);
       margin: 0 auto;
+      padding: 64px var(--padX) 84px;
     }
 
-    header{
-      padding-top: 4px;
-    }
-
-    .title{
-      font-size:var(--h1);
+    /* ------- Header ------- */
+    .brand h1{
+      margin:0 0 8px;
+      font-size: 34px;
+      line-height:1.15;
+      letter-spacing:0.01em;
       font-weight: 700;
-      letter-spacing: .01em;
-      margin: 0 0 6px 0;
     }
-    .subtitle{
-      margin:0;
-      color:var(--muted);
+    .brand .jp{
+      margin: 0 0 10px;
+      color: var(--muted);
       font-size: 13px;
+      letter-spacing: 0.12em;
     }
-    .role{
-      margin: 10px 0 0 0;
-      font-size: 13px;
-      color: var(--text);
+    .brand .role{
+      margin: 0 0 6px;
+      font-size: 14px;
+      color: #1d1d1d;
     }
-    .tagline{
-      margin: 10px 0 0 0;
-      font-size: 13px;
-      color: var(--text);
+    .brand .tagline{
+      margin: 0 0 34px;
+      font-size: 14px;
+      color: #1d1d1d;
     }
 
-    /* ヒーロー（画像は別幅で“作品の沈黙”を作る） */
+    /* ------- Hero ------- */
     .hero{
-      margin-top: 34px;
+      margin: 0 auto 46px;
+      max-width: var(--hero);     /* ← PCでも中心に固定 */
+      text-align:center;
     }
-
-    .heroFigure{
-      width: min(var(--heroMax), 100%);
-      margin: 0 auto;         /* ← 左寄りを完全に殺す（中央固定） */
+    .hero figure{
+      margin:0;
     }
-
-    .heroImgWrap{
-      width: 100%;
-      /* 作品の横長を想定：見せたい“下側”を優先 */
-      aspect-ratio: 16 / 9;
-      background:#f6f6f6;      /* 読み込み遅延時の品のある下地 */
-      overflow:hidden;
-      border-radius: 0;
-    }
-
-    .heroImg{
-      width: 100%;
-      height: 100%;
+    .hero img{
       display:block;
-      object-fit: cover;
-      object-position: center bottom; /* ← 下部を見せる */
-      filter: none;
+      width:100%;
+      height:auto;
+      /* “上が少し切れても下を入れる”要望に対して、
+         画像自体をトリミングせず、見え方は自然に。 */
     }
-
     .credit{
-      width: min(var(--heroMax), 100%);
-      margin: 8px auto 0 auto;
-      text-align: right;
-      font-size: 12px;
+      margin-top: 10px;
+      text-align:right;
       color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.06em;
     }
 
-    /* セクション共通 */
-    section{
-      margin-top: var(--sectionGap);
+    /* ------- Sections (Text area with generous side space) ------- */
+    .content{
+      /* 画像より下の文章に “左右余白を多め” を確実にかける */
+      padding: 0 12px;
     }
 
-    .kicker{
-      font-size: 12px;
-      letter-spacing: var(--capsTrack);
+    .section-label{
+      margin: 0 0 10px;
       color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      margin: 0 0 18px 0;
     }
 
-    /* 3カラム（PC） */
-    .grid3{
+    /* Services (3 columns on desktop) */
+    .services{
+      margin-top: 8px;
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: clamp(18px, 3vw, 44px);
+      gap: 56px;
     }
-
-    .itemTitle{
-      margin: 0 0 10px 0;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: .04em;
+    .item h3{
+      margin:0 0 10px;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      font-weight: 600;
     }
-    .itemBody{
+    .item p{
       margin:0;
-      color: var(--text);
+      color:#1f1f1f;
       font-size: 13px;
     }
 
-    /* 2カラム（PC） */
-    .grid2{
+    /* Statement + Exhibition (2 columns on desktop) */
+    .split{
+      margin-top: 46px;
       display:grid;
-      grid-template-columns: 1.25fr 1fr;
-      gap: clamp(22px, 4vw, 70px);
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 70px;
       align-items:start;
     }
 
-    .blockTitle{
-      margin:0 0 12px 0;
-      font-size: 12px;
-      letter-spacing: var(--capsTrack);
+    .block h3{
+      margin:0 0 12px;
       color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
+      font-weight: 600;
     }
-
-    .statement p{
-      margin:0 0 16px 0;
+    .block p{
+      margin:0 0 18px;
       font-size: 13px;
+      color:#1f1f1f;
     }
-
-    .bio{
-      margin-top: 18px;
+    .profile{
+      margin-top: 26px;
       font-size: 13px;
+      color:#1f1f1f;
     }
-    .bio .name{
+    .profile .name{
       font-weight: 700;
-      margin: 0 0 6px 0;
+      margin-bottom: 8px;
     }
-    .bio .line{
-      margin: 0 0 4px 0;
-      color: var(--text);
+    .profile .line{
+      margin:0;
     }
 
-    .exhibition .exTitle{
+    .ex-title{
       font-weight: 700;
-      margin: 0 0 10px 0;
       font-size: 14px;
+      margin: 0 0 10px;
     }
-
-    .exhibition .date{
-      margin: 0 0 12px 0;
-      font-size: 13px;
-    }
-    /* スマホで日程だけ下線が出ていた件：ここで確実に殺す */
-    .exhibition .date a,
-    .exhibition .date{
-      text-decoration: none !important;
-      border-bottom: none !important;
-    }
-
-    .exhibition .place,
-    .exhibition .note{
-      margin: 0 0 8px 0;
-      font-size: 13px;
-      color: var(--text);
-    }
-
-    .exhibition .ig{
-      margin-top: 16px;
+    .ex-date{
+      margin: 0 0 18px;
+      font-weight: 600;
+      text-decoration: none;     /* ← 日付下線を確実に消す */
       display:inline-block;
+    }
+    .ex-meta{
+      margin:0 0 8px;
       font-size: 13px;
-      color: var(--text);
-      text-decoration: none;
-      border-bottom: 1px solid rgba(0,0,0,.22); /* 品のある“細い”線 */
-      padding-bottom: 2px;
+      color:#1f1f1f;
+    }
+    .ex-note{
+      margin: 16px 0 12px;
+      font-size: 13px;
+      color:#1f1f1f;
+    }
+    .handle{
+      display:inline-block;
+      margin-top: 4px;
+      font-size: 13px;
+      color:#1f1f1f;
     }
 
-    hr{
-      border: none;
-      border-top: 1px solid var(--rule);
-      margin: var(--sectionGap) 0 0 0;
+    /* Divider */
+    .divider{
+      margin: 52px 0 36px;
+      height:1px;
+      background: var(--line);
     }
 
-    /* CONTACT */
-    .contactRow{
+    /* Contact */
+    .contact{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap: clamp(18px, 3vw, 44px);
-      padding-top: 22px;
+      gap: 40px;
+      align-items:start;
     }
-    .label{
-      font-size: 12px;
-      letter-spacing: var(--capsTrack);
+    .contact h3{
+      margin:0 0 12px;
       color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      margin: 0 0 6px 0;
+      font-weight: 600;
     }
-    .value{
-      margin:0;
+    .contact .row{
+      display:flex;
+      gap: 18px;
+      align-items:baseline;
       font-size: 13px;
     }
-    .value a{
-      text-decoration: none;
-      border-bottom: 1px solid rgba(0,0,0,.22);
-      padding-bottom: 2px;
+    .contact .k{
+      color: var(--muted);
+      letter-spacing: 0.18em;
+      font-size: 12px;
+      text-transform: uppercase;
+      min-width: 70px;
     }
-    .contactNote{
-      margin: 14px 0 0 0;
+    .contact .v{
+      color:#1f1f1f;
+    }
+    .contact .note{
+      margin-top: 14px;
       font-size: 13px;
-      color: var(--text);
+      color:#1f1f1f;
+      max-width: 42ch;
     }
 
-    /* --------------- Responsive --------------- */
-    @media (max-width: 860px){
-      .grid3{
+    /* ------- Responsive ------- */
+    @media (max-width: 980px){
+      :root{ --padX: 48px; }
+      .services{ gap: 36px; }
+      .split{ gap: 44px; }
+    }
+
+    @media (max-width: 740px){
+      .page{
+        padding: 42px var(--padX-m) 64px;
+      }
+      .brand h1{ font-size: 30px; }
+      .hero{ margin-bottom: 36px; }
+      .content{ padding: 0; }
+
+      .services{
+        grid-template-columns: 1fr;
+        gap: 28px;
+        margin-top: 10px;
+      }
+
+      .split{
+        grid-template-columns: 1fr;
+        gap: 42px; /* ← SPで Statement と Exhibition の余白を増やす */
+        margin-top: 44px;
+      }
+
+      .profile{ margin-top: 22px; }
+
+      .divider{ margin: 44px 0 30px; }
+
+      .contact{
         grid-template-columns: 1fr;
         gap: 22px;
       }
-      .grid2{
-        grid-template-columns: 1fr;
-        gap: 28px;
-      }
 
-      /* スマホ：学歴→EXHIBITION間を増やす（ご要望） */
-      .exhibition{
-        margin-top: 18px;
-      }
-
-      .hero{
-        margin-top: 26px;
-      }
-      .heroImgWrap{
-        aspect-ratio: 4 / 3; /* スマホは少し縦にして見やすく */
-      }
-
-      .contactRow{
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* さらに狭い端末：余白は削りすぎない */
-    @media (max-width: 420px){
-      :root{
-        --pagePad: 18px;
-      }
+      /* SPでリンクの下線を基本出さない（うるささ排除） */
+      a:hover{ text-decoration:none; }
     }
   </style>
 </head>
 
 <body>
-  <div class="page">
-    <div class="content">
-      <header>
-        <h1 class="title">natsshutou</h1>
-        <p class="subtitle">ナツシュウトウ</p>
-        <p class="role">Curator / Art Director｜現代美術</p>
-        <p class="tagline">作品と空間の関係を再構築する。</p>
-      </header>
+  <main class="page">
+    <header class="brand">
+      <h1>natsshutou</h1>
+      <p class="jp">ナツシュウトウ</p>
+      <p class="role">Curator / Art Director｜現代美術</p>
+      <p class="tagline">作品と空間の関係を再構築する。</p>
+    </header>
 
-      <div class="hero">
-        <figure class="heroFigure">
-          <div class="heroImgWrap">
-            <img class="heroImg" src="images/moriya.jpg" alt="Artwork" />
-          </div>
-        </figure>
-        <div class="credit">©Tsutomu Moriya</div>
+    <section class="hero" aria-label="Hero image">
+      <figure>
+        <!-- 画像ファイル名：images/moriya.jpg -->
+        <img src="images/moriya.jpg" alt="Artwork" />
+        <figcaption class="credit">©Tsutomu Moriya</figcaption>
+      </figure>
+    </section>
+
+    <section class="content" aria-label="Main content">
+      <!-- SERVICES 見出しは削除（静謐優先） -->
+      <div class="services" aria-label="Services">
+        <div class="item">
+          <h3>Curation</h3>
+          <p>展示の「前提」をつくります。テーマ・作家・作品を選び、見せ方の構造を組み立てます。</p>
+        </div>
+        <div class="item">
+          <h3>Direction</h3>
+          <p>前提を「形」にします。空間・動線・視線の配置を設計します。</p>
+        </div>
+        <div class="item">
+          <h3>Writing</h3>
+          <p>制作意図や背景を整理します。鑑賞者に届く言葉へ翻訳します。</p>
+        </div>
       </div>
 
-      <section>
-        <!-- 「SERVICES」は削除。各行為がそのまま“実践”として立つ構成にしている -->
-        <div class="grid3">
-          <div class="item">
-            <h3 class="itemTitle">Curation</h3>
-            <p class="itemBody">展示の「前提」をつくります。テーマ・作家・作品を選び、見せ方の構造を組み立てます。</p>
-          </div>
-          <div class="item">
-            <h3 class="itemTitle">Direction</h3>
-            <p class="itemBody">前提を「形」にします。空間・動線・視線の配置を設計します。</p>
-          </div>
-          <div class="item">
-            <h3 class="itemTitle">Writing</h3>
-            <p class="itemBody">制作意図や背景を整理します。鑑賞者に届く言葉へ翻訳します。</p>
-          </div>
-        </div>
-      </section>
+      <div class="split" aria-label="Statement and Exhibition">
+        <div class="block" aria-label="Statement">
+          <h3>STATEMENT</h3>
+          <p>
+            展示は、答えではなく「問いを配置する装置」だと考えています。作家と作品の文脈を読み、
+            場の条件から逆算して、見るための構造を設計します。言葉で意味を固定せず、
+            鑑賞者が立ち止まる余白を残します。
+          </p>
 
-      <section>
-        <div class="grid2">
-          <div class="statement">
-            <h2 class="blockTitle">STATEMENT</h2>
-            <p>展示は、答えではなく「問いを配置する装置」だと考えています。作家と作品の文脈を読み、場の条件から逆算して、見るための構造を設計します。言葉で意味を固定せず、鑑賞者が立ち止まる余白を残します。</p>
-
-            <div class="bio">
-              <p class="name">大安晴美</p>
-              <p class="line">東京藝術大学 美術学部 絵画科油画専攻 卒業</p>
-              <p class="line">東京藝術大学大学院 油画・技法材料研究室 修了</p>
-            </div>
-          </div>
-
-          <div class="exhibition">
-            <h2 class="blockTitle">EXHIBITION</h2>
-            <p class="exTitle">miape / みあれ（守矢努 個展）</p>
-
-            <!-- 日程に下線が出ないようにテキストで保持（リンクにしない） -->
-            <p class="date">2026.2.21–2.28</p>
-
-            <p class="place">cafe.the market maimai（2F Gallery） OKAYAMA</p>
-            <p class="place">Curated by natsshutou</p>
-            <p class="note">展示情報は Instagram にて更新しています。</p>
-
-            <a class="ig" href="https://www.instagram.com/tsutomu_moriya/" target="_blank" rel="noopener noreferrer">@tsutomu_moriya</a>
-          </div>
-        </div>
-      </section>
-
-      <hr />
-
-      <section>
-        <h2 class="blockTitle">CONTACT</h2>
-
-        <div class="contactRow">
-          <div>
-            <p class="label">EMAIL</p>
-            <p class="value"><a href="mailto:natsshutou@gmail.com">natsshutou@gmail.com</a></p>
-          </div>
-          <div>
-            <p class="label">INSTAGRAM</p>
-            <p class="value"><a href="https://www.instagram.com/natsshutou/" target="_blank" rel="noopener noreferrer">@natsshutou</a></p>
+          <div class="profile" aria-label="Profile">
+            <div class="name">大安晴美</div>
+            <p class="line">東京藝術大学 美術学部 絵画科油画専攻 卒業</p>
+            <p class="line">東京藝術大学大学院 油画・技法材料研究室 修了</p>
           </div>
         </div>
 
-        <p class="contactNote">展示企画、空間構成、ステートメント制作など。規模や形態に応じてご相談ください。</p>
+        <div class="block" aria-label="Exhibition">
+          <h3>EXHIBITION</h3>
+          <div class="ex-title">miape / みあれ（守矢努 個展）</div>
+          <!-- 日付はリンクにしない＝下線を出さない -->
+          <div class="ex-date">2026.2.21–2.28</div>
+
+          <div class="ex-meta">cafe.the market maimai（2F Gallery） OKAYAMA</div>
+          <div class="ex-meta">Curated by natsshutou</div>
+
+          <div class="ex-note">展示情報は Instagram にて更新しています。</div>
+          <a class="handle" href="https://www.instagram.com/tsutomu_moriya/" target="_blank" rel="noopener noreferrer">@tsutomu_moriya</a>
+        </div>
+      </div>
+
+      <div class="divider" role="separator" aria-hidden="true"></div>
+
+      <section class="contact" aria-label="Contact">
+        <div>
+          <h3>CONTACT</h3>
+          <div class="row">
+            <div class="k">EMAIL</div>
+            <div class="v"><a href="mailto:natsshutou@gmail.com">natsshutou@gmail.com</a></div>
+          </div>
+        </div>
+
+        <div>
+          <h3> </h3>
+          <div class="row">
+            <div class="k">INSTAGRAM</div>
+            <div class="v"><a href="https://www.instagram.com/natsshutou/" target="_blank" rel="noopener noreferrer">@natsshutou</a></div>
+          </div>
+          <div class="note">展示企画、空間構成、ステートメント制作など。規模や形態に応じてご相談ください。</div>
+        </div>
       </section>
-    </div>
-  </div>
+    </section>
+  </main>
 </body>
 </html>
