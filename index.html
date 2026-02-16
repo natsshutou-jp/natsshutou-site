@@ -10,36 +10,30 @@
   <style>
     /* =========================================================
        natsshutou HP — Single-file HTML (White Base)
-       Rules:
-       - Hero fixed: /images/moriya.jpg
-       - Works: always add credit UNDER the work image
-       - Credit must be OUTSIDE the work frame
+       Fixed:
+       - Hero image: /images/moriya.jpg
+       - Kicker removed (per decision A)
+       - Works: credit under image, OUTSIDE frame
+       - Contact: minimal, museum-level
        ========================================================= */
 
     :root{
-      /* White world (must) */
       --bg: #fbfbfc;
       --bg-2: #f3f4f6;
 
-      /* Ink */
       --ink: #0f1115;
       --muted: rgba(15,17,21,.62);
       --faint: rgba(15,17,21,.36);
 
-      /* Lines */
       --line: rgba(15,17,21,.18);
       --line-2: rgba(15,17,21,.10);
 
-      /* Surfaces */
-      --panel: rgba(255,255,255,.72);
       --shadow: rgba(10,12,16,.10);
 
-      /* Type */
       --font: ui-sans-serif, system-ui, -apple-system, "SF Pro Display", "Hiragino Sans",
               "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 
-      /* Rhythm */
       --container: 1120px;
       --gutter: clamp(18px, 3.2vw, 34px);
       --space-0: clamp(10px, 1.2vw, 14px);
@@ -55,11 +49,9 @@
       --hero-pos-x: 50%;
       --hero-pos-y: 38%;
 
-      /* Rule */
       --rule-w: 1px;
       --rule-gap: clamp(18px, 2.2vw, 26px);
 
-      /* Motion */
       --ease: cubic-bezier(.2,.8,.2,1);
       --dur: 420ms;
     }
@@ -95,7 +87,6 @@
       margin-inline: auto;
     }
 
-    /* Header */
     header{
       position: sticky;
       top: 0;
@@ -147,8 +138,13 @@
       color: var(--ink);
     }
 
-    /* Hero */
-    .hero{ padding: var(--space-3) 0 var(--space-4); }
+    /* =========================
+       HERO (Text moved UP)
+       ========================= */
+    .hero{
+      /* was: var(--space-3) 0 var(--space-4);  -> tighten bottom */
+      padding: var(--space-3) 0 calc(var(--space-4) - 22px);
+    }
     .heroCard{
       border: 1px solid var(--line-2);
       border-radius: var(--radius-2);
@@ -178,8 +174,6 @@
       transform: scale(1.01);
       filter: contrast(1.02) saturate(.98) brightness(1.00);
     }
-    /* White-base: do NOT darken the hero.
-       If you need readability, we use a subtle white scrim. */
     .heroMedia::after{
       content:"";
       position:absolute;
@@ -191,7 +185,14 @@
       pointer-events:none;
     }
 
-    .heroBody{ padding: clamp(18px, 2.6vw, 30px); }
+    /* Text block: move up by tightening top padding */
+    .heroBody{
+      /* was: clamp(18px, 2.6vw, 30px) */
+      padding: clamp(14px, 2.2vw, 24px);
+      padding-top: clamp(10px, 1.6vw, 16px); /* move up */
+      padding-bottom: clamp(16px, 2.2vw, 24px);
+    }
+
     .heroTop{
       display: grid;
       grid-template-columns: 1fr auto;
@@ -201,33 +202,30 @@
     @media (max-width: 860px){
       .heroTop{ grid-template-columns: 1fr; }
     }
-    .kicker{
-      font-size: 12px;
-      color: var(--muted);
-      letter-spacing: .18em;
-      text-transform: uppercase;
-    }
+
+    /* Kicker removed */
     h1{
-      margin: 10px 0 0;
+      margin: 0; /* was 10px 0 0 -> move up */
       font-weight: 640;
       font-size: clamp(28px, 3.2vw, 44px);
-      line-height: 1.14;
-      letter-spacing: .02em;
+      line-height: 1.12; /* slightly tighter for fit */
+      letter-spacing: .01em;
     }
     .lead{
-      margin: 14px 0 0;
+      margin: 12px 0 0; /* tighten */
       font-size: clamp(14px, 1.3vw, 16px);
-      line-height: 1.95;
+      line-height: 1.90;
       color: rgba(15,17,21,.74);
       max-width: 72ch;
     }
+
     .heroMeta{
       display: flex;
       flex-direction: column;
       gap: 10px;
       align-items: flex-end;
       text-align: right;
-      padding-top: 4px;
+      padding-top: 2px;
       color: var(--muted);
       font-size: 12px;
       letter-spacing: .12em;
@@ -263,7 +261,6 @@
       background: rgba(15,17,21,.56);
     }
 
-    /* Sections */
     section{ padding: var(--space-4) 0; }
     .sectionHead{
       display: grid;
@@ -295,7 +292,6 @@
       .sectionNote{ justify-self: start; text-align: left; }
     }
 
-    /* Rule as meaning (not decoration) */
     .ruleRow{
       display: grid;
       grid-template-columns: 1fr;
@@ -310,7 +306,6 @@
       background: linear-gradient(90deg, transparent, rgba(15,17,21,.34), transparent);
     }
 
-    /* Panels */
     .panel{
       border: 1px solid var(--line-2);
       border-radius: var(--radius);
@@ -320,7 +315,6 @@
     }
     .panelInner{ padding: clamp(16px, 2.3vw, 26px); }
 
-    /* About */
     .aboutGrid{
       display: grid;
       grid-template-columns: 5fr 7fr;
@@ -368,7 +362,6 @@
       .aboutItem{ grid-template-columns: 1fr; }
     }
 
-    /* Works: frame + OUTSIDE credit (must) */
     .worksGrid{
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -383,10 +376,9 @@
 
     .workUnit{
       display: grid;
-      gap: 12px; /* gap between frame and outside credit */
+      gap: 12px;
     }
 
-    /* The frame (ONLY the image inside) */
     .workFrame{
       border-radius: var(--radius);
       border: 1px solid var(--line-2);
@@ -399,7 +391,6 @@
       transform: translateY(-2px);
       border-color: rgba(15,17,21,.24);
     }
-
     .workMedia{
       position: relative;
       aspect-ratio: 4 / 3;
@@ -414,11 +405,10 @@
       filter: saturate(.98) contrast(1.02);
     }
 
-    /* Credit OUTSIDE the frame (must) */
     .workCredit{
       display: grid;
       gap: 6px;
-      padding-left: 2px; /* tiny offset, like exhibition label */
+      padding-left: 2px;
     }
     .workCredit .title{
       margin: 0;
@@ -441,7 +431,6 @@
       line-height: 1.6;
     }
 
-    /* Exhibitions (evidence-first) */
     .exhibits{ display: grid; gap: var(--space-2); }
     .ex{
       border: 1px solid var(--line-2);
@@ -566,7 +555,6 @@
       text-transform: uppercase;
     }
 
-    /* Contact */
     .contactGrid{
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -634,7 +622,6 @@
       border-color: rgba(15,17,21,.30);
     }
 
-    /* Footer */
     footer{
       padding: var(--space-3) 0 var(--space-2);
       border-top: 1px solid var(--line-2);
@@ -648,21 +635,6 @@
       gap: 18px;
       align-items: center;
       flex-wrap: wrap;
-    }
-
-    /* Optional focal debug: add data-debug="on" to body */
-    body[data-debug="on"] .heroMedia::before{
-      content:"";
-      position:absolute;
-      left: var(--hero-pos-x);
-      top: var(--hero-pos-y);
-      width: 12px; height: 12px;
-      border-radius: 999px;
-      transform: translate(-50%, -50%);
-      background: rgba(15,17,21,.75);
-      box-shadow: 0 0 0 6px rgba(15,17,21,.10);
-      z-index: 5;
-      pointer-events: none;
     }
   </style>
 </head>
@@ -686,30 +658,30 @@
   </header>
 
   <main id="top">
-    <!-- HERO -->
     <section class="hero">
       <div class="container">
         <div class="heroCard">
           <div class="heroMedia" aria-label="hero image">
             <!-- Hero fixed (always) -->
-            <img src="/images/moriya.jpg" alt="natsshutou hero image" />
+            <img src="/images/moriya.jpg" alt="Tsutomu Moriya artwork (hero)" />
           </div>
 
           <div class="heroBody">
             <div class="heroTop">
               <div>
-                <div class="kicker">Structure / Tension / Quiet Force</div>
-                <h1>静けさの中に、<br />関係性の緊張を置く。</h1>
+                <h1>作品と空間の関係を、かたちに。</h1>
                 <p class="lead">
-                  natsshutou（大安晴美）。作品を「説明」ではなく「配置」で語る。装飾より、関係性と構造。
-                  地方（岡山）にも届く明瞭さを保ち、一流基準で強度を確保する。
+                  natsshutou（大安晴美）。作品を説明するのではなく、空間の中にどう置くかを設計します。
+                  言葉は最小限に。見え方と関係で伝えます。
                 </p>
               </div>
 
               <div class="heroMeta" aria-label="meta">
                 <div>Okayama / Japan</div>
                 <div>Artist & Curator</div>
-                <div style="color: rgba(15,17,21,.44); letter-spacing:.16em;">© natsshutou</div>
+                <div style="color: rgba(15,17,21,.56); letter-spacing:.14em;">
+                  © Tsutomu Moriya
+                </div>
               </div>
             </div>
 
@@ -724,13 +696,13 @@
       </div>
     </section>
 
-    <!-- ABOUT -->
     <section id="about">
       <div class="container">
         <div class="sectionHead">
           <h2 class="sectionTitle">about</h2>
           <p class="sectionNote">
-            白い世界観の中で、余白・線・階層を「規則」として固定する。強いがうるさくない、静かだが弱くない。
+            アーティストと作品の背景を読み解き、本質を見出し言語化する。制作段階から関わり、作品展開のサポート。
+            緊張と緩和／余白と集中。
           </p>
         </div>
 
@@ -742,7 +714,7 @@
           <div class="panelInner">
             <div class="aboutGrid">
               <p class="aboutText">
-                私は<strong>構造思考型</strong>です。情報を並べるのではなく、関係性を編む。
+                私は<strong>構造思考型</strong>です。情報を並べるのではなく、関係を編む。
                 作品単体ではなく、<strong>作品と空間／文脈／鑑賞者</strong>の間に張る緊張として提示する。
                 <br /><br />
                 そのために、言葉は最小限にし、サイトの構成そのものを「展示設計」に寄せます。
@@ -776,13 +748,12 @@
       </div>
     </section>
 
-    <!-- WORKS -->
     <section id="works">
       <div class="container">
         <div class="sectionHead">
           <h2 class="sectionTitle">works</h2>
           <p class="sectionNote">
-            作品は「フレーム」と「ラベル（クレジット）」に分離。クレジットは必ず枠外に置き、展示ラベルの読みを作る。
+            作品は画像だけ。情報はその下に、展示ラベルとして置く。
           </p>
         </div>
 
@@ -791,14 +762,12 @@
         </div>
 
         <div class="worksGrid" aria-label="works list">
-          <!-- Work 01 -->
           <div class="workUnit">
             <a class="workFrame" href="#" aria-label="work 01">
               <div class="workMedia">
                 <img src="assets/work-01.jpg" alt="Work 01" />
               </div>
             </a>
-            <!-- Credit (MUST: outside frame) -->
             <div class="workCredit" aria-label="credit 01">
               <p class="title">work 01</p>
               <p class="meta">2024 / Mixed Media / 600×450mm</p>
@@ -806,7 +775,6 @@
             </div>
           </div>
 
-          <!-- Work 02 -->
           <div class="workUnit">
             <a class="workFrame" href="#" aria-label="work 02">
               <div class="workMedia">
@@ -820,7 +788,6 @@
             </div>
           </div>
 
-          <!-- Work 03 -->
           <div class="workUnit">
             <a class="workFrame" href="#" aria-label="work 03">
               <div class="workMedia">
@@ -841,13 +808,12 @@
       </div>
     </section>
 
-    <!-- EXHIBITIONS -->
     <section id="exhibitions">
       <div class="container">
         <div class="sectionHead">
           <h2 class="sectionTitle">exhibitions</h2>
           <p class="sectionNote">
-            展示は「主張」より「証拠」。一次情報（PDF/公式ページ）と記録（写真/動画）を必ず紐づけ、検証可能にする。
+            展示は主張よりも、検証できる形で残す。一次情報と記録を並べる。
           </p>
         </div>
 
@@ -875,8 +841,7 @@
             <div class="exBody">
               <div>
                 <p class="exDesc">
-                  展示の核（1〜2文）だけを書く。鑑賞者に届く言葉で、しかし安くしない。
-                  それ以上は「証拠」に委譲する。
+                  展示の核（1〜2文）だけを書く。それ以上は「証拠」に委譲する。
                 </p>
 
                 <div class="ruleRow" aria-hidden="true" style="margin: var(--space-2) 0;">
@@ -1000,13 +965,12 @@
       </div>
     </section>
 
-    <!-- CONTACT -->
     <section id="contact">
       <div class="container">
         <div class="sectionHead">
           <h2 class="sectionTitle">contact</h2>
           <p class="sectionNote">
-            連絡導線は少なく強く。窓口を絞ることで、依頼の質も上がる。
+            ご相談・ご依頼について
           </p>
         </div>
 
@@ -1018,13 +982,14 @@
           <div class="contactCard">
             <div class="top">
               <div class="t">inquiry</div>
-              <div class="s">仕事依頼／展示相談</div>
+              <div class="s">お問い合わせ</div>
             </div>
             <div class="body">
-              ご依頼は、目的・会期・会場・予算感・役割範囲（キュレーション／ディレクション／制作）を簡潔に。
-              こちらから必要情報を返します。
+              展示や企画のご相談は、<br />
+              概要をお知らせください。<br /><br />
+              内容を拝見のうえ、<br />
+              あらためてご連絡いたします。
               <div class="contactLinks" aria-label="links">
-                <!-- 実アドレスへ差し替え -->
                 <a class="btn" href="mailto:hello@natsshutou.com">email</a>
                 <a class="btn" href="#" target="_blank" rel="noopener">instagram</a>
               </div>
@@ -1034,10 +999,10 @@
           <div class="contactCard">
             <div class="top">
               <div class="t">materials</div>
-              <div class="s">PDF / Portfolio</div>
+              <div class="s">資料</div>
             </div>
             <div class="body">
-              ポートフォリオは、作品説明よりも「展示実績の証拠」と「設計思想の要点」を優先して構成。
+              ポートフォリオ／資料は必要に応じて共有します。
               <div class="contactLinks">
                 <a class="btn" href="#" target="_blank" rel="noopener">portfolio pdf</a>
                 <a class="btn" href="#" target="_blank" rel="noopener">press kit</a>
@@ -1057,7 +1022,7 @@
     <div class="container">
       <div class="footRow">
         <div>© <span id="year"></span> natsshutou</div>
-        <div style="color: rgba(15,17,21,.44);">structure is the message</div>
+        <div style="color: rgba(15,17,21,.44);"> </div>
       </div>
     </div>
   </footer>
@@ -1066,7 +1031,6 @@
     (function(){
       document.getElementById('year').textContent = new Date().getFullYear();
 
-      // Smooth scroll (safe)
       document.querySelectorAll('a[href^="#"]').forEach(a=>{
         a.addEventListener('click', (e)=>{
           const id = a.getAttribute('href');
