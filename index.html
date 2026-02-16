@@ -18,6 +18,13 @@
       --hero: 920px;           /* hero + main grid baseline */
       --pad-x: 44px;
 
+      /* spacing */
+      --section-gap: 72px;
+      --rule-gap: 56px;
+
+      /* measure */
+      --measure: 60ch;         /* statement max line length */
+
       /* type */
       --font:
         ui-sans-serif, system-ui, -apple-system,
@@ -74,7 +81,7 @@
 
     .name{
       margin:0;
-      font-size: 34px;          /* slightly restrained */
+      font-size: 34px;
       line-height:1.08;
       letter-spacing:-.02em;
       font-weight:700;
@@ -106,11 +113,13 @@
       letter-spacing: var(--kicker-track);
       color: rgba(17,17,17,.78);
       font-weight:600;
-      text-transform: lowercase; /* rule: all headings treated the same */
+      text-transform: lowercase;
     }
 
     /* ---------------------------
-      hero
+      hero (make it intentional)
+      - cover removes "weak blank"
+      - object-position controls focal point
     --------------------------- */
     .hero{
       max-width: var(--hero);
@@ -119,19 +128,20 @@
 
     .hero-media{
       position:relative;
-      background:transparent;    /* no gray bands */
-      padding:0;
-      border:0;
       overflow:hidden;
+      border:0;
+      padding:0;
+      background: transparent;
+      /* shape = design decision */
+      aspect-ratio: 16 / 9;
     }
 
     .hero-media img{
       width:100%;
-      height:auto;
-      max-height: 62vh;          /* fit in first view */
-      object-fit: contain;       /* do not crop */
+      height:100%;
       display:block;
-      background:transparent;    /* ensure no fill */
+      object-fit: cover;              /* ★公開品質の要：余白を“意図”に変える */
+      object-position: 80% 45%;       /* ★左の空白を切り、情報の密度を上げる */
     }
 
     /* credit inside the hero block (bottom-right) */
@@ -145,25 +155,24 @@
       color: rgba(17,17,17,.55);
       text-align:right;
       pointer-events:none;
-      /* subtle white fade to avoid interfering with artwork edge */
-      background: linear-gradient(to top, rgba(255,255,255,.94), rgba(255,255,255,0));
+      background: linear-gradient(to top, rgba(255,255,255,.92), rgba(255,255,255,0));
       width: min(60%, 280px);
     }
 
     /* ---------------------------
-      sections spacing (quiet but deep)
+      sections spacing
     --------------------------- */
-    section{ margin-top: 72px; }
+    section{ margin-top: var(--section-gap); }
     section:first-of-type{ margin-top: 0; }
 
     .rule{
       height:1px;
       background: var(--hair);
-      margin: 52px 0;
+      margin: var(--rule-gap) 0;
     }
 
     /* ---------------------------
-      capabilities (gallery-like, still minimal)
+      capabilities (3-col)
     --------------------------- */
     .cap{
       max-width: var(--hero);
@@ -173,7 +182,7 @@
     .cap-grid{
       display:grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 44px;
+      gap: 56px;
       align-items:start;
       margin-top: 18px;
     }
@@ -187,8 +196,7 @@
     }
 
     /* ---------------------------
-      statement + exhibition (asymmetric, baseline aligns to hero edges)
-      - container width equals hero width, so right edge matches hero right edge
+      statement + exhibition
     --------------------------- */
     .main{
       max-width: var(--hero);
@@ -197,17 +205,18 @@
 
     .main-grid{
       display:grid;
-      grid-template-columns: minmax(0, 1fr) 280px; /* left wide, right narrow */
-      gap: 56px;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 64px;
       align-items:start;
       margin-top: 18px;
     }
 
     .statement p{
       margin:0;
-      color: rgba(17,17,17,.72);
+      color: rgba(17,17,17,.74);
       font-size: 13px;
-      line-height: 1.9;
+      line-height: 1.95;
+      max-width: var(--measure);     /* ★行長制限：説明文化を防ぐ */
     }
 
     .profile{
@@ -223,15 +232,16 @@
     }
 
     .exhibition{
-      justify-self:end;          /* align to right edge = hero right edge */
-      width: 280px;
+      justify-self:end;
+      width: 300px;
+      padding-left: 22px;            /* ★証拠として立てる */
+      border-left: 1px solid var(--hair);
     }
 
-    /* Exhibition: extremely restrained */
     .ex-title{
       margin:0 0 10px;
-      font-weight: 500;          /* modest */
-      color: rgba(17,17,17,.86);
+      font-weight: 600;              /* ★一段だけ強く */
+      color: rgba(17,17,17,.90);
       font-size: 13px;
       line-height: 1.75;
     }
@@ -243,14 +253,13 @@
     }
     .ex-line:last-of-type{ margin-bottom: 0; }
 
-    /* ensure no accidental underline anywhere in exhibition */
     .exhibition a, .exhibition a:visited, .exhibition a:hover{
       text-decoration:none !important;
       border:0 !important;
     }
 
     /* ---------------------------
-      contact (text only)
+      contact
     --------------------------- */
     .contact{
       max-width: var(--hero);
@@ -300,6 +309,7 @@
       :root{ --pad-x: 22px; }
       .wrap{ padding: 56px var(--pad-x) 80px; }
       .name{ font-size: 32px; }
+      .hero-media{ aspect-ratio: 3 / 2; }
     }
 
     @media (max-width: 860px){
@@ -311,6 +321,11 @@
       .exhibition{
         width: 100%;
         justify-self:start;
+        padding-left: 0;
+        border-left: 0;
+        padding-top: 6px;
+        border-top: 1px solid var(--hair);   /* ★モバイルは上罫で分離 */
+        margin-top: 6px;
       }
       .contact-grid{ grid-template-columns: 1fr; gap: 22px; }
       .field{ grid-template-columns: 78px 1fr; }
@@ -422,3 +437,5 @@
   </main>
 </body>
 </html>
+
+
