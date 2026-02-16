@@ -4,375 +4,367 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>natsshutou</title>
+  <meta name="description" content="natsshutou | Curator / Art Director | 現代美術" />
 
   <style>
-    /* ===== Base ===== */
     :root{
-      --bg: #f6f6f4;
-      --text: #1f1f1f;
-      --muted: #6a6a6a;
-      --rule: rgba(0,0,0,.10);
+      /* Brand tone: clean, gallery-like */
+      --bg: #ffffff;           /* ← ベースは白に統一（静謐・清潔感） */
+      --text: #111111;
+      --muted: #6f6f6f;
+      --hairline: rgba(0,0,0,.10);
 
-      /* “余白で格”を作る：外枠は広め */
-      --frame-max: 1200px;
-      --frame-pad-y: 72px;
-      --frame-pad-x: 64px;
+      --container: 1160px;
+      --contentPadX: 88px;     /* ← 画像より下の余白（左右）を多めに */
+      --contentPadX_sp: 22px;
 
-      /* 画像下（本文）の幅を敢えて細くして静謐に */
-      --content-max: 860px;
-
-      /* Type */
-      --title: 28px;
-      --body: 14px;
-      --lh: 1.9;
+      --heroMax: 840px;        /* ← 800〜850帯のセンター */
+      --heroRadius: 0px;       /* 角丸不要なら0のまま */
     }
 
-    *{ box-sizing: border-box; }
-    html,body{ height: 100%; }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
-      margin: 0;
+      margin:0;
       background: var(--bg);
       color: var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Kaku Gothic ProN",
-        "Hiragino Sans", "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans JP",
+                   "Hiragino Kaku Gothic ProN", "Yu Gothic", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.9;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    a.link{
+      border-bottom: 1px solid rgba(0,0,0,.25);
+      padding-bottom: 2px;
+    }
+    a.link:hover{ border-bottom-color: rgba(0,0,0,.45); }
+
+    /* Layout */
+    .wrap{
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 64px var(--contentPadX) 84px;
+    }
+
+    /* Header */
+    .brand{
+      margin-bottom: 22px;
+    }
+    .brand h1{
+      margin:0;
+      font-size: 22px;
+      font-weight: 650;
+      letter-spacing: .01em;
+    }
+    .brand .jp{
+      margin-top: 6px;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: .04em;
+    }
+    .brand .role{
+      margin-top: 14px;
+      font-size: 13px;
+      color: #2b2b2b;
+      letter-spacing: .02em;
+    }
+    .brand .tagline{
+      margin-top: 6px;
+      font-size: 13px;
+      color: #2b2b2b;
       letter-spacing: .02em;
     }
 
-    a{ color: inherit; }
-    a:hover{ opacity: .82; }
-
-    /* 外枠（全体） */
-    .frame{
-      max-width: var(--frame-max);
-      margin: 0 auto;
-      padding: var(--frame-pad-y) var(--frame-pad-x) 96px;
-    }
-
-    /* 画像下（本文）の“誌面幅” */
-    .content{
-      max-width: var(--content-max);
-      margin: 0 auto;
-    }
-
-    /* ===== Hero ===== */
+    /* Hero */
     .hero{
-      /* ヘッダーは少し左に寄せて緊張感を残す */
-      max-width: var(--content-max);
-      margin: 0 auto;
+      margin-top: 26px;
+      margin-bottom: 58px;
+      display: flex;
+      justify-content: center; /* ← PCでも中央配置 */
     }
-
-    .site-title{
-      margin: 0;
-      font-size: var(--title);
-      font-weight: 700;
-    }
-
-    .site-kana{
-      margin: 10px 0 18px;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .site-role{
-      margin: 0 0 6px;
-      font-size: 13px;
-    }
-
-    .site-tagline{
-      margin: 0 0 30px;
-      font-size: 13px;
-    }
-
-    /* ===== Artwork (PC: natsshutouに相応しい“静かな存在感”) ===== */
-    .artwork-wrap{
-      /* 作品は本文より少し広くして“主役”にする */
-      max-width: 980px;
-      margin: 0 auto;
-    }
-
-    .artwork{
-      margin: 0;
-      width: min(840px, 100%);     /* ★指定：横幅は上限840（希望レンジ800〜850内） */
-    }
-
-    .artwork__img{
-      display: block;
+    .hero figure{
+      margin:0;
       width: 100%;
-      height: 460px;              /* ★品のある比率：横長すぎず、情報量も残す */
+      max-width: var(--heroMax); /* ← 800〜850帯 */
+    }
+    .hero .media{
+      width: 100%;
+      aspect-ratio: 16 / 9; /* 作品の「余白」を保ちながら品よく見せる */
+      background: #ffffff;
+      overflow: hidden;
+      border-radius: var(--heroRadius);
+      border: 1px solid rgba(0,0,0,.06); /* ほぼ見えない、作品を締めるため */
+    }
+    .hero img{
+      width: 100%;
+      height: 100%;
+      display: block;
       object-fit: cover;
-      object-position: center bottom; /* ★下部を入れる（上は少し切れてOK） */
-      background: transparent;
+      /* 下部を優先して見せる（上は少し切れてOKの条件） */
+      object-position: 50% 78%;
     }
-
-    .artwork__credit{
-      margin-top: 12px;
+    .hero figcaption{
+      margin-top: 10px;
       font-size: 12px;
       color: var(--muted);
-      text-align: right;
+      text-align: right; /* キャプションは右寄せが品よく収まる */
+      letter-spacing: .02em;
     }
 
-    /* ===== Sections ===== */
-    .section{
-      margin-top: 84px;
-    }
-
+    /* Section headings */
     .section-title{
-      margin: 0 0 22px;
+      margin: 0 0 18px 0;
       font-size: 12px;
-      letter-spacing: .28em;
+      letter-spacing: .26em;
+      text-transform: uppercase;
       color: var(--muted);
     }
 
-    /* ===== Services ===== */
-    .grid-3{
+    /* SERVICES */
+    .services{
+      margin-top: 8px;
+      margin-bottom: 56px;
+    }
+    .service-grid{
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 52px;
-    }
-
-    .card-title{
-      margin: 0 0 10px;
-      font-size: 12px;
-      letter-spacing: .18em;
-      font-weight: 700;
-    }
-
-    .card-text{
-      margin: 0;
-      font-size: var(--body);
-      line-height: var(--lh);
-    }
-
-    /* ===== Split (Statement / Exhibition) ===== */
-    .split{
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 80px;
+      gap: 54px;
       align-items: start;
     }
-
-    .body{
-      margin: 0;
-      font-size: var(--body);
-      line-height: var(--lh);
-    }
-
-    .profile{
-      margin-top: 22px;
-    }
-    .profile__name{
-      margin: 0 0 6px;
-      font-size: var(--body);
-      font-weight: 600;
-    }
-    .profile__line{
-      margin: 0;
-      font-size: var(--body);
-      line-height: var(--lh);
-    }
-
-    /* Exhibition */
-    .ex{ margin-top: 2px; }
-
-    .ex__title{
-      margin: 0 0 14px;
-      font-size: var(--body);
-      font-weight: 600;
-    }
-
-    .ex__date{
-      margin: 0 0 18px;
-      font-size: var(--body);
-      text-decoration: none; /* ★日付下線なし */
-    }
-
-    .ex__place,
-    .ex__credit,
-    .ex__note{
-      margin: 0 0 10px;
-      font-size: var(--body);
-      line-height: var(--lh);
-    }
-
-    .ex__link{
-      margin: 12px 0 0;
-      font-size: var(--body);
-    }
-
-    .ex__link a{
-      text-decoration: none;
-      border-bottom: 1px solid var(--rule); /* 薄いガイドラインのみ */
-      padding-bottom: 2px;
-    }
-
-    /* ===== Contact ===== */
-    .contact{
-      border-top: 1px solid var(--rule);
-      padding-top: 44px;
-    }
-
-    .contact-row{
-      display: flex;
-      gap: 64px;
-      flex-wrap: wrap;
-      align-items: baseline;
-    }
-
-    .contact-item{
-      display: flex;
-      gap: 14px;
-      align-items: baseline;
-    }
-
-    .contact-label{
+    .card h3{
+      margin:0 0 10px 0;
       font-size: 12px;
-      letter-spacing: .22em;
+      letter-spacing: .26em;
+      text-transform: uppercase;
+      font-weight: 650;
+    }
+    .card p{
+      margin:0;
+      font-size: 13px;
+      color: #1f1f1f;
+    }
+
+    /* STATEMENT + EXHIBITION */
+    .two-col{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 72px;                 /* ← 余白を増やして静謐に */
+      padding-top: 6px;
+      padding-bottom: 38px;      /* ← statement と exhibition の塊を落ち着かせる */
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .block h3{
+      margin:0 0 14px 0;
+      font-size: 12px;
+      letter-spacing: .26em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .statement p{
+      margin:0 0 18px 0;
+      font-size: 13px;
+      color: #1f1f1f;
+    }
+    .profile{
+      margin-top: 18px;
+      font-size: 13px;
+      color:#1f1f1f;
+    }
+    .profile strong{
+      font-weight: 650;
+    }
+
+    .exhibition .title{
+      font-size: 13px;
+      font-weight: 650;
+      margin: 0 0 12px 0;
+    }
+    .exhibition .date{
+      margin: 0 0 14px 0;
+      font-size: 13px;
+      font-weight: 650;
+      /* 下線は削除（要望） */
+      text-decoration: none;
+      border: none;
+      display: inline-block;
+    }
+    .exhibition .meta{
+      margin: 0 0 14px 0;
+      font-size: 13px;
+      color:#1f1f1f;
+    }
+    .exhibition .meta .muted{
       color: var(--muted);
     }
-
-    .contact-value{
-      font-size: var(--body);
-      text-decoration: none;
-      border-bottom: 1px solid var(--rule);
-      padding-bottom: 2px;
+    .exhibition .note{
+      margin: 0 0 10px 0;
+      font-size: 13px;
+      color:#1f1f1f;
     }
 
-    .contact-note{
-      margin: 18px 0 0;
-      font-size: var(--body);
-      line-height: var(--lh);
+    /* Contact */
+    .contact{
+      margin-top: 34px;
+    }
+    .contact-row{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+      margin-top: 10px;
+      margin-bottom: 12px;
+    }
+    .contact-item{
+      font-size: 13px;
+      color:#1f1f1f;
+    }
+    .contact-label{
+      display:inline-block;
+      font-size: 12px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-right: 12px;
+    }
+    .contact-desc{
+      margin: 10px 0 0 0;
+      font-size: 13px;
+      color:#1f1f1f;
+      max-width: 70ch;
     }
 
-    /* ===== Responsive ===== */
-    @media (max-width: 1080px){
-      :root{
-        --frame-pad-x: 36px;
-        --frame-pad-y: 56px;
-        --content-max: 820px;
-      }
-      .grid-3{ gap: 36px; }
-      .split{ gap: 56px; }
-      .artwork__img{ height: 420px; }
-    }
-
+    /* Responsive */
     @media (max-width: 980px){
-      .grid-3{
-        grid-template-columns: 1fr;
-        gap: 26px;
-      }
-      .split{
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-      .artwork__img{ height: 320px; }
+      :root{ --contentPadX: 44px; }
+      .service-grid{ gap: 36px; }
+      .two-col{ gap: 44px; }
     }
 
-    @media (max-width: 520px){
-      :root{
-        --frame-pad-x: 20px;
-        --frame-pad-y: 44px;
+    @media (max-width: 760px){
+      .wrap{
+        padding: 46px var(--contentPadX_sp) 64px;
       }
-      .site-title{ font-size: 26px; }
-      .artwork__img{ height: 260px; }
-      .contact-row{ gap: 22px; }
+      .hero{
+        margin-bottom: 46px;
+      }
+      .service-grid{
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      .two-col{
+        grid-template-columns: 1fr;
+        gap: 28px; /* ← statement と exhibition の余白を増やす要望に対応 */
+        padding-bottom: 30px;
+      }
+      .contact-row{
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <main class="frame">
-    <header class="hero" id="top">
-      <h1 class="site-title">natsshutou</h1>
-      <p class="site-kana">ナッシュウトウ</p>
-      <p class="site-role">Curator / Art Director｜現代美術</p>
-      <p class="site-tagline">作品と空間の関係を再構築する。</p>
+  <main class="wrap">
+
+    <header class="brand">
+      <h1>natsshutou</h1>
+      <div class="jp">ナッシュウトウ</div>
+      <div class="role">Curator / Art Director｜現代美術</div>
+      <div class="tagline">作品と空間の関係を再構築する。</div>
     </header>
 
-    <!-- 作品は“主役”なので本文より少し広い帯に置く -->
-    <div class="artwork-wrap">
-      <figure class="artwork">
-        <!-- ★画像パス固定：images/moriya.jpg -->
-        <img src="images/moriya.jpg" alt="Artwork" class="artwork__img" />
-        <figcaption class="artwork__credit">©Tsutomu Moriya</figcaption>
+    <!-- HERO -->
+    <section class="hero" aria-label="Hero artwork">
+      <figure>
+        <div class="media">
+          <!-- 画像ファイル名を明記：/images/moriya.jpg -->
+          <img src="images/moriya.jpg" alt="Artwork" />
+        </div>
+        <figcaption>©Tsutomu Moriya</figcaption>
       </figure>
-    </div>
+    </section>
 
-    <!-- 画像より下は“誌面幅”を細くして、左右余白で静謐さを出す -->
-    <div class="content">
-      <section class="section" aria-label="Services">
-        <h2 class="section-title">SERVICES</h2>
-
-        <div class="grid-3">
-          <div class="card">
-            <h3 class="card-title">CURATION</h3>
-            <p class="card-text">展示の「前提」をつくります。テーマ・作家・作品を選び、見せ方の構造を組み立てます。</p>
-          </div>
-
-          <div class="card">
-            <h3 class="card-title">DIRECTION</h3>
-            <p class="card-text">前提を「形」にします。空間・動線・視線の配置を設計します。</p>
-          </div>
-
-          <div class="card">
-            <h3 class="card-title">WRITING</h3>
-            <p class="card-text">制作意図や背景を整理します。鑑賞者に届く言葉へ翻訳します。</p>
-          </div>
+    <!-- SERVICES -->
+    <section class="services" aria-label="Services">
+      <h2 class="section-title">Services</h2>
+      <div class="service-grid">
+        <div class="card">
+          <h3>Curation</h3>
+          <p>展示の「前提」をつくります。テーマ・作家・作品を選び、見せ方の構造を組み立てます。</p>
         </div>
-      </section>
-
-      <section class="section split" aria-label="Statement and Exhibition">
-        <div>
-          <h2 class="section-title">STATEMENT</h2>
-          <p class="body">
-            展示は、答えではなく「問いを配置する装置」だと考えています。作家と作品の文脈を読み、場の条件から逆算して、見るための構造を設計します。言葉で意味を固定せず、鑑賞者が立ち止まる余白を残します。
-          </p>
-
-          <div class="profile">
-            <p class="profile__name">大安晴美</p>
-            <p class="profile__line">東京藝術大学 美術学部 絵画科油画専攻 卒業</p>
-            <p class="profile__line">東京藝術大学大学院 油画・技法材料研究室 修了</p>
-          </div>
+        <div class="card">
+          <h3>Direction</h3>
+          <p>前提を「形」にします。空間・動線・視線の配置を設計します。</p>
         </div>
-
-        <div>
-          <h2 class="section-title">EXHIBITION</h2>
-
-          <div class="ex">
-            <p class="ex__title">miape / みあれ（守矢努 個展）</p>
-            <p class="ex__date">2026.2.21–2.28</p>
-
-            <p class="ex__place">cafe.the market maimai（2F Gallery） OKAYAMA</p>
-            <p class="ex__credit">Curated by natsshutou</p>
-
-            <p class="ex__note">展示情報は Instagram にて更新しています。</p>
-
-            <p class="ex__link">
-              <a href="https://www.instagram.com/tsutomu_moriya/" target="_blank" rel="noopener noreferrer">
-                @tsutomu_moriya
-              </a>
-            </p>
-          </div>
+        <div class="card">
+          <h3>Writing</h3>
+          <p>制作意図や背景を整理します。鑑賞者に届く言葉へ翻訳します。</p>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="section contact" aria-label="Contact">
-        <h2 class="section-title">CONTACT</h2>
+    <!-- STATEMENT + EXHIBITION -->
+    <section class="two-col" aria-label="Statement and Exhibition">
+      <div class="block statement">
+        <h3>Statement</h3>
+        <!-- 二つに分けず、1ブロックに統合（要望） -->
+        <p>
+          展示は、答えではなく「問いを配置する装置」だと考えています。作家と作品の文脈を読み、場の条件から逆算して、見るための構造を設計します。言葉で意味を固定せず、鑑賞者が立ち止まる余白を残します。
+        </p>
 
-        <div class="contact-row">
-          <div class="contact-item">
-            <span class="contact-label">EMAIL</span>
-            <a class="contact-value" href="mailto:natsshutou@gmail.com">natsshutou@gmail.com</a>
-          </div>
+        <div class="profile">
+          <strong>大安晴美</strong><br />
+          東京藝術大学 美術学部 絵画科油画専攻 卒業<br />
+          東京藝術大学大学院 油画・技法材料研究室 修了
+        </div>
+      </div>
 
-          <div class="contact-item">
-            <span class="contact-label">INSTAGRAM</span>
-            <a class="contact-value" href="https://www.instagram.com/natsshutou/" target="_blank" rel="noopener noreferrer">@natsshutou</a>
-          </div>
+      <div class="block exhibition">
+        <h3>Exhibition</h3>
+        <div class="title">miape / みあれ（守矢努 個展）</div>
+        <!-- 下線なし（要望） -->
+        <div class="date">2026.2.21–2.28</div>
+
+        <div class="meta">
+          cafe.the market maimai（2F Gallery） OKAYAMA<br />
+          <span class="muted">Curated by</span> natsshutou
         </div>
 
-        <p class="contact-note">展示企画、空間構成、ステートメント制作など。規模や形態に応じてご相談ください。</p>
-      </section>
-    </div>
+        <p class="note">展示情報は Instagram にて更新しています。</p>
+        <a class="link" href="https://www.instagram.com/tsutomu_moriya/" target="_blank" rel="noopener noreferrer">
+          @tsutomu_moriya
+        </a>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" aria-label="Contact">
+      <h2 class="section-title">Contact</h2>
+
+      <!-- 四角で囲わず、静かに「行」で見せる（洗練） -->
+      <div class="contact-row">
+        <div class="contact-item">
+          <span class="contact-label">Email</span>
+          <a class="link" href="mailto:natsshutou@gmail.com">natsshutou@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">Instagram</span>
+          <a class="link" href="https://www.instagram.com/natsshutou/" target="_blank" rel="noopener noreferrer">@natsshutou</a>
+        </div>
+      </div>
+
+      <p class="contact-desc">
+        展示企画、空間構成、ステートメント制作など。規模や形態に応じてご相談ください。
+      </p>
+    </section>
+
   </main>
 </body>
 </html>
