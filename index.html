@@ -2,430 +2,1113 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="natsshutou | Curator / Art Director | Contemporary Art" />
-  <title>natsshutou</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark light" />
+  <title>natsshutou — Artist / Curator</title>
+  <meta name="description" content="natsshutou（大安晴美）— 作品と空間の関係を構造として見せる。アーティスト／キュレーター。展示記録、作品、思考。" />
 
   <style>
+    /* =========================================================
+       natsshutou HP — Single-file HTML
+       Version: v0.9 (public-quality base)
+       ========================================================= */
+
     :root{
-      --bg:#ffffff;
-      --fg:#111111;
-      --muted:rgba(17,17,17,.62);
-      --hair:rgba(0,0,0,.10);
+      /* Palette */
+      --bg: #0b0c0f;
+      --bg-2: #0f1117;
+      --ink: #e9ebf0;
+      --muted: rgba(233,235,240,.68);
+      --faint: rgba(233,235,240,.34);
+      --line: rgba(233,235,240,.18);
+      --line-2: rgba(233,235,240,.10);
+      --chip: rgba(233,235,240,.08);
+      --shadow: rgba(0,0,0,.55);
 
-      /* layout */
-      --wrap: 1120px;          /* page max */
-      --hero: 920px;           /* hero + baseline */
-      --pad-x: 44px;
+      /* Type */
+      --font: ui-sans-serif, system-ui, -apple-system, "SF Pro Display", "Hiragino Sans",
+              "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 
-      /* type */
-      --font:
-        ui-sans-serif, system-ui, -apple-system,
-        "Hiragino Kaku Gothic ProN","Hiragino Kaku Gothic Pro",
-        "Yu Gothic","Yu Gothic UI","Meiryo",
-        "Noto Sans JP",
-        "Helvetica Neue", Helvetica, Arial,
-        sans-serif;
+      /* Rhythm — tension is made by repeatable rules */
+      --container: 1100px;
+      --gutter: clamp(18px, 3.2vw, 34px);
+      --space-0: clamp(10px, 1.2vw, 14px);
+      --space-1: clamp(16px, 2vw, 22px);
+      --space-2: clamp(26px, 3.2vw, 38px);
+      --space-3: clamp(44px, 5vw, 68px);
+      --space-4: clamp(72px, 7vw, 112px);
 
-      --base: 14px;
-      --line: 1.85;
-      --track: .01em;
+      --radius: 18px;
+      --radius-2: 26px;
 
-      /* headings */
-      --kicker-size: 12px;
-      --kicker-track: .22em;
+      /* Hero focal point (PC default) */
+      --hero-pos-x: 50%;
+      --hero-pos-y: 38%;
+
+      /* Rule behavior */
+      --rule-w: 1px;
+      --rule-gap: clamp(18px, 2.2vw, 26px);
+
+      /* Micro */
+      --ease: cubic-bezier(.2,.8,.2,1);
+      --dur: 500ms;
     }
 
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+    /* Tablet */
+    @media (max-width: 980px){
+      :root{
+        --hero-pos-x: 50%;
+        --hero-pos-y: 35%;
+      }
+    }
+    /* Mobile */
+    @media (max-width: 640px){
+      :root{
+        --hero-pos-x: 52%;
+        --hero-pos-y: 30%;
+      }
+    }
 
+    *{ box-sizing: border-box; }
+    html, body{ height: 100%; }
     body{
-      margin:0;
-      background:var(--bg);
-      color:var(--fg);
-      font-family:var(--font);
-      font-size:var(--base);
-      line-height:var(--line);
-      letter-spacing:var(--track);
-      font-weight:400;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      text-rendering:optimizeLegibility;
-      font-synthesis:none;
+      margin: 0;
+      font-family: var(--font);
+      background: radial-gradient(1200px 700px at 50% -10%, rgba(233,235,240,.09), transparent 60%),
+                  linear-gradient(180deg, var(--bg), var(--bg-2) 60%, var(--bg));
+      color: var(--ink);
+      letter-spacing: .01em;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a{ color: inherit; text-decoration: none; }
+    a:hover{ opacity: .92; }
+    ::selection{ background: rgba(233,235,240,.14); }
+
+    /* Layout */
+    .container{
+      width: min(var(--container), 100% - (var(--gutter) * 2));
+      margin-inline: auto;
+    }
+    .grid{
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--space-2);
     }
 
-    a{ color:inherit; text-decoration:none; }
-    a:hover{ opacity:.78; }
-
-    .wrap{
-      max-width: var(--wrap);
-      margin: 0 auto;
-      padding: 72px var(--pad-x) 96px;
-    }
-
-    /* header */
+    /* Global header */
     header{
-      max-width: var(--hero);
-      margin: 0 auto;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(10px);
+      background: rgba(11,12,15,.66);
+      border-bottom: 1px solid var(--line-2);
+    }
+    .nav{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+    }
+    .brand{
+      display: flex;
+      gap: 12px;
+      align-items: baseline;
+    }
+    .brand .name{
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: lowercase;
+    }
+    .brand .role{
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .navlinks{
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      font-size: 13px;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .navlinks a{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+    .navlinks a:hover{
+      border-color: var(--line);
+      background: rgba(233,235,240,.04);
+      color: var(--ink);
     }
 
-    .name{
-      margin:0;
-      font-size: 34px;
-      line-height:1.08;
-      letter-spacing:-.02em;
-      font-weight:700;
+    /* Hero */
+    .hero{
+      padding: var(--space-3) 0 var(--space-4);
     }
-    .kana{
-      margin: 10px 0 0;
+    .heroCard{
+      border: 1px solid var(--line-2);
+      border-radius: var(--radius-2);
+      overflow: hidden;
+      background: rgba(255,255,255,.02);
+      box-shadow: 0 30px 90px var(--shadow);
+    }
+    .heroMedia{
+      position: relative;
+      aspect-ratio: 16 / 8;
+      min-height: 420px;
+      background: #0a0b0e;
+    }
+    @media (max-width: 980px){
+      .heroMedia{ aspect-ratio: 16 / 10; min-height: 360px; }
+    }
+    @media (max-width: 640px){
+      .heroMedia{ aspect-ratio: 4 / 5; min-height: 520px; }
+    }
+    .heroMedia img{
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: var(--hero-pos-x) var(--hero-pos-y);
+      transform: scale(1.02);
+      filter: contrast(1.02) saturate(.95) brightness(.96);
+    }
+    .heroMedia::after{
+      content:"";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+        rgba(11,12,15,.20) 0%,
+        rgba(11,12,15,.55) 62%,
+        rgba(11,12,15,.86) 100%);
+      pointer-events: none;
+    }
+
+    .heroBody{
+      padding: clamp(18px, 2.6vw, 30px);
+    }
+    .heroTop{
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: start;
+    }
+    .kicker{
       font-size: 12px;
-      letter-spacing:.14em;
-      color:var(--muted);
+      color: var(--muted);
+      letter-spacing: .18em;
+      text-transform: uppercase;
     }
-    .role{
+    h1{
       margin: 10px 0 0;
-      font-size: 13px;
-      color:var(--muted);
+      font-weight: 560;
+      font-size: clamp(28px, 3.2vw, 44px);
+      line-height: 1.14;
+      letter-spacing: .02em;
     }
     .lead{
-      margin: 16px 0 0;
-      font-size: 14px;
-      color: rgba(17,17,17,.72);
-      max-width: 52ch;
+      margin: 14px 0 0;
+      font-size: clamp(14px, 1.3vw, 16px);
+      line-height: 1.9;
+      color: rgba(233,235,240,.80);
+      max-width: 70ch;
     }
-
-    /* unified headings (lowercase) */
-    .kicker{
-      margin:0 0 14px;
-      font-size: var(--kicker-size);
-      letter-spacing: var(--kicker-track);
-      color: rgba(17,17,17,.78);
-      font-weight:600;
-      text-transform: lowercase;
+    .heroMeta{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-end;
+      text-align: right;
+      padding-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: .10em;
+      text-transform: uppercase;
     }
-
-    /* hero */
-    .hero{
-      max-width: var(--hero);
-      margin: 36px auto 0;
+    .chips{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: var(--space-1);
     }
-
-    .hero-media{
-      position:relative;
-      background:transparent;
-      padding:0;
-      border:0;
-      overflow:hidden;
-    }
-
-    .hero-media img{
-      width:100%;
-      height:auto;
-      max-height: 62vh;
-      object-fit: contain;
-      display:block;
-      background:transparent;
-    }
-
-    .credit{
-      position:absolute;
-      right: 0;
-      bottom: 0;
-      padding: 10px 0 6px;
-      font-size: 11px;
+    .chip{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line-2);
+      background: rgba(233,235,240,.03);
+      color: rgba(233,235,240,.78);
+      font-size: 12px;
       letter-spacing: .08em;
-      color: rgba(17,17,17,.55);
-      text-align:right;
-      pointer-events:none;
-      background: linear-gradient(to top, rgba(255,255,255,.94), rgba(255,255,255,0));
-      width: min(60%, 280px);
+      text-transform: uppercase;
+    }
+    .dot{
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(233,235,240,.55);
     }
 
-    /* section spacing */
-    section{ margin-top: 72px; }
-    section:first-of-type{ margin-top: 0; }
-
-    .rule{
-      height:1px;
-      background: var(--hair);
-      margin: 52px 0;
+    /* Sections */
+    section{
+      padding: var(--space-4) 0;
     }
-
-    /* ---------------------------
-      statement (make it stronger without shouting)
-    --------------------------- */
-    .statement-wrap{
-      max-width: var(--hero);
-      margin: 0 auto;
-    }
-
-    .statement-block{
-      margin-top: 18px;
-      max-width: 66ch;
-    }
-
-    .statement-core{
-      margin: 0 0 14px;
-      font-size: 14px;
-      line-height: 1.65;                 /* slightly tighter */
-      color: rgba(17,17,17,.88);         /* slightly denser */
-      letter-spacing: .005em;
-    }
-
-    .statement-body{
-      margin:0;
-      color: rgba(17,17,17,.72);
-      font-size: 13px;
-      line-height: 1.9;
-    }
-
-    .profile{
-      margin-top: 22px;
-      color: rgba(17,17,17,.72);
-      font-size: 13px;
-      line-height: 1.9;
-    }
-    .profile .who{
-      color: rgba(17,17,17,.92);
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    /* ---------------------------
-      capabilities
-    --------------------------- */
-    .cap{
-      max-width: var(--hero);
-      margin: 0 auto;
-    }
-
-    .cap-grid{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 44px;
-      align-items:start;
-      margin-top: 18px;
-    }
-
-    .cap-item .kicker{ margin-bottom: 10px; }
-    .cap-item p{
-      margin:0;
-      color: rgba(17,17,17,.70);
-      font-size: 13px;
-      line-height: 1.85;
-    }
-
-    /* ---------------------------
-      exhibition (information, very restrained, right aligned on PC)
-    --------------------------- */
-    .ex-wrap{
-      max-width: var(--hero);
-      margin: 0 auto;
-      display:flex;
-      justify-content:flex-end;   /* push to hero right edge */
-    }
-
-    .exhibition{
-      width: 280px;
-    }
-
-    .ex-title{
-      margin:0 0 10px;
-      font-weight: 500;
-      color: rgba(17,17,17,.86);
-      font-size: 13px;
-      line-height: 1.75;
-    }
-    .ex-line{
-      margin: 0 0 10px;
-      color: rgba(17,17,17,.72);
-      font-size: 13px;
-      line-height: 1.75;
-    }
-    .ex-line:last-of-type{ margin-bottom: 0; }
-
-    .exhibition a, .exhibition a:visited, .exhibition a:hover{
-      text-decoration:none !important;
-      border:0 !important;
-    }
-
-    /* contact */
-    .contact{
-      max-width: var(--hero);
-      margin: 0 auto;
-    }
-
-    .contact-grid{
-      display:grid;
+    .sectionHead{
+      display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 56px;
-      margin-top: 18px;
-      align-items:start;
+      gap: var(--space-2);
+      align-items: end;
+      margin-bottom: var(--space-2);
+    }
+    @media (max-width: 900px){
+      .sectionHead{ grid-template-columns: 1fr; }
+    }
+    .sectionTitle{
+      margin: 0;
+      font-size: 15px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(233,235,240,.86);
+    }
+    .sectionNote{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 14px;
+      max-width: 70ch;
+      justify-self: end;
+      text-align: right;
+    }
+    @media (max-width: 900px){
+      .sectionNote{ justify-self: start; text-align: left; }
     }
 
-    .field{
-      display:grid;
-      grid-template-columns: 90px 1fr;
-      gap: 18px;
-      align-items:baseline;
-      margin: 0 0 14px;
+    /* Rule as structure */
+    .ruleRow{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--rule-gap);
+      margin: var(--space-2) 0;
     }
-    .label{
-      font-size: var(--kicker-size);
-      letter-spacing: var(--kicker-track);
-      color: rgba(17,17,17,.78);
-      font-weight: 600;
-      text-transform: lowercase;
+    .rule{
+      height: var(--rule-w);
+      background: linear-gradient(90deg, transparent, var(--line), transparent);
     }
-    .value{
-      font-size: 13px;
-      color: rgba(17,17,17,.72);
-      word-break: break-word;
+    .rule--hard{
+      background: linear-gradient(90deg, transparent, rgba(233,235,240,.32), transparent);
     }
 
-    .note{
-      margin-top: 12px;
-      font-size: 13px;
-      color: rgba(17,17,17,.62);
-      line-height: 1.85;
-      max-width: 56ch;
+    /* Cards */
+    .panel{
+      border: 1px solid var(--line-2);
+      border-radius: var(--radius);
+      background: rgba(233,235,240,.02);
+      overflow: hidden;
+    }
+    .panelInner{
+      padding: clamp(16px, 2.3vw, 26px);
     }
 
-    /* responsive */
+    /* About */
+    .aboutGrid{
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: var(--space-2);
+      align-items: start;
+    }
+    @media (max-width: 900px){
+      .aboutGrid{ grid-template-columns: 1fr; }
+    }
+    .aboutText{
+      margin: 0;
+      color: rgba(233,235,240,.82);
+      line-height: 2.0;
+      font-size: 15px;
+    }
+    .aboutText strong{
+      font-weight: 650;
+      color: rgba(233,235,240,.92);
+    }
+    .aboutList{
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .aboutItem{
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line-2);
+    }
+    .aboutItem:last-child{ border-bottom: 0; }
+    .aboutKey{
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .aboutVal{
+      color: rgba(233,235,240,.86);
+      line-height: 1.9;
+      font-size: 14px;
+    }
+    @media (max-width: 520px){
+      .aboutItem{ grid-template-columns: 1fr; }
+    }
+
+    /* Works */
+    .worksGrid{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-2);
+    }
     @media (max-width: 980px){
-      :root{ --pad-x: 22px; }
-      .wrap{ padding: 56px var(--pad-x) 80px; }
-      .name{ font-size: 32px; }
+      .worksGrid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px){
+      .worksGrid{ grid-template-columns: 1fr; }
+    }
+    .work{
+      border-radius: var(--radius);
+      border: 1px solid var(--line-2);
+      background: rgba(233,235,240,.02);
+      overflow: hidden;
+      transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+      min-height: 280px;
+      display: grid;
+      grid-template-rows: 180px 1fr;
+    }
+    .work:hover{
+      transform: translateY(-2px);
+      border-color: var(--line);
+    }
+    .workMedia{
+      position: relative;
+      background: rgba(233,235,240,.03);
+    }
+    .workMedia img{
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(.92) contrast(1.02);
+    }
+    .workBody{
+      padding: 16px 16px 18px;
+    }
+    .workTitle{
+      margin: 0;
+      font-size: 14px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(233,235,240,.90);
+    }
+    .workDesc{
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.85;
+    }
+    .workMeta{
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      color: rgba(233,235,240,.70);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .pill{
+      border: 1px solid var(--line-2);
+      background: rgba(233,235,240,.03);
+      border-radius: 999px;
+      padding: 7px 10px;
     }
 
-    @media (max-width: 860px){
-      .cap-grid{ grid-template-columns: 1fr; gap: 26px; }
-      .ex-wrap{ justify-content:flex-start; }
-      .exhibition{ width: 100%; }
-      .contact-grid{ grid-template-columns: 1fr; gap: 22px; }
-      .field{ grid-template-columns: 78px 1fr; }
-      section{ margin-top: 64px; }
-      .rule{ margin: 44px 0; }
-      .credit{
-        width: min(72%, 320px);
-        padding: 10px 0 6px;
-      }
-      .statement-block{ max-width: none; }
+    /* Exhibitions (Evidence-first) */
+    .exhibits{
+      display: grid;
+      gap: var(--space-2);
+    }
+    .ex{
+      border: 1px solid var(--line-2);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: rgba(233,235,240,.02);
+    }
+    .exTop{
+      padding: clamp(16px, 2.3vw, 22px);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: start;
+      border-bottom: 1px solid var(--line-2);
+    }
+    @media (max-width: 780px){
+      .exTop{ grid-template-columns: 1fr; }
+    }
+    .exTitle{
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: .10em;
+      color: rgba(233,235,240,.92);
+      line-height: 1.5;
+    }
+    .exSub{
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.9;
+      max-width: 78ch;
+    }
+    .exFacts{
+      display: grid;
+      gap: 8px;
+      justify-items: end;
+      color: rgba(233,235,240,.72);
+      font-size: 12px;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+    }
+    @media (max-width: 780px){
+      .exFacts{ justify-items: start; }
+    }
+    .exBody{
+      padding: clamp(16px, 2.3vw, 22px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2);
+    }
+    @media (max-width: 900px){
+      .exBody{ grid-template-columns: 1fr; }
+    }
+    .evidence{
+      border: 1px solid var(--line-2);
+      border-radius: 16px;
+      background: rgba(233,235,240,.02);
+      overflow: hidden;
+    }
+    .evidenceHead{
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line-2);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+    }
+    .evidenceHead .label{
+      font-size: 12px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(233,235,240,.82);
+    }
+    .evidenceHead .hint{
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .08em;
+    }
+    .evidenceList{
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .evidenceList li{
+      border-bottom: 1px solid var(--line-2);
+    }
+    .evidenceList li:last-child{ border-bottom: 0; }
+    .evLink{
+      display: grid;
+      grid-template-columns: 28px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 16px;
+      color: rgba(233,235,240,.84);
+    }
+    .evLink:hover{
+      background: rgba(233,235,240,.03);
+    }
+    .evIcon{
+      width: 28px; height: 28px;
+      border-radius: 999px;
+      border: 1px solid var(--line-2);
+      display: grid;
+      place-items: center;
+      color: rgba(233,235,240,.72);
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+    .evText{
+      display: grid;
+      gap: 4px;
+    }
+    .evTitle{
+      font-size: 13px;
+      letter-spacing: .06em;
+    }
+    .evNote{
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .evMeta{
+      font-size: 11px;
+      color: rgba(233,235,240,.62);
+      letter-spacing: .10em;
+      text-transform: uppercase;
+    }
+
+    .exDesc{
+      padding: 0;
+      margin: 0;
+      color: rgba(233,235,240,.82);
+      line-height: 2.0;
+      font-size: 14px;
+    }
+
+    /* Contact */
+    .contactGrid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2);
+    }
+    @media (max-width: 900px){
+      .contactGrid{ grid-template-columns: 1fr; }
+    }
+    .contactCard{
+      border: 1px solid var(--line-2);
+      border-radius: var(--radius);
+      background: rgba(233,235,240,.02);
+      overflow: hidden;
+    }
+    .contactCard .top{
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line-2);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: baseline;
+    }
+    .contactCard .top .t{
+      font-size: 12px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(233,235,240,.84);
+    }
+    .contactCard .top .s{
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .08em;
+    }
+    .contactCard .body{
+      padding: 18px;
+      color: rgba(233,235,240,.82);
+      line-height: 1.95;
+      font-size: 14px;
+    }
+    .contactLinks{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(233,235,240,.03);
+      color: rgba(233,235,240,.86);
+      font-size: 12px;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      transition: transform 220ms var(--ease), background 220ms var(--ease), border-color 220ms var(--ease);
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(233,235,240,.05);
+      border-color: rgba(233,235,240,.26);
+    }
+
+    /* Footer */
+    footer{
+      padding: var(--space-3) 0 var(--space-2);
+      border-top: 1px solid var(--line-2);
+      color: rgba(233,235,240,.58);
+      font-size: 12px;
+      letter-spacing: .08em;
+    }
+    .footRow{
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    /* Accessibility helper */
+    .sr-only{
+      position:absolute!important;
+      width:1px;height:1px;
+      padding:0;margin:-1px;
+      overflow:hidden;clip:rect(0,0,0,0);
+      white-space:nowrap;border:0;
+    }
+
+    /* Debug focal point overlay (toggle by adding data-debug="on" to body) */
+    body[data-debug="on"] .heroMedia::before{
+      content:"";
+      position:absolute;
+      left: var(--hero-pos-x);
+      top: var(--hero-pos-y);
+      width: 14px; height: 14px;
+      border-radius: 999px;
+      transform: translate(-50%, -50%);
+      background: rgba(233,235,240,.75);
+      box-shadow: 0 0 0 6px rgba(233,235,240,.18);
+      z-index: 5;
+      pointer-events: none;
     }
   </style>
 </head>
 
 <body>
-  <main class="wrap">
-
-    <header>
-      <h1 class="name">natsshutou</h1>
-      <div class="kana">ナッシュウトウ</div>
-      <div class="role">Curator / Art Director ｜ 現代美術</div>
-      <p class="lead">作品と空間の関係を再構築する。</p>
-    </header>
-
-    <section class="hero" aria-label="hero">
-      <div class="hero-media">
-        <!-- 画像名は必ず確認 -->
-        <img src="images/moriya.jpg" alt="Artwork by Tsutomu Moriya">
-        <div class="credit">©Tsutomu Moriya</div>
+  <header>
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="#top" aria-label="natsshutou home">
+          <div class="name">natsshutou</div>
+          <div class="role">artist / curator</div>
+        </a>
+        <nav class="navlinks" aria-label="site">
+          <a href="#about">about</a>
+          <a href="#works">works</a>
+          <a href="#exhibitions">exhibitions</a>
+          <a href="#contact">contact</a>
+        </nav>
       </div>
-    </section>
+    </div>
+  </header>
 
-    <!-- statement FIRST (strong structure) -->
-    <section class="statement-wrap" aria-label="statement">
-      <div class="kicker">statement</div>
-
-      <div class="statement-block">
-        <!-- core (2–3 lines) -->
-        <p class="statement-core">
-          展示は、答えではなく「問いを配置する装置」。<br>
-          作家と作品の文脈、そして場の条件から逆算し、<br>
-          “見るための構造”を設計します。
-        </p>
-
-        <!-- body -->
-        <p class="statement-body">
-          展示は、答えではなく「問いを配置する装置」だと考えています。作家と作品の文脈を読み、場の条件から逆算して、見るための構造を設計します。言葉で意味を固定せず、鑑賞者が立ち止まる余白を残します。
-        </p>
-
-        <div class="profile">
-          <div class="who">大安晴美</div>
-          東京藝術大学 美術学部 絵画科油画専攻 卒業<br>
-          東京藝術大学大学院 油画・技法材料研究室 修了
-        </div>
-      </div>
-    </section>
-
-    <div class="rule" aria-hidden="true"></div>
-
-    <!-- capabilities AFTER statement -->
-    <section class="cap" aria-label="capabilities">
-      <div class="cap-grid">
-        <div class="cap-item">
-          <div class="kicker">curation</div>
-          <p>展示の「前提」をつくります。テーマ・作家・作品を選び、見せ方の構造を組み立てます。</p>
-        </div>
-        <div class="cap-item">
-          <div class="kicker">direction</div>
-          <p>前提を「形」にします。空間・動線・視線の配置を設計します。</p>
-        </div>
-        <div class="cap-item">
-          <div class="kicker">writing</div>
-          <p>制作意図や背景を整理します。鑑賞者に届く言葉へ翻訳します。</p>
-        </div>
-      </div>
-    </section>
-
-    <div class="rule" aria-hidden="true"></div>
-
-    <!-- exhibition as quiet information -->
-    <section class="ex-wrap" aria-label="exhibition">
-      <aside class="exhibition">
-        <div class="kicker">exhibition</div>
-        <p class="ex-title">miape / みあれ（守矢努 個展）</p>
-        <p class="ex-line">2026.2.21–2.28</p>
-        <p class="ex-line">cafe.the market maimai（2F Gallery） OKAYAMA</p>
-        <p class="ex-line">Curated by natsshutou</p>
-        <p class="ex-line">展示情報は Instagram にて更新しています。</p>
-        <p class="ex-line">
-          <a href="https://www.instagram.com/tsutomu_moriya/" target="_blank" rel="noopener noreferrer">@tsutomu_moriya</a>
-        </p>
-      </aside>
-    </section>
-
-    <div class="rule" aria-hidden="true"></div>
-
-    <section class="contact" aria-label="contact">
-      <div class="contact-grid">
-        <div>
-          <div class="kicker">contact</div>
-
-          <div class="field">
-            <div class="label">email</div>
-            <div class="value">
-              <a href="mailto:natsshutou@gmail.com">natsshutou@gmail.com</a>
-            </div>
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <div class="heroCard">
+          <div class="heroMedia" aria-label="hero image">
+            <!-- ▼ここをあなたのヒーロー画像に差し替え（パス or URL） -->
+            <img src="assets/hero.jpg" alt="natsshutou hero image" />
           </div>
 
-          <div class="field">
-            <div class="label">instagram</div>
-            <div class="value">
-              <a href="https://www.instagram.com/natsshutou/" target="_blank" rel="noopener noreferrer">@natsshutou</a>
+          <div class="heroBody">
+            <div class="heroTop">
+              <div>
+                <div class="kicker">Structure / Tension / Quiet Force</div>
+                <h1>静けさの中に、<br />関係性の緊張を置く。</h1>
+                <p class="lead">
+                  natsshutou（大安晴美）。作品を「説明」ではなく「配置」で語る。装飾ではなく構造で見せる。
+                  地方（岡山）にも届く明瞭さを保ちながら、一流基準で強度を確保する。
+                </p>
+              </div>
+
+              <div class="heroMeta" aria-label="meta">
+                <div>Okayama / Japan</div>
+                <div>Artist & Curator</div>
+                <div style="color: rgba(233,235,240,.46); letter-spacing:.14em;">© natsshutou</div>
+              </div>
+            </div>
+
+            <div class="chips" aria-label="tags">
+              <span class="chip"><span class="dot"></span>exhibition design</span>
+              <span class="chip"><span class="dot"></span>spatial narrative</span>
+              <span class="chip"><span class="dot"></span>work / context</span>
+              <span class="chip"><span class="dot"></span>documentation</span>
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div>
-          <p class="note">
-            展示企画、空間構成、ステートメント制作など。規模や形態に応じてご相談ください。
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="container">
+        <div class="sectionHead">
+          <h2 class="sectionTitle">about</h2>
+          <p class="sectionNote">
+            「強いがうるさくない／静かだが弱くない」ために、余白・線・階層を規則として固定する。
           </p>
         </div>
+
+        <div class="ruleRow" aria-hidden="true">
+          <div class="rule rule--hard"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panelInner">
+            <div class="aboutGrid">
+              <p class="aboutText">
+                私は<strong>構造思考型</strong>です。情報を並べるのではなく、関係性を編む。
+                作品単体ではなく、<strong>作品と空間／文脈／鑑賞者</strong>の間に張る緊張として提示する。
+                <br /><br />
+                そのために、言葉は最小限にし、サイトの構成そのものを「展示設計」に寄せます。
+              </p>
+
+              <ul class="aboutList" aria-label="profile">
+                <li class="aboutItem">
+                  <div class="aboutKey">name</div>
+                  <div class="aboutVal">大安晴美（natsshutou）</div>
+                </li>
+                <li class="aboutItem">
+                  <div class="aboutKey">base</div>
+                  <div class="aboutVal">岡山を拠点に活動</div>
+                </li>
+                <li class="aboutItem">
+                  <div class="aboutKey">focus</div>
+                  <div class="aboutVal">空間と作品の関係設計／展示の証拠性（記録・外部参照）／一般鑑賞者への明瞭な導線</div>
+                </li>
+                <li class="aboutItem">
+                  <div class="aboutKey">tone</div>
+                  <div class="aboutVal">シック、モダン、余白が意味を持つ。強度は保つが饒舌にしない。</div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="ruleRow" aria-hidden="true" style="margin-top: var(--space-3);">
+          <div class="rule"></div>
+        </div>
       </div>
     </section>
 
+    <!-- WORKS -->
+    <section id="works">
+      <div class="container">
+        <div class="sectionHead">
+          <h2 class="sectionTitle">works</h2>
+          <p class="sectionNote">
+            作品は「画像＋短い軸＋素材/年」まで。説明は削り、構造で格を上げる。
+          </p>
+        </div>
+
+        <div class="ruleRow" aria-hidden="true">
+          <div class="rule"></div>
+        </div>
+
+        <div class="worksGrid" aria-label="works list">
+          <!-- ▼作品カード：画像と短い軸だけ。必要なら枚数増やす -->
+          <article class="work">
+            <div class="workMedia">
+              <img src="assets/work-01.jpg" alt="Work 01" />
+            </div>
+            <div class="workBody">
+              <h3 class="workTitle">work 01</h3>
+              <p class="workDesc">関係性の張り方を、最小単位で固定する。</p>
+              <div class="workMeta">
+                <span class="pill">2024</span>
+                <span class="pill">mixed media</span>
+                <span class="pill">documentation</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="work">
+            <div class="workMedia">
+              <img src="assets/work-02.jpg" alt="Work 02" />
+            </div>
+            <div class="workBody">
+              <h3 class="workTitle">work 02</h3>
+              <p class="workDesc">余白は装飾ではなく、圧力として配置する。</p>
+              <div class="workMeta">
+                <span class="pill">2023</span>
+                <span class="pill">installation</span>
+                <span class="pill">space</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="work">
+            <div class="workMedia">
+              <img src="assets/work-03.jpg" alt="Work 03" />
+            </div>
+            <div class="workBody">
+              <h3 class="workTitle">work 03</h3>
+              <p class="workDesc">語りすぎない。配置で届く明瞭さを作る。</p>
+              <div class="workMeta">
+                <span class="pill">2022</span>
+                <span class="pill">photography</span>
+                <span class="pill">sequence</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="ruleRow" aria-hidden="true" style="margin-top: var(--space-3);">
+          <div class="rule"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXHIBITIONS -->
+    <section id="exhibitions">
+      <div class="container">
+        <div class="sectionHead">
+          <h2 class="sectionTitle">exhibitions</h2>
+          <p class="sectionNote">
+            展示は「主張」ではなく「証拠」で格を作る。外部参照・記録・クレジットを構造化する。
+          </p>
+        </div>
+
+        <div class="ruleRow" aria-hidden="true">
+          <div class="rule rule--hard"></div>
+        </div>
+
+        <div class="exhibits" aria-label="exhibition list">
+          <!-- ▼展示1：証拠リンク（PDF/記事/主催/記録）を必ず添える -->
+          <article class="ex">
+            <div class="exTop">
+              <div>
+                <h3 class="exTitle">Exhibition Title — 作品と空間の関係</h3>
+                <p class="exSub">
+                  ここは説明文を長くしない。狙いは「この展示が実在し、検証可能である」ことを提示すること。
+                  言葉は最小限で、外部参照に渡す。
+                </p>
+              </div>
+
+              <div class="exFacts" aria-label="facts">
+                <div>2025.10.12 — 2025.11.03</div>
+                <div>Venue: ○○ギャラリー（岡山）</div>
+                <div>Role: Artist / Curator</div>
+              </div>
+            </div>
+
+            <div class="exBody">
+              <div>
+                <p class="exDesc">
+                  展示の核（1〜2文）だけを書く。鑑賞者に届く言葉で、しかし安くしない。
+                  それ以上は「証拠」に委譲する。
+                </p>
+
+                <div class="ruleRow" aria-hidden="true" style="margin: var(--space-2) 0;">
+                  <div class="rule"></div>
+                </div>
+
+                <p class="exDesc">
+                  クレジットは隠さず短く。「誰と、どこで、何が残っているか」を明確にする。
+                </p>
+              </div>
+
+              <div class="evidence" aria-label="evidence">
+                <div class="evidenceHead">
+                  <div class="label">evidence</div>
+                  <div class="hint">外部参照 / 記録 / 検証可能性</div>
+                </div>
+                <ul class="evidenceList">
+                  <li>
+                    <a class="evLink" href="#" target="_blank" rel="noopener">
+                      <div class="evIcon">01</div>
+                      <div class="evText">
+                        <div class="evTitle">Press Release (PDF)</div>
+                        <div class="evNote">主催・会期・会場が確認できる一次情報。</div>
+                      </div>
+                      <div class="evMeta">pdf</div>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="evLink" href="#" target="_blank" rel="noopener">
+                      <div class="evIcon">02</div>
+                      <div class="evText">
+                        <div class="evTitle">Official Page / Archive</div>
+                        <div class="evNote">外部サイトの掲載ページ。改変されにくいURLを優先。</div>
+                      </div>
+                      <div class="evMeta">url</div>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="evLink" href="#" target="_blank" rel="noopener">
+                      <div class="evIcon">03</div>
+                      <div class="evText">
+                        <div class="evTitle">Documentation (Photo)</div>
+                        <div class="evNote">設営／展示風景。キャプションで検証可能にする。</div>
+                      </div>
+                      <div class="evMeta">jpg</div>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="evLink" href="#" target="_blank" rel="noopener">
+                      <div class="evIcon">04</div>
+                      <div class="evText">
+                        <div class="evTitle">Credits</div>
+                        <div class="evNote">協力・会場・撮影者・デザイン等のクレジット。</div>
+                      </div>
+                      <div class="evMeta">txt</div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <!-- ▼展示2：テンプレ（必要なら複製） -->
+          <article class="ex">
+            <div class="exTop">
+              <div>
+                <h3 class="exTitle">Exhibition Title — 記録と配置</h3>
+                <p class="exSub">
+                  同じ構造で反復することで、サイト全体に“規律”が生まれる。規律が格になる。
+                </p>
+              </div>
+
+              <div class="exFacts">
+                <div>2024.06.01 — 2024.06.16</div>
+                <div>Venue: ○○スペース</div>
+                <div>Role: Curator</div>
+              </div>
+            </div>
+
+            <div class="exBody">
+              <div>
+                <p class="exDesc">
+                  展示2も同じ設計で。文章を増やす前に「証拠リンクの質」を上げる。
+                </p>
+              </div>
+
+              <div class="evidence">
+                <div class="evidenceHead">
+                  <div class="label">evidence</div>
+                  <div class="hint">最低2本は必須（一次情報＋記録）</div>
+                </div>
+                <ul class="evidenceList">
+                  <li>
+                    <a class="evLink" href="#" target="_blank" rel="noopener">
+                      <div class="evIcon">01</div>
+                      <div class="evText">
+                        <div class="evTitle">Primary Source</div>
+                        <div class="evNote">主催・会期・会場が確認できるもの。</div>
+                      </div>
+                      <div class="evMeta">url</div>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="evLink" href="#" target="_blank" rel="noopener">
+                      <div class="evIcon">02</div>
+                      <div class="evText">
+                        <div class="evTitle">Documentation</div>
+                        <div class="evNote">展示写真、動画、アーカイブ等。</div>
+                      </div>
+                      <div class="evMeta">media</div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="ruleRow" aria-hidden="true" style="margin-top: var(--space-3);">
+          <div class="rule rule--hard"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container">
+        <div class="sectionHead">
+          <h2 class="sectionTitle">contact</h2>
+          <p class="sectionNote">
+            連絡導線は少なく強く。SNSを並べすぎない。必要な窓口だけ残す。
+          </p>
+        </div>
+
+        <div class="ruleRow" aria-hidden="true">
+          <div class="rule"></div>
+        </div>
+
+        <div class="contactGrid">
+          <div class="contactCard">
+            <div class="top">
+              <div class="t">inquiry</div>
+              <div class="s">仕事依頼／展示相談</div>
+            </div>
+            <div class="body">
+              ご依頼は、目的・会期・会場・予算感・役割範囲（キュレーション／ディレクション／制作）を簡潔に。
+              こちらから必要情報を返します。
+              <div class="contactLinks" aria-label="links">
+                <!-- ▼実アドレスへ差し替え -->
+                <a class="btn" href="mailto:hello@natsshutou.com">email</a>
+                <a class="btn" href="#" target="_blank" rel="noopener">instagram</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contactCard">
+            <div class="top">
+              <div class="t">materials</div>
+              <div class="s">PDF / Portfolio</div>
+            </div>
+            <div class="body">
+              ポートフォリオは、作品説明よりも「展示実績の証拠」と「設計思想の要点」を優先して構成。
+              <div class="contactLinks">
+                <a class="btn" href="#" target="_blank" rel="noopener">portfolio pdf</a>
+                <a class="btn" href="#" target="_blank" rel="noopener">press kit</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ruleRow" aria-hidden="true" style="margin-top: var(--space-3);">
+          <div class="rule"></div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer>
+    <div class="container">
+      <div class="footRow">
+        <div>© <span id="year"></span> natsshutou</div>
+        <div style="color: rgba(233,235,240,.44);">
+          structure is the message
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Minimal, deterministic JS only.
+    (function(){
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Smooth scroll (optional, safe)
+      document.querySelectorAll('a[href^="#"]').forEach(a=>{
+        a.addEventListener('click', (e)=>{
+          const id = a.getAttribute('href');
+          if(!id || id === '#') return;
+          const el = document.querySelector(id);
+          if(!el) return;
+          e.preventDefault();
+          el.scrollIntoView({behavior:'smooth', block:'start'});
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
