@@ -221,90 +221,104 @@
   </style>
 </head>
 
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>natsshutou</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
 <body>
-  <main class="wrap">
-    <header>
+  <main class="page">
+    <header class="hero" id="top">
       <h1 class="site-title">natsshutou</h1>
-      <p class="site-sub">ナッシュウトウ</p>
+      <p class="site-kana">ナッシュウトウ</p>
+
       <p class="site-role">Curator / Art Director｜現代美術</p>
       <p class="site-tagline">作品と空間の関係を再構築する。</p>
+
+      <figure class="artwork">
+        <!-- ★画像ファイル名は必ず images/moriya.jpg（GitHub実体に合わせる） -->
+        <img src="images/moriya.jpg" alt="Artwork" class="artwork__img" />
+        <figcaption class="artwork__credit">©Tsutomu Moriya</figcaption>
+      </figure>
     </header>
 
-    <!-- Artwork -->
-    <section class="artwork" aria-label="Artwork">
-      <div class="artwork-frame">
-        <!-- 画像は必ず images/moriya.jpg を置いてください -->
-        <img class="artwork-media" src="images/moriya.jpg" alt="Artwork" />
-      </div>
-      <div class="artwork-credit">©Tsutomu Moriya</div>
-    </section>
-
-    <!-- Services -->
     <section class="section" aria-label="Services">
-      <p class="kicker">SERVICES</p>
+      <h2 class="section-title">SERVICES</h2>
+
       <div class="grid-3">
-        <div class="service">
-          <h3>Curation</h3>
-          <p>展示の「前提」をつくります。テーマ・作家・作品を選び、見せ方の構造を組み立てます。</p>
-        </div>
-        <div class="service">
-          <h3>Direction</h3>
-          <p>前提を「形」にします。空間・動線・視線の配置を設計します。</p>
-        </div>
-        <div class="service">
-          <h3>Writing</h3>
-          <p>制作意図や背景を整理します。鑑賞者に届く言葉へ翻訳します。</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Statement / Exhibition -->
-    <section class="section" aria-label="Statement and Exhibition">
-      <div class="grid-2">
-        <div class="block">
-          <h3>STATEMENT</h3>
-          <p>
-            展示は、答えではなく「問いを配置する装置」だと考えています。作家と作品の文脈を読み、場の条件から逆算して、見るための構造を設計します。言葉で意味を固定せず、鑑賞者が立ち止まる余白を残します。
-          </p>
-
-          <div class="profile">
-            <div class="name">大安晴美</div>
-            <div>東京藝術大学 美術学部 絵画科油画専攻 卒業</div>
-            <div>東京藝術大学大学院 油画・技法材料研究室 修了</div>
-          </div>
+        <div class="card">
+          <h3 class="card-title">CURATION</h3>
+          <p class="card-text">展示の「前提」をつくります。テーマ・作家・作品を選び、見せ方の構造を組み立てます。</p>
         </div>
 
-        <div class="block">
-          <h3>EXHIBITION</h3>
-          <p class="exhibition-title">miape / みあれ（守矢努 個展）</p>
-          <span class="exhibition-date">2026.2.21–2.28</span>
+        <div class="card">
+          <h3 class="card-title">DIRECTION</h3>
+          <p class="card-text">前提を「形」にします。空間・動線・視線の配置を設計します。</p>
+        </div>
 
-          <p class="exhibition-meta">
-            cafe.the market maimai（2F Gallery） OKAYAMA<br>
-            Curated by natsshutou
-          </p>
-
-          <p class="exhibition-note">展示情報は Instagram にて更新しています。</p>
-          <a class="inline-link" href="https://instagram.com/tsutomu_moriya" target="_blank" rel="noopener">
-            @tsutomu_moriya
-          </a>
+        <div class="card">
+          <h3 class="card-title">WRITING</h3>
+          <p class="card-text">制作意図や背景を整理します。鑑賞者に届く言葉へ翻訳します。</p>
         </div>
       </div>
     </section>
 
-    <!-- Contact -->
-    <section class="contact" aria-label="Contact">
-      <p class="kicker">CONTACT</p>
+    <section class="section split" aria-label="Statement and Exhibition">
+      <div class="split__col">
+        <h2 class="section-title">STATEMENT</h2>
 
+        <!-- ★2つに分けず、1ブロックで統合 -->
+        <p class="body">
+          展示は、答えではなく「問いを配置する装置」だと考えています。作家と作品の文脈を読み、場の条件から逆算して、見るための構造を設計します。言葉で意味を固定せず、鑑賞者が立ち止まる余白を残します。
+        </p>
+
+        <div class="profile">
+          <p class="profile__name">大安晴美</p>
+          <p class="profile__line">東京藝術大学 美術学部 絵画科油画専攻 卒業</p>
+          <p class="profile__line">東京藝術大学大学院 油画・技法材料研究室 修了</p>
+        </div>
+      </div>
+
+      <div class="split__col">
+        <h2 class="section-title">EXHIBITION</h2>
+
+        <div class="ex">
+          <p class="ex__title">miape / みあれ（守矢努 個展）</p>
+
+          <!-- ★日程下の線（underline）を消す：CSSで text-decoration を無効化 -->
+          <p class="ex__date">2026.2.21–2.28</p>
+
+          <p class="ex__place">cafe.the market maimai（2F Gallery） OKAYAMA</p>
+          <p class="ex__credit">Curated by natsshutou</p>
+
+          <p class="ex__note">展示情報は Instagram にて更新しています。</p>
+
+          <p class="ex__link">
+            <a href="https://www.instagram.com/tsutomu_moriya/" target="_blank" rel="noopener noreferrer">
+              @tsutomu_moriya
+            </a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" aria-label="Contact">
+      <h2 class="section-title">CONTACT</h2>
+
+      <!-- ★四角で囲わない。横並びで「ラベル→値」を整列 -->
       <div class="contact-row">
         <div class="contact-item">
-          <span class="contact-label">Email</span>
-          <a href="mailto:natsshutou@gmail.com">natsshutou@gmail.com</a>
+          <span class="contact-label">EMAIL</span>
+          <a class="contact-value" href="mailto:natsshutou@gmail.com">natsshutou@gmail.com</a>
         </div>
 
         <div class="contact-item">
-          <span class="contact-label">Instagram</span>
-          <a href="https://instagram.com/natsshutou" target="_blank" rel="noopener">@natsshutou</a>
+          <span class="contact-label">INSTAGRAM</span>
+          <a class="contact-value" href="https://www.instagram.com/natsshutou/" target="_blank" rel="noopener noreferrer">@natsshutou</a>
         </div>
       </div>
 
