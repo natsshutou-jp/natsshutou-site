@@ -15,15 +15,8 @@
 
       /* layout */
       --wrap: 1120px;          /* page max */
-      --hero: 920px;           /* hero + main grid baseline */
+      --hero: 920px;           /* hero + baseline */
       --pad-x: 44px;
-
-      /* spacing */
-      --section-gap: 72px;
-      --rule-gap: 56px;
-
-      /* measure */
-      --measure: 60ch;         /* statement max line length */
 
       /* type */
       --font:
@@ -71,9 +64,7 @@
       padding: 72px var(--pad-x) 96px;
     }
 
-    /* ---------------------------
-      header (quiet logo)
-    --------------------------- */
+    /* header */
     header{
       max-width: var(--hero);
       margin: 0 auto;
@@ -104,9 +95,7 @@
       max-width: 52ch;
     }
 
-    /* ---------------------------
-      unified headings (lowercase)
-    --------------------------- */
+    /* unified headings (lowercase) */
     .kicker{
       margin:0 0 14px;
       font-size: var(--kicker-size);
@@ -116,11 +105,7 @@
       text-transform: lowercase;
     }
 
-    /* ---------------------------
-      hero (make it intentional)
-      - cover removes "weak blank"
-      - object-position controls focal point
-    --------------------------- */
+    /* hero */
     .hero{
       max-width: var(--hero);
       margin: 36px auto 0;
@@ -128,23 +113,21 @@
 
     .hero-media{
       position:relative;
-      overflow:hidden;
-      border:0;
+      background:transparent;
       padding:0;
-      background: transparent;
-      /* shape = design decision */
-      aspect-ratio: 16 / 9;
+      border:0;
+      overflow:hidden;
     }
 
     .hero-media img{
       width:100%;
-      height:100%;
+      height:auto;
+      max-height: 62vh;
+      object-fit: contain;
       display:block;
-      object-fit: cover;              /* ★公開品質の要：余白を“意図”に変える */
-      object-position: 80% 45%;       /* ★左の空白を切り、情報の密度を上げる */
+      background:transparent;
     }
 
-    /* credit inside the hero block (bottom-right) */
     .credit{
       position:absolute;
       right: 0;
@@ -155,68 +138,46 @@
       color: rgba(17,17,17,.55);
       text-align:right;
       pointer-events:none;
-      background: linear-gradient(to top, rgba(255,255,255,.92), rgba(255,255,255,0));
+      background: linear-gradient(to top, rgba(255,255,255,.94), rgba(255,255,255,0));
       width: min(60%, 280px);
     }
 
-    /* ---------------------------
-      sections spacing
-    --------------------------- */
-    section{ margin-top: var(--section-gap); }
+    /* section spacing */
+    section{ margin-top: 72px; }
     section:first-of-type{ margin-top: 0; }
 
     .rule{
       height:1px;
       background: var(--hair);
-      margin: var(--rule-gap) 0;
+      margin: 52px 0;
     }
 
     /* ---------------------------
-      capabilities (3-col)
+      statement (make it stronger without shouting)
     --------------------------- */
-    .cap{
+    .statement-wrap{
       max-width: var(--hero);
       margin: 0 auto;
     }
 
-    .cap-grid{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 56px;
-      align-items:start;
+    .statement-block{
       margin-top: 18px;
+      max-width: 66ch;
     }
 
-    .cap-item .kicker{ margin-bottom: 10px; }
-    .cap-item p{
+    .statement-core{
+      margin: 0 0 14px;
+      font-size: 14px;
+      line-height: 1.65;                 /* slightly tighter */
+      color: rgba(17,17,17,.88);         /* slightly denser */
+      letter-spacing: .005em;
+    }
+
+    .statement-body{
       margin:0;
-      color: rgba(17,17,17,.70);
+      color: rgba(17,17,17,.72);
       font-size: 13px;
-      line-height: 1.85;
-    }
-
-    /* ---------------------------
-      statement + exhibition
-    --------------------------- */
-    .main{
-      max-width: var(--hero);
-      margin: 0 auto;
-    }
-
-    .main-grid{
-      display:grid;
-      grid-template-columns: minmax(0, 1fr) 300px;
-      gap: 64px;
-      align-items:start;
-      margin-top: 18px;
-    }
-
-    .statement p{
-      margin:0;
-      color: rgba(17,17,17,.74);
-      font-size: 13px;
-      line-height: 1.95;
-      max-width: var(--measure);     /* ★行長制限：説明文化を防ぐ */
+      line-height: 1.9;
     }
 
     .profile{
@@ -231,17 +192,48 @@
       margin-bottom: 8px;
     }
 
+    /* ---------------------------
+      capabilities
+    --------------------------- */
+    .cap{
+      max-width: var(--hero);
+      margin: 0 auto;
+    }
+
+    .cap-grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 44px;
+      align-items:start;
+      margin-top: 18px;
+    }
+
+    .cap-item .kicker{ margin-bottom: 10px; }
+    .cap-item p{
+      margin:0;
+      color: rgba(17,17,17,.70);
+      font-size: 13px;
+      line-height: 1.85;
+    }
+
+    /* ---------------------------
+      exhibition (information, very restrained, right aligned on PC)
+    --------------------------- */
+    .ex-wrap{
+      max-width: var(--hero);
+      margin: 0 auto;
+      display:flex;
+      justify-content:flex-end;   /* push to hero right edge */
+    }
+
     .exhibition{
-      justify-self:end;
-      width: 300px;
-      padding-left: 22px;            /* ★証拠として立てる */
-      border-left: 1px solid var(--hair);
+      width: 280px;
     }
 
     .ex-title{
       margin:0 0 10px;
-      font-weight: 600;              /* ★一段だけ強く */
-      color: rgba(17,17,17,.90);
+      font-weight: 500;
+      color: rgba(17,17,17,.86);
       font-size: 13px;
       line-height: 1.75;
     }
@@ -258,9 +250,7 @@
       border:0 !important;
     }
 
-    /* ---------------------------
-      contact
-    --------------------------- */
+    /* contact */
     .contact{
       max-width: var(--hero);
       margin: 0 auto;
@@ -302,31 +292,17 @@
       max-width: 56ch;
     }
 
-    /* ---------------------------
-      responsive
-    --------------------------- */
+    /* responsive */
     @media (max-width: 980px){
       :root{ --pad-x: 22px; }
       .wrap{ padding: 56px var(--pad-x) 80px; }
       .name{ font-size: 32px; }
-      .hero-media{ aspect-ratio: 3 / 2; }
     }
 
     @media (max-width: 860px){
       .cap-grid{ grid-template-columns: 1fr; gap: 26px; }
-      .main-grid{
-        grid-template-columns: 1fr;
-        gap: 34px;
-      }
-      .exhibition{
-        width: 100%;
-        justify-self:start;
-        padding-left: 0;
-        border-left: 0;
-        padding-top: 6px;
-        border-top: 1px solid var(--hair);   /* ★モバイルは上罫で分離 */
-        margin-top: 6px;
-      }
+      .ex-wrap{ justify-content:flex-start; }
+      .exhibition{ width: 100%; }
       .contact-grid{ grid-template-columns: 1fr; gap: 22px; }
       .field{ grid-template-columns: 78px 1fr; }
       section{ margin-top: 64px; }
@@ -335,6 +311,7 @@
         width: min(72%, 320px);
         padding: 10px 0 6px;
       }
+      .statement-block{ max-width: none; }
     }
   </style>
 </head>
@@ -351,11 +328,40 @@
 
     <section class="hero" aria-label="hero">
       <div class="hero-media">
+        <!-- 画像名は必ず確認 -->
         <img src="images/moriya.jpg" alt="Artwork by Tsutomu Moriya">
         <div class="credit">©Tsutomu Moriya</div>
       </div>
     </section>
 
+    <!-- statement FIRST (strong structure) -->
+    <section class="statement-wrap" aria-label="statement">
+      <div class="kicker">statement</div>
+
+      <div class="statement-block">
+        <!-- core (2–3 lines) -->
+        <p class="statement-core">
+          展示は、答えではなく「問いを配置する装置」。<br>
+          作家と作品の文脈、そして場の条件から逆算し、<br>
+          “見るための構造”を設計します。
+        </p>
+
+        <!-- body -->
+        <p class="statement-body">
+          展示は、答えではなく「問いを配置する装置」だと考えています。作家と作品の文脈を読み、場の条件から逆算して、見るための構造を設計します。言葉で意味を固定せず、鑑賞者が立ち止まる余白を残します。
+        </p>
+
+        <div class="profile">
+          <div class="who">大安晴美</div>
+          東京藝術大学 美術学部 絵画科油画専攻 卒業<br>
+          東京藝術大学大学院 油画・技法材料研究室 修了
+        </div>
+      </div>
+    </section>
+
+    <div class="rule" aria-hidden="true"></div>
+
+    <!-- capabilities AFTER statement -->
     <section class="cap" aria-label="capabilities">
       <div class="cap-grid">
         <div class="cap-item">
@@ -375,33 +381,19 @@
 
     <div class="rule" aria-hidden="true"></div>
 
-    <section class="main" aria-label="statement and exhibition">
-      <div class="main-grid">
-        <div class="statement">
-          <div class="kicker">statement</div>
-          <p>
-            展示は、答えではなく「問いを配置する装置」だと考えています。作家と作品の文脈を読み、場の条件から逆算して、見るための構造を設計します。言葉で意味を固定せず、鑑賞者が立ち止まる余白を残します。
-          </p>
-
-          <div class="profile">
-            <div class="who">大安晴美</div>
-            東京藝術大学 美術学部 絵画科油画専攻 卒業<br>
-            東京藝術大学大学院 油画・技法材料研究室 修了
-          </div>
-        </div>
-
-        <aside class="exhibition">
-          <div class="kicker">exhibition</div>
-          <p class="ex-title">miape / みあれ（守矢努 個展）</p>
-          <p class="ex-line">2026.2.21–2.28</p>
-          <p class="ex-line">cafe.the market maimai（2F Gallery） OKAYAMA</p>
-          <p class="ex-line">Curated by natsshutou</p>
-          <p class="ex-line">展示情報は Instagram にて更新しています。</p>
-          <p class="ex-line">
-            <a href="https://www.instagram.com/tsutomu_moriya/" target="_blank" rel="noopener noreferrer">@tsutomu_moriya</a>
-          </p>
-        </aside>
-      </div>
+    <!-- exhibition as quiet information -->
+    <section class="ex-wrap" aria-label="exhibition">
+      <aside class="exhibition">
+        <div class="kicker">exhibition</div>
+        <p class="ex-title">miape / みあれ（守矢努 個展）</p>
+        <p class="ex-line">2026.2.21–2.28</p>
+        <p class="ex-line">cafe.the market maimai（2F Gallery） OKAYAMA</p>
+        <p class="ex-line">Curated by natsshutou</p>
+        <p class="ex-line">展示情報は Instagram にて更新しています。</p>
+        <p class="ex-line">
+          <a href="https://www.instagram.com/tsutomu_moriya/" target="_blank" rel="noopener noreferrer">@tsutomu_moriya</a>
+        </p>
+      </aside>
     </section>
 
     <div class="rule" aria-hidden="true"></div>
@@ -437,5 +429,3 @@
   </main>
 </body>
 </html>
-
-
