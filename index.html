@@ -9,31 +9,44 @@
   <style>
     :root{
       --bg:#ffffff;
-      --ink:#111111;
+      --ink:#141414;
       --muted:rgba(0,0,0,.62);
       --faint:rgba(0,0,0,.40);
       --line:rgba(0,0,0,.10);
 
-      /* 角丸やめる（決定事項） */
+      /* 決定事項：丸角やめる */
       --radius: 0px;
 
       --wrap: min(1120px, calc(100vw - 64px));
-      --gutter: 32px;
       --section-y: 88px;
-
       --topbar-h: 76px;
     }
 
     *{ box-sizing:border-box; }
     html{ scroll-behavior:smooth; }
+
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", "Yu Gothic", "Segoe UI", sans-serif;
-      background: var(--bg); /* 背景は凝りすぎない（決定事項） */
-      color:var(--ink);
+      background: var(--bg);
+      color: var(--ink);
     }
+
+    /* 背景：極薄ノイズ（“凝らない”が、のっぺり回避） */
+    body::before{
+      content:"";
+      position: fixed;
+      inset: 0;
+      pointer-events:none;
+      z-index: 0;
+      opacity: .035; /* ←主張しない強度 */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      mix-blend-mode: multiply;
+    }
+
     a{ color:inherit; text-decoration:none; }
-    .wrap{ width:var(--wrap); margin:0 auto; }
+    .wrap{ width:var(--wrap); margin:0 auto; position:relative; z-index:1; } /* ノイズより前へ */
 
     /* Topbar */
     .topbar{
@@ -45,7 +58,7 @@
       align-items:center;
       background: rgba(255,255,255,.92);
       backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--line);
+      border-bottom:1px solid var(--line);
     }
     .topbar .inner{
       width:var(--wrap);
@@ -108,20 +121,21 @@
       max-width: 52%;
     }
 
-    /* Layout blocks (no card feeling) */
-    .block{
-      border: 1px solid var(--line);
-      background: transparent;      /* 雛型感の出る“白カード”をやめる */
-      border-radius: var(--radius); /* 0 */
+    /* Minimal blocks（雛型カード感を避ける） */
+    .frame{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: transparent;
     }
 
-    /* HERO (A案：トップにコピーは入れない) */
+    /* HERO (A案固定：ヒーロー内にコピー入れない) */
     .hero{ padding: 34px 0 26px; }
     .hero-frame{ padding: 18px; }
     .hero-media{
       overflow:hidden;
       border: 1px solid rgba(0,0,0,.08);
       background: rgba(0,0,0,.03);
+      border-radius: var(--radius);
     }
     .hero-media img{
       width:100%;
@@ -132,7 +146,7 @@
       filter: saturate(.98) contrast(.98);
     }
 
-    /* クレジット：画像右下（画像と重ねない／枠外） + 右余白（決定事項） */
+    /* クレジット：画像右下（画像と重ねない／枠外） + 右余白 */
     .hero-credit{
       display:flex;
       justify-content:flex-end;
@@ -145,15 +159,21 @@
 
     /* Copy block under hero */
     .lead{ padding: 18px 0 0; }
-    .lead-inner{ padding: 34px 0 0; border-top: 1px solid var(--line); }
+    .lead-inner{
+      padding: 34px 0 0;
+      border-top: 1px solid var(--line);
+    }
 
-    /* メインコピー：太さを一段細く（要望）／折り返しOK（決定事項） */
+    /* 見出し：太さを一段細く（A=600）／折り返しOK */
     .headline{
       margin:0;
-      font-weight: 650;                 /* 750 → 650 */
+      font-weight: 600;
       letter-spacing: .01em;
-      line-height: 1.12;
-      font-size: clamp(30px, 3.2vw, 52px);
+      line-height: 1.14;
+      font-size: clamp(30px, 3.2vw, 50px);
+      color: rgba(0,0,0,.86); /* “細く見える”方向に寄せる */
+      word-break: keep-all;
+      line-break: strict;
     }
     .subline{
       margin: 16px 0 0;
@@ -163,9 +183,9 @@
       letter-spacing: .02em;
       max-width: 78ch;
     }
-    .nowrap{ white-space:nowrap; }      /* 1文字だけ2段目事故を防ぐ */
+    .nowrap{ white-space:nowrap; } /* 1文字だけ2行目事故を防ぐ */
 
-    /* Keywords line (chipsをやめて、雛型UI感を排除) */
+    /* Keywords line（UIチップ感を出さない） */
     .keywords-line{
       margin-top: 18px;
       font-size: 12px;
@@ -192,6 +212,7 @@
       padding-top: 12px;
       border-top: 1px solid var(--line);
     }
+
     .about-left{ padding: 28px 0 0; }
     .about-left p{
       margin:0 0 18px;
@@ -200,9 +221,8 @@
       letter-spacing:.02em;
       color: rgba(0,0,0,.80);
     }
-    /* 見出し太さを一段細く（要望） */
     .about-left p.strong{
-      font-weight:600; /* 700 → 600 */
+      font-weight: 600; /* A=600 */
       color: rgba(0,0,0,.90);
       margin-top: 0;
     }
@@ -213,25 +233,27 @@
       color: rgba(0,0,0,.86);
     }
 
-    /* 右：表・雛型の排除。自然なテキスト塊で見せる */
+    /* 右：雛型排除（ラベル無し／短文で見せる） */
     .about-right{
       padding: 28px 0 0;
       border-left: 1px solid var(--line);
       padding-left: 28px;
       color: rgba(0,0,0,.78);
-    }
-    .about-right .meta{
       font-size:14px;
       line-height:1.95;
       letter-spacing:.02em;
     }
-    .about-right .meta .small{
+    .about-right .meta{
+      color: rgba(0,0,0,.78);
+    }
+    .about-right .meta .sub{
       color: rgba(0,0,0,.56);
       font-size:12px;
       letter-spacing:.06em;
+      margin-top: 10px;
     }
 
-    /* ⑤：装飾なしで「大安晴美」だけ（決定事項） */
+    /* ⑤：装飾なしで「大安晴美」だけ（固定） */
     .presented{
       margin: 10px 0 0;
       font-size: 14px;
@@ -243,12 +265,12 @@
       margin-top: 18px;
       padding-top: 18px;
       border-top: 1px solid var(--line);
-      font-size:14px;
-      line-height:1.9;
     }
     .structure ul{
       margin: 10px 0 0 18px;
       padding:0;
+      color: rgba(0,0,0,.78);
+      line-height:1.9;
     }
 
     /* WORKS / EXHIBITIONS / CONTACT */
@@ -286,7 +308,7 @@
       text-transform:lowercase;
     }
 
-    /* Back to top (minimal) */
+    /* Back to top（最小） */
     .to-top{
       position: fixed;
       right: 18px;
@@ -298,6 +320,7 @@
       background: rgba(255,255,255,.92);
       backdrop-filter: blur(8px);
       cursor:pointer;
+      border-radius: 999px; /* ボタンは操作性のため例外：UI部品として許容 */
     }
     .to-top:hover{ background: rgba(255,255,255,.98); }
     .to-top svg{ width:18px; height:18px; display:block; margin: 0 auto; }
@@ -307,9 +330,7 @@
       :root{ --wrap: min(980px, calc(100vw - 40px)); --section-y: 72px; }
       nav{ gap:18px; }
       .note-right{ max-width: 100%; }
-      .about-grid{
-        grid-template-columns: 1fr;
-      }
+      .about-grid{ grid-template-columns: 1fr; }
       .about-right{
         border-left: none;
         padding-left: 0;
@@ -331,7 +352,6 @@
 </head>
 
 <body>
-  <!-- Topbar -->
   <header class="topbar">
     <div class="inner">
       <a class="brand" href="#top" aria-label="natsshutou home">
@@ -349,16 +369,15 @@
   </header>
 
   <main id="top">
-    <!-- HERO (A案：コピーを入れない) -->
+    <!-- HERO（A案固定：コピーは入れない） -->
     <section class="hero">
       <div class="wrap">
-        <div class="block hero-frame">
+        <div class="frame hero-frame">
           <div class="hero-media">
             <!-- 決定事項：ヒーロー画像は固定で images/moriya.jpg -->
             <img src="images/moriya.jpg" alt="Hero artwork" />
           </div>
 
-          <!-- 決定事項：画像右下（画像と重ねない／枠外）＋右余白 -->
           <div class="hero-credit">© Tsutomu Moriya</div>
         </div>
 
@@ -403,32 +422,24 @@
               制作段階から関わり、イメージの具現化と作品展開を支える。
             </p>
 
-            <p>
-              展示会のコンセプト設計を行い、空間構成から設営までを担う。
-            </p>
+            <p>展示会のコンセプト設計を行い、空間構成から設営までを担う。</p>
 
             <p class="keywords">キーワードは、緊張と緩和。余白と集中。</p>
           </div>
 
-          <aside class="about-right" aria-label="Profile (natural)">
+          <aside class="about-right" aria-label="Profile">
             <div class="meta">
-              <div class="small">name</div>
               <div>natsshutou</div>
+              <!-- 決定事項：フリガナ固定 -->
+              <div class="sub">ナッツシュウトウ</div>
 
-              <div class="small" style="margin-top:10px;">furigana</div>
-              <!-- 決定事項：フリガナは ナッツシュウトウ -->
-              <div>ナッツシュウトウ</div>
-
-              <div class="small" style="margin-top:10px;">presented</div>
               <!-- 決定事項：⑤は装飾なしで「大安晴美」だけ -->
               <p class="presented">大安晴美</p>
 
-              <div class="small" style="margin-top:10px;">base</div>
-              <div>岡山拠点</div>
+              <div class="sub">岡山拠点</div>
             </div>
 
             <div class="structure">
-              <div class="small">structure</div>
               <ul>
                 <li>全体像を組み立てる</li>
                 <li>関係性を整理する</li>
@@ -490,7 +501,6 @@
     </footer>
   </main>
 
-  <!-- Back to top -->
   <button class="to-top" type="button" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Top">
     <svg viewBox="0 0 24 24" fill="none">
       <path d="M12 5l-7 7m7-7l7 7M12 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
