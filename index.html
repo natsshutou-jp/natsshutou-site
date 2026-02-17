@@ -1,218 +1,593 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>natsshutou — Artist / Curator</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>natsshutou — Artist / Curator</title>
+  <meta name="description" content="natsshutou（ナッツシュウトウ）｜Artist / Curator。作品と空間の関係を読み解き、構造として整える。" />
 
-<style>
-:root{
-  --bg:#ffffff;
-  --ink:#141414;
-  --muted:rgba(0,0,0,.6);
-  --line:rgba(0,0,0,.12);
+  <style>
+    :root{
+      --bg:#ffffff;
+      --ink:#111111;
+      --muted:rgba(0,0,0,.58);
+      --muted2:rgba(0,0,0,.42);
+      --line:rgba(0,0,0,.10);
 
-  --wrap:min(1200px,calc(100vw - 80px));
-  --section-y:110px;
-  --topbar-h:76px;
-}
+      /* 丸角やめる（角丸0） */
+      --radius:0px;
 
-*{box-sizing:border-box;}
-body{
-  margin:0;
-  font-family: ui-sans-serif,system-ui,-apple-system,"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;
-  background:var(--bg);
-  color:var(--ink);
-}
-.wrap{width:var(--wrap);margin:0 auto;}
-a{text-decoration:none;color:inherit}
+      --wrap:min(1120px, calc(100vw - 64px));
+      --topbar-h:76px;
 
-/* ===== Topbar ===== */
-.topbar{
-  position:sticky;
-  top:0;
-  height:var(--topbar-h);
-  display:flex;
-  align-items:center;
-  background:#fff;
-  border-bottom:1px solid var(--line);
-  z-index:10;
-}
-.topbar .inner{
-  width:var(--wrap);
-  margin:0 auto;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.brand .name{
-  font-weight:700;
-  font-size:18px;
-  letter-spacing:.05em;
-}
-.brand .role{
-  font-size:11px;
-  letter-spacing:.2em;
-  color:rgba(0,0,0,.55);
-  margin-left:12px;
-}
-nav{
-  font-size:11px;
-  letter-spacing:.2em;
-  text-transform:uppercase;
-}
-nav a{margin-left:24px;color:rgba(0,0,0,.65);}
+      --sec-y:96px;
+      --gap:28px;
+    }
 
-/* ===== Hero C Layout ===== */
-.hero{
-  padding:var(--section-y) 0 60px;
-}
-.hero-grid{
-  display:grid;
-  grid-template-columns: 65% 35%;
-  gap:80px;
-  align-items:center;
-}
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", "Yu Gothic", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(900px 520px at 25% 0%, rgba(0,0,0,.018), transparent 66%),
+        radial-gradient(900px 520px at 75% 25%, rgba(0,0,0,.014), transparent 70%),
+        var(--bg);
+      color:var(--ink);
+    }
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ width:var(--wrap); margin:0 auto; }
 
-.hero-media img{
-  width:100%;
-  height:70vh;
-  object-fit:cover;
-  display:block;
-}
+    /* Topbar */
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      height:var(--topbar-h);
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar .inner{
+      width:var(--wrap);
+      margin:0 auto;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+    .brand{
+      display:flex;
+      align-items:baseline;
+      gap:14px;
+      white-space:nowrap;
+      letter-spacing:.02em;
+    }
+    .brand .name{
+      font-weight:650;
+      font-size:18px;
+      letter-spacing:.04em;
+    }
+    .brand .role{
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--muted2);
+    }
+    nav{
+      display:flex;
+      gap:26px;
+      align-items:center;
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--muted2);
+    }
+    nav a{ padding:10px 6px; }
+    nav a:hover{ color:rgba(0,0,0,.78); }
 
-.hero-credit{
-  text-align:right;
-  margin-top:10px;
-  font-size:12px;
-  letter-spacing:.08em;
-  color:rgba(0,0,0,.55);
-}
+    section{ scroll-margin-top: calc(var(--topbar-h) + 18px); }
 
-/* Copy */
-.hero-copy{
-  max-width:420px;
-}
-.headline{
-  font-weight:600;
-  font-size:clamp(30px,3vw,48px);
-  line-height:1.2;
-  margin:0;
-}
-.subline{
-  margin-top:20px;
-  font-size:14px;
-  line-height:1.9;
-  color:var(--muted);
-}
+    /* HERO (C) : 画像とコピーを同一ブロック内で並置 */
+    .hero{
+      padding: 34px 0 8px;
+    }
+    .hero-block{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      background: rgba(255,255,255,.92);
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.35fr .85fr;
+      gap: var(--gap);
+      align-items:center;
+    }
 
-/* ===== About ===== */
-.about{
-  padding:var(--section-y) 0;
-  border-top:1px solid var(--line);
-}
-.about-grid{
-  display:grid;
-  grid-template-columns:1.2fr .8fr;
-  gap:60px;
-}
-.about-left p{
-  font-size:16px;
-  line-height:2;
-}
-.about-left .strong{
-  font-weight:600;
-}
-.about-right{
-  font-size:14px;
-  line-height:1.9;
-}
-.presented{
-  margin-top:10px;
-  font-weight:400;
-}
+    .hero-media{
+      border:1px solid rgba(0,0,0,.12);
+      background: rgba(0,0,0,.02);
+      overflow:hidden;
+      border-radius: var(--radius);
+    }
+    .hero-media img{
+      width:100%;
+      height: min(68vh, 520px);
+      object-fit: cover;
+      object-position: center 42%;
+      display:block;
+      filter: saturate(.99) contrast(.99);
+    }
+    .hero-credit{
+      display:flex;
+      justify-content:flex-end;
+      padding: 10px 2px 0 2px;
+      font-size:12px;
+      letter-spacing:.08em;
+      color: rgba(0,0,0,.58);
+      user-select:none;
+    }
 
-/* Responsive */
-@media(max-width:980px){
-  .hero-grid{
-    grid-template-columns:1fr;
-    gap:40px;
-  }
-  .hero-media img{
-    height:55vh;
-  }
-}
-</style>
+    .hero-copy{
+      padding-right: 4px;
+    }
+
+    /* メインコピー：標準(400)に。折返しOK。1文字落ち対策はnowrapで束ねる */
+    .headline{
+      margin:0;
+      font-weight:400;
+      letter-spacing:.01em;
+      line-height:1.26;
+      font-size: clamp(28px, 3.0vw, 44px);
+      text-wrap: balance;
+    }
+    .subline{
+      margin: 18px 0 0;
+      font-size:14px;
+      line-height:1.95;
+      letter-spacing:.02em;
+      color: var(--muted);
+      max-width: 60ch;
+    }
+    .nowrap{ white-space:nowrap; }
+
+    .tags{
+      margin-top: 18px;
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color: var(--muted2);
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px 16px;
+    }
+    .tags span::before{
+      content:"• ";
+      color: rgba(0,0,0,.45);
+    }
+
+    /* Section header */
+    .section-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:16px;
+      margin: 0 0 14px;
+      padding-bottom: 10px;
+      border-bottom:1px solid var(--line);
+    }
+    .kicker{
+      font-size:12px;
+      letter-spacing:.22em;
+      color: var(--muted2);
+      text-transform:uppercase;
+    }
+    .note-right{
+      font-size:12px;
+      color: var(--muted2);
+      letter-spacing:.06em;
+      text-align:right;
+      max-width: 52%;
+    }
+
+    /* ABOUT */
+    .about{
+      padding: var(--sec-y) 0 0;
+    }
+    .about-grid{
+      display:grid;
+      grid-template-columns: 1.35fr .85fr;
+      gap: var(--gap);
+      align-items:start;
+      padding-top: 18px;
+    }
+    .about-left{
+      padding-right: var(--gap);
+      border-right:1px solid var(--line);
+    }
+    .about-left p{
+      margin:0 0 18px;
+      font-size:16px;
+      line-height:2.05;
+      letter-spacing:.02em;
+      color: rgba(0,0,0,.78);
+    }
+    .about-left p.strong{
+      font-weight:600;
+      color: rgba(0,0,0,.86);
+    }
+    .about-left .keywords{
+      margin-top: 6px;
+      font-weight:600;
+      color: rgba(0,0,0,.82);
+    }
+
+    .about-right{
+      padding-left: 4px;
+    }
+    .meta{
+      display:grid;
+      grid-template-columns: 120px 1fr;
+      row-gap: 16px;
+      column-gap: 18px;
+      align-items:start;
+      font-size:14px;
+      line-height:1.85;
+      color: rgba(0,0,0,.78);
+    }
+    .meta .label{
+      font-size:12px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color: var(--muted2);
+      padding-top: 2px;
+    }
+    .meta .value{ margin:0; }
+
+    /* ⑤：装飾なしで「大安晴美」だけ */
+    .presented{
+      margin:0;
+      font-size:14px;
+      color: rgba(0,0,0,.78);
+      letter-spacing:.02em;
+    }
+
+    .structure{
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+    .structure .label{
+      font-size:12px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color: var(--muted2);
+      margin: 0 0 10px;
+    }
+    .structure ul{
+      margin:0;
+      padding-left: 18px;
+      color: rgba(0,0,0,.78);
+      font-size:14px;
+      line-height:1.9;
+    }
+
+    /* WORKS / EXHIBITIONS / CONTACT */
+    .simple{
+      padding: var(--sec-y) 0 0;
+    }
+    .simple-body{
+      padding-top: 18px;
+      color: var(--muted);
+      font-size:14px;
+      line-height:1.95;
+      letter-spacing:.02em;
+    }
+
+    /* Footer */
+    footer{
+      padding: 58px 0 34px;
+      margin-top: 84px;
+      border-top: 1px solid var(--line);
+      color: rgba(0,0,0,.55);
+      font-size:12px;
+      letter-spacing:.06em;
+    }
+    .footer-inner{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:center;
+    }
+    .footer-right{
+      color: rgba(0,0,0,.45);
+      letter-spacing:.12em;
+      text-transform:lowercase;
+      white-space:nowrap;
+    }
+
+    /* Floating quick actions (最小) */
+    .fab{
+      position: fixed;
+      right: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 60;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .fab button{
+      width: 46px; height: 46px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.18);
+      background: rgba(20,20,20,.78);
+      color: #fff;
+      cursor:pointer;
+      box-shadow: 0 10px 22px rgba(0,0,0,.16);
+    }
+    .fab button:hover{ background: rgba(20,20,20,.88); }
+    .fab svg{ width:20px; height:20px; display:block; margin: 0 auto; }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      :root{ --wrap: min(980px, calc(100vw - 40px)); --sec-y: 72px; }
+      nav{ gap:18px; }
+      .hero-grid{ grid-template-columns: 1fr; }
+      .about-grid{ grid-template-columns: 1fr; }
+      .about-left{
+        border-right:none;
+        padding-right:0;
+        border-bottom:1px solid var(--line);
+        padding-bottom: 18px;
+        margin-bottom: 18px;
+      }
+      .note-right{ max-width:100%; }
+      .headline{ font-size: clamp(26px, 4.0vw, 40px); }
+      .hero-media img{ height: min(56vh, 460px); }
+    }
+    @media (max-width: 560px){
+      :root{ --wrap: calc(100vw - 28px); --topbar-h: 68px; }
+      .brand .role{ display:none; }
+      nav{ display:none; }
+      .hero{ padding: 18px 0 6px; }
+      .hero-block{ padding: 14px; }
+      .headline{ font-size: clamp(22px, 5.4vw, 32px); }
+      .meta{ grid-template-columns: 92px 1fr; }
+    }
+  </style>
 </head>
 
 <body>
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="inner">
+      <a class="brand" href="#top" aria-label="natsshutou home">
+        <span class="name">natsshutou</span>
+        <span class="role">ARTIST / CURATOR</span>
+      </a>
 
-<header class="topbar">
-  <div class="inner">
-    <div class="brand">
-      <span class="name">natsshutou</span>
-      <span class="role">ARTIST / CURATOR</span>
+      <nav aria-label="Primary">
+        <a href="#about">ABOUT</a>
+        <a href="#works">WORKS</a>
+        <a href="#exhibitions">EXHIBITIONS</a>
+        <a href="#contact">CONTACT</a>
+      </nav>
     </div>
-    <nav>
-      <a href="#about">ABOUT</a>
-    </nav>
-  </div>
-</header>
+  </header>
 
-<main>
+  <main id="top">
+    <!-- HERO (C) -->
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-block">
+          <div class="hero-grid">
+            <div>
+              <div class="hero-media">
+                <!-- 決定事項：ヒーロー画像は固定で images/moriya.jpg -->
+                <img src="images/moriya.jpg" alt="Hero artwork" />
+              </div>
+              <!-- 決定事項：画像右下（画像と重ねない／枠外） -->
+              <div class="hero-credit">© Tsutomu Moriya</div>
+            </div>
 
-<section class="hero">
-  <div class="wrap hero-grid">
+            <div class="hero-copy">
+              <h1 class="headline">
+                作品は、空間の中でどう置かれるかによって
+                <span class="nowrap">見え方が変わります。</span>
+              </h1>
 
-    <div>
-      <div class="hero-media">
-        <img src="images/moriya.jpg" alt="">
+              <p class="subline">
+                アーティストと対話を重ねながら、背景を言葉にし、展示としてかたちにしていく。
+                <span class="nowrap">説明ではなく、配置で伝える。</span>
+              </p>
+
+              <div class="tags" aria-label="Focus tags">
+                <span>EXHIBITION DESIGN</span>
+                <span>SPATIAL NARRATIVE</span>
+                <span>WORK / CONTEXT</span>
+                <span>DOCUMENTATION</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="hero-credit">© Tsutomu Moriya</div>
-    </div>
+    </section>
 
-    <div class="hero-copy">
-      <h1 class="headline">
-        作品は、空間の中でどう置かれるかによって<br>
-        見え方が変わります。
-      </h1>
-      <p class="subline">
-        アーティストと対話を重ねながら、背景を言葉にし、展示としてかたちにしていく。
-        説明ではなく、配置で伝える。
-      </p>
-    </div>
+    <!-- ABOUT -->
+    <section id="about" class="about">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">ABOUT</div>
+          <div class="note-right">余白が意味を持つ。緊張と緩和。余白と集中。</div>
+        </div>
 
-  </div>
-</section>
+        <div class="about-grid">
+          <div class="about-left">
+            <p class="strong">私はその関係を読み解き、構造として整えます。</p>
 
-<section id="about" class="about">
-  <div class="wrap about-grid">
-    <div class="about-left">
-      <p class="strong">
-        私はその関係を読み解き、構造として整えます。
-      </p>
-      <p>
-        アーティストと作品の背景を読み解き、本質を見出して言語化する。
-        制作段階から関わり、イメージの具現化と作品展開を支える。
-      </p>
-      <p>
-        展示会のコンセプト設計を行い、空間構成から設営までを担う。
-      </p>
-    </div>
+            <p>
+              アーティストと作品の背景を読み解き、本質を見出して言語化する。アーティストとのコミュニケーションを重視し、
+              制作段階から関わり、イメージの具現化と作品展開を支える。
+            </p>
 
-    <div class="about-right">
-      <div>natsshutou</div>
-      <div>ナッツシュウトウ</div>
-      <p class="presented">大安晴美</p>
-      <div style="margin-top:20px;">
-        ・全体像を組み立てる<br>
-        ・関係性を整理する<br>
-        ・物事を分解し再配置する
+            <p>展示会のコンセプト設計を行い、空間構成から設営までを担う。</p>
+
+            <p class="keywords">キーワードは、緊張と緩和。余白と集中。</p>
+          </div>
+
+          <div class="about-right" aria-label="Profile (minimal)">
+            <div class="meta">
+              <div class="label">NAME</div>
+              <p class="value">natsshutou</p>
+
+              <div class="label">FURIGANA</div>
+              <p class="value">ナッツシュウトウ</p>
+
+              <div class="label">PRESENTED</div>
+              <!-- 決定事項：⑤は装飾なしで「大安晴美」だけ -->
+              <p class="presented">大安晴美</p>
+
+              <div class="label">BASE</div>
+              <p class="value">岡山拠点</p>
+            </div>
+
+            <div class="structure">
+              <p class="label">STRUCTURE</p>
+              <ul>
+                <li>全体像を組み立てる</li>
+                <li>関係性を整理する</li>
+                <li>物事を分解し再配置する</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-</main>
+    <!-- WORKS -->
+    <section id="works" class="simple">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">WORKS</div>
+          <div class="note-right">作品の下に、クレジット（展示ラベル）を置く。</div>
+        </div>
+
+        <div class="simple-body">
+          ※作品セクションは次で設計します（作品画像＋画像下のクレジットを“枠外”に固定）。
+        </div>
+      </div>
+    </section>
+
+    <!-- EXHIBITIONS -->
+    <section id="exhibitions" class="simple">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">EXHIBITIONS</div>
+          <div class="note-right">展示は主張よりも、検証できる形で残す。</div>
+        </div>
+
+        <div class="simple-body">
+          ※展示セクションは「証拠性（一次情報＋記録＋クレジット）」の構造で設計します。
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="simple">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">CONTACT</div>
+          <div class="note-right">ご相談・ご依頼について</div>
+        </div>
+
+        <div class="simple-body">
+          ※お問い合わせ導線（Email / Instagram）と、資料（Portfolio PDF / Press Kit）を次で整えます。
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap footer-inner">
+        <div>© 2026 natsshutou</div>
+        <div class="footer-right">structure is the message</div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Floating quick actions -->
+  <div class="fab" aria-label="Quick actions">
+    <button type="button" title="Menu" aria-label="Open menu" onclick="toggleQuickMenu()">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M5 7h14M5 12h14M5 17h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <button type="button" title="Top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M12 5l-7 7m7-7l7 7M12 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <script>
+    function toggleQuickMenu(){
+      const items = [
+        {label:"ABOUT", id:"about"},
+        {label:"WORKS", id:"works"},
+        {label:"EXHIBITIONS", id:"exhibitions"},
+        {label:"CONTACT", id:"contact"}
+      ];
+
+      const existing = document.getElementById("quickMenu");
+      if(existing){ existing.remove(); return; }
+
+      const menu = document.createElement("div");
+      menu.id = "quickMenu";
+      menu.style.position = "fixed";
+      menu.style.right = "78px";
+      menu.style.top = "50%";
+      menu.style.transform = "translateY(-50%)";
+      menu.style.zIndex = "70";
+      menu.style.background = "rgba(255,255,255,.96)";
+      menu.style.backdropFilter = "blur(10px)";
+      menu.style.border = "1px solid rgba(0,0,0,.14)";
+      menu.style.borderRadius = "999px";
+      menu.style.borderRadius = "12px";
+      menu.style.boxShadow = "0 12px 26px rgba(0,0,0,.10)";
+      menu.style.padding = "10px";
+      menu.style.minWidth = "170px";
+
+      items.forEach(it=>{
+        const a = document.createElement("a");
+        a.href = "#"+it.id;
+        a.textContent = it.label;
+        a.style.display = "block";
+        a.style.padding = "10px 12px";
+        a.style.borderRadius = "10px";
+        a.style.fontSize = "12px";
+        a.style.letterSpacing = ".18em";
+        a.style.textTransform = "uppercase";
+        a.style.color = "rgba(0,0,0,.70)";
+        a.onmouseenter = ()=>a.style.background="rgba(0,0,0,.05)";
+        a.onmouseleave = ()=>a.style.background="transparent";
+        a.onclick = ()=>menu.remove();
+        menu.appendChild(a);
+      });
+
+      document.body.appendChild(menu);
+
+      const closer = (e)=>{
+        if(!menu.contains(e.target)){
+          menu.remove();
+          document.removeEventListener("mousedown", closer);
+        }
+      };
+      setTimeout(()=>document.addEventListener("mousedown", closer), 0);
+    }
+  </script>
 </body>
 </html>
+
+
