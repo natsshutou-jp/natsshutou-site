@@ -10,16 +10,17 @@
     :root{
       --bg:#ffffff;
       --ink:#111111;
-      --muted:rgba(0,0,0,.62);
-      --muted2:rgba(0,0,0,.45);
-      --line:rgba(0,0,0,.10);
+      --muted:rgba(0,0,0,.58);
+      --muted2:rgba(0,0,0,.46);
+      --line:rgba(0,0,0,.12);
 
-      /* 決定：丸角0 */
+      /* 角は0（指示） */
       --radius:0px;
 
       --wrap:min(1120px, calc(100vw - 64px));
-      --section-y:96px;
       --topbar-h:76px;
+
+      --section-y:96px;
     }
 
     *{ box-sizing:border-box; }
@@ -27,7 +28,7 @@
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", "Yu Gothic", "Segoe UI", sans-serif;
-      background: var(--bg); /* 背景はシンプル */
+      background: var(--bg);
       color:var(--ink);
     }
     a{ color:inherit; text-decoration:none; }
@@ -41,7 +42,8 @@
       height:var(--topbar-h);
       display:flex;
       align-items:center;
-      background:rgba(255,255,255,.92);
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(10px);
       border-bottom:1px solid var(--line);
     }
     .topbar .inner{
@@ -70,6 +72,7 @@
       color:var(--muted2);
       text-transform:uppercase;
     }
+
     nav{
       display:flex;
       gap:26px;
@@ -77,216 +80,220 @@
       font-size:12px;
       letter-spacing:.18em;
       text-transform:uppercase;
-      color:rgba(0,0,0,.64);
+      color: rgba(0,0,0,.58);
     }
     nav a{ padding:10px 6px; }
-    nav a:hover{ color:rgba(0,0,0,.92); }
+    nav a:hover{ color: rgba(0,0,0,.92); }
 
     /* Sections */
     section{ scroll-margin-top: calc(var(--topbar-h) + 20px); }
+
     .section-head{
       display:flex;
       align-items:flex-end;
       justify-content:space-between;
       gap:16px;
-      margin:0 0 18px;
-      padding-top:var(--section-y);
+      margin: 0 0 14px;
+      padding-top: 8px;
     }
     .kicker{
       font-size:12px;
       letter-spacing:.22em;
-      color:var(--muted2);
+      color: rgba(0,0,0,.42);
       text-transform:uppercase;
     }
     .note-right{
       font-size:12px;
-      color:var(--muted2);
+      color: rgba(0,0,0,.42);
       letter-spacing:.06em;
       text-align:right;
-      max-width:52%;
+      max-width: 54%;
+    }
+    .rule{
+      height:1px;
+      background: var(--line);
     }
 
-    /* ===== HERO (A+B+C 統合) =====
-       - 画像とコピーを同一ヒーローで横並び
-       - コピー塊を「下に下げて下合わせ」
-       - 叫ばない：サイズ↓/字間↑/行間↑/太さ標準寄り
-    */
+    /* HERO (A+B+C 統合：画像 + コピーを同一セクションで、コピーは下揃え) */
     .hero{
-      padding:28px 0 18px;
+      padding: 28px 0 0;
+    }
+    .hero-shell{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
     }
     .hero-grid{
       display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap:34px;
-      align-items:end; /* 下合わせ */
-      border:1px solid var(--line); /* 枠は線だけで最小限 */
-      padding:22px;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 26px;
+      align-items: stretch;
     }
+
+    /* Media */
     .hero-media{
       border:1px solid var(--line);
-      background:rgba(0,0,0,.02);
+      border-radius: var(--radius);
+      overflow:hidden;
+      background: rgba(0,0,0,.02);
     }
     .hero-media img{
       width:100%;
-      height:min(56vh, 520px);
-      object-fit:cover;
-      object-position:center 42%;
+      height: min(56vh, 520px);
+      object-fit: cover;
+      object-position: center 42%;
       display:block;
-      filter:saturate(.98) contrast(.98);
+      filter: saturate(.99) contrast(.99);
     }
-    /* クレジット：画像右下（画像と重ねない／枠外）＋右余白 */
+    /* credit：枠外（画像と重ねない） */
     .hero-credit{
       display:flex;
       justify-content:flex-end;
-      padding:10px 12px 0 12px;
+      padding: 10px 2px 0 0;
       font-size:12px;
       letter-spacing:.10em;
-      color:rgba(0,0,0,.55);
+      color: rgba(0,0,0,.55);
       user-select:none;
     }
 
+    /* Copy block：下揃え */
     .hero-copy{
-      /* コピー塊を下に落とす：下端基準で静かに構える */
-      padding-bottom:10px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end; /* 下合わせ */
+      padding: 2px 2px 6px 2px;
+      min-height: min(56vh, 520px);
     }
 
-    /* メインコピー：叫ばない（サイズ↓/字間↑/行間↑/太さ標準） */
+    /* メインコピー：小さく／軽く／広く */
     .headline{
       margin:0;
-      font-weight:600;                 /* 極太→太（標準寄り） */
-      letter-spacing:.06em;            /* 字間を広く */
-      line-height:1.45;                /* 行間を広く */
-      font-size:clamp(22px, 2.2vw, 36px);
-      text-wrap:balance;               /* 可能な環境で美しい改行 */
-      hyphens:none;
+      font-weight: 520;                 /* 太さを半分寄り */
+      letter-spacing: .08em;            /* 文字間隔を広め */
+      line-height: 1.35;                /* 行間を広め */
+      font-size: clamp(24px, 2.6vw, 38px); /* サイズを下げる */
+      color: rgba(0,0,0,.90);
     }
 
+    /* サブコピー（最後の一文は削除済み） */
     .subline{
-      margin:16px 0 0;
-      color:var(--muted);
-      font-size:14px;
-      line-height:2.05;
-      letter-spacing:.05em;            /* 字間を少し広く */
-      max-width:52ch;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 2.05;
+      letter-spacing: .06em;
+      max-width: 40ch;
     }
 
-    /* チップは箱を排除：テキストの列として静かに */
-    .meta-line{
-      margin-top:14px;
-      color:rgba(0,0,0,.55);
-      font-size:12px;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      line-height:1.9;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px 16px;
+    /* 下段ラベル：日本語化 + 注釈として静かに */
+    .tags{
+      margin-top: 22px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      color: rgba(0,0,0,.46);
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: none;
+      line-height: 1.9;
     }
-    .meta-line span::before{
-      content:"・";
-      margin-right:6px;
-      color:rgba(0,0,0,.45);
+    .tags span{ white-space: nowrap; }
+    .tags .sep{
+      padding: 0 10px;
+      color: rgba(0,0,0,.34);
     }
 
     /* ABOUT */
+    .about{ padding: var(--section-y) 0 0; }
     .about-grid{
       display:grid;
-      grid-template-columns: 1.35fr .85fr;
-      gap:26px;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 26px;
       align-items:start;
-      padding-bottom:12px;
+      padding-top: 14px;
     }
+
     .about-left{
-      padding:0; /* 雛型っぽさを減らす：箱の内側余白も最小限に */
-    }
-    .about-left .leadline{
-      font-weight:600;
-      font-size:18px;
-      line-height:1.9;
-      letter-spacing:.04em;
-      margin:0 0 18px;
+      padding: 22px 0 0;
+      border-top: 1px solid var(--line);
     }
     .about-left p{
       margin:0 0 18px;
       font-size:16px;
       line-height:2.0;
       letter-spacing:.03em;
-      color:rgba(0,0,0,.78);
+      color: rgba(0,0,0,.78);
+    }
+    .about-left p.strong{
+      font-weight:600;
+      color: rgba(0,0,0,.86);
     }
     .about-left .keywords{
-      margin-top:6px;
+      margin-top: 14px;
       font-weight:600;
       letter-spacing:.04em;
     }
 
-    /* 右カラム：装飾を増やさず、線とタイポだけ */
     .about-right{
-      border-left:1px solid var(--line);
-      padding-left:24px;
+      padding: 22px 0 0;
+      border-top: 1px solid var(--line);
     }
-    .kv{
+    .meta{
       display:grid;
-      grid-template-columns: 120px 1fr;
-      gap:10px 18px;
-      align-items:start;
+      grid-template-columns: 140px 1fr;
+      row-gap: 12px;
+      column-gap: 14px;
+      align-items:baseline;
       font-size:14px;
-      line-height:1.9;
       letter-spacing:.03em;
-      color:rgba(0,0,0,.80);
+      color: rgba(0,0,0,.80);
     }
-    .kv .k{
-      color:var(--muted2);
-      text-transform:lowercase;
-      letter-spacing:.16em;
+    .meta .label{
       font-size:12px;
-    }
-    .kv .v{ margin:0; }
-
-    /* ⑤：装飾なしで「大安晴美」だけ（完全固定） */
-    .presented{ margin:0; }
-
-    .structure{
-      margin-top:18px;
-      padding-top:18px;
-      border-top:1px solid var(--line);
-    }
-    .structure .title{
-      margin:0 0 8px;
-      color:rgba(0,0,0,.55);
-      letter-spacing:.16em;
-      font-size:12px;
+      letter-spacing:.22em;
       text-transform:lowercase;
+      color: rgba(0,0,0,.42);
     }
-    .structure ul{
-      margin:0 0 0 18px;
-      padding:0;
-      color:rgba(0,0,0,.78);
-      line-height:1.9;
-      font-size:14px;
-      letter-spacing:.02em;
-    }
-
-    /* WORKS / EXHIBITIONS / CONTACT：箱で囲わず、本文として置く */
-    .simple{
-      padding-top:var(--section-y);
-    }
-    .simple p{
+    /* ⑤：装飾なしで「大安晴美」だけ（固定） */
+    .presented{
       margin:0;
-      color:rgba(0,0,0,.62);
       font-size:14px;
-      line-height:2.0;
       letter-spacing:.03em;
-      border-top:1px solid var(--line);
-      padding-top:18px;
+      color: rgba(0,0,0,.80);
+    }
+    .meta-rule{
+      grid-column: 1 / -1;
+      height:1px;
+      background: var(--line);
+      margin: 10px 0 8px;
+    }
+
+    .about-right ul{
+      margin: 14px 0 0 18px;
+      padding:0;
+      color: rgba(0,0,0,.78);
+      line-height:1.95;
+      font-size:14px;
+      letter-spacing:.03em;
+    }
+
+    /* WORKS / EXHIBITIONS / CONTACT */
+    .simple{ padding: var(--section-y) 0 0; }
+    .simple-body{
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      color: rgba(0,0,0,.62);
+      font-size: 14px;
+      line-height: 1.95;
+      letter-spacing:.03em;
     }
 
     /* Footer */
     footer{
-      padding:60px 0 34px;
-      border-top:1px solid var(--line);
-      margin-top:80px;
-      color:rgba(0,0,0,.55);
-      font-size:12px;
+      padding: 60px 0 34px;
+      border-top: 1px solid var(--line);
+      margin-top: 80px;
+      color: rgba(0,0,0,.55);
+      font-size: 12px;
       letter-spacing:.06em;
     }
     .footer-inner{
@@ -296,53 +303,62 @@
       align-items:center;
     }
     .footer-right{
-      color:rgba(0,0,0,.45);
+      color: rgba(0,0,0,.45);
       letter-spacing:.12em;
       text-transform:lowercase;
     }
 
-    /* Floating (最小限) */
+    /* Floating menu */
     .fab{
-      position:fixed;
-      right:22px;
-      top:50%;
-      transform:translateY(-50%);
-      z-index:60;
+      position: fixed;
+      right: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 60;
       display:flex;
       flex-direction:column;
       gap:10px;
     }
     .fab button{
-      width:46px; height:46px;
-      border-radius:999px; /* UIボタンは操作性優先で保持 */
-      border:1px solid rgba(0,0,0,.18);
-      background:rgba(20,20,20,.78);
-      color:#fff;
+      width: 46px; height: 46px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.18);
+      background: rgba(20,20,20,.78);
+      color: #fff;
       cursor:pointer;
-      box-shadow:0 10px 22px rgba(0,0,0,.18);
+      box-shadow: 0 10px 22px rgba(0,0,0,.14);
     }
-    .fab button:hover{ background:rgba(20,20,20,.88); }
-    .fab svg{ width:20px; height:20px; display:block; margin:0 auto; }
+    .fab button:hover{ background: rgba(20,20,20,.88); }
+    .fab svg{ width:20px; height:20px; display:block; margin: 0 auto; }
 
     /* Responsive */
     @media (max-width: 980px){
-      :root{ --wrap:min(980px, calc(100vw - 40px)); --section-y:72px; }
+      :root{ --wrap: min(980px, calc(100vw - 40px)); --section-y: 72px; }
       nav{ gap:18px; }
-      .hero-grid{ grid-template-columns:1fr; gap:18px; }
-      .hero-copy{ padding-bottom:0; }
-      .note-right{ max-width:100%; }
-      .about-grid{ grid-template-columns:1fr; }
-      .about-right{ border-left:none; padding-left:0; border-top:1px solid var(--line); padding-top:18px; }
+      .hero-grid{ grid-template-columns: 1fr; }
+      .hero-copy{
+        min-height: auto;
+        padding-top: 10px;
+      }
+      .subline{ max-width: 72ch; }
+      .about-grid{ grid-template-columns: 1fr; }
+      .note-right{ max-width: 100%; }
     }
     @media (max-width: 560px){
-      :root{ --wrap:calc(100vw - 28px); --topbar-h:68px; }
+      :root{ --wrap: calc(100vw - 28px); --topbar-h: 68px; }
       .brand .role{ display:none; }
       nav{ display:none; }
-      .hero{ padding:18px 0 12px; }
-      .hero-grid{ padding:14px; }
-      .headline{ font-size:clamp(20px, 5.0vw, 30px); }
-      .subline{ font-size:13px; }
-      .kv{ grid-template-columns: 92px 1fr; }
+      .hero{ padding: 18px 0 0; }
+      .hero-shell{ padding: 14px; }
+      .headline{
+        font-size: clamp(20px, 5.0vw, 30px);
+        letter-spacing: .07em;
+        line-height: 1.42;
+      }
+      .tags{
+        letter-spacing: .14em;
+      }
+      .meta{ grid-template-columns: 120px 1fr; }
     }
   </style>
 </head>
@@ -369,28 +385,32 @@
     <!-- HERO (A+B+C) -->
     <section class="hero">
       <div class="wrap">
-        <div class="hero-grid" aria-label="Hero">
-          <div>
-            <div class="hero-media">
-              <!-- 決定事項：ヒーロー画像は固定で images/moriya.jpg -->
-              <img src="images/moriya.jpg" alt="Hero artwork" />
+        <div class="hero-shell">
+          <div class="hero-grid">
+            <div>
+              <div class="hero-media">
+                <!-- 決定事項：ヒーロー画像は固定で images/moriya.jpg -->
+                <img src="images/moriya.jpg" alt="Hero artwork" />
+              </div>
+              <!-- 決定事項：画像右下（画像と重ねない／枠外） -->
+              <div class="hero-credit">© Tsutomu Moriya</div>
             </div>
-            <!-- 決定事項：画像右下（画像と重ねない／枠外）＋右余白 -->
-            <div class="hero-credit">© Tsutomu Moriya</div>
-          </div>
 
-          <div class="hero-copy">
-            <h1 class="headline">作品は、空間の中でどう置かれるかによって見え方が変わります。</h1>
+            <!-- コピーは下合わせ -->
+            <div class="hero-copy">
+              <h1 class="headline">作品は、空間の中でどう置かれるかによって見え方が変わります。</h1>
 
-            <p class="subline">
-              アーティストと対話を重ねながら、背景を言葉にし、展示としてかたちにしていく。説明ではなく、配置で伝える。
-            </p>
+              <p class="subline">
+                アーティストと対話を重ねながら、背景を言葉にし、展示としてかたちにしていく。
+              </p>
 
-            <div class="meta-line" aria-label="Focus tags">
-              <span>EXHIBITION DESIGN</span>
-              <span>SPATIAL NARRATIVE</span>
-              <span>WORK / CONTEXT</span>
-              <span>DOCUMENTATION</span>
+              <!-- 下段項目：日本語 -->
+              <div class="tags" aria-label="Focus tags">
+                <span>展示設計</span><span class="sep">・</span>
+                <span>空間の物語</span><span class="sep">・</span>
+                <span>作品／文脈</span><span class="sep">・</span>
+                <span>記録</span>
+              </div>
             </div>
           </div>
         </div>
@@ -398,16 +418,17 @@
     </section>
 
     <!-- ABOUT -->
-    <section id="about">
+    <section id="about" class="about">
       <div class="wrap">
         <div class="section-head">
           <div class="kicker">ABOUT</div>
           <div class="note-right">余白が意味を持つ。緊張と緩和。余白と集中。</div>
         </div>
+        <div class="rule"></div>
 
         <div class="about-grid">
           <div class="about-left">
-            <p class="leadline">私はその関係を読み解き、構造として整えます。</p>
+            <p class="strong">私はその関係を読み解き、構造として整えます。</p>
 
             <p>
               アーティストと作品の背景を読み解き、本質を見出して言語化する。アーティストとのコミュニケーションを重視し、
@@ -421,32 +442,34 @@
             <p class="keywords">キーワードは、緊張と緩和。余白と集中。</p>
           </div>
 
-          <aside class="about-right" aria-label="Profile (minimal)">
-            <div class="kv">
-              <div class="k">name</div>
-              <p class="v">natsshutou</p>
+          <div class="about-right" aria-label="Profile (minimal)">
+            <div class="meta">
+              <div class="label">name</div>
+              <div>natsshutou</div>
 
-              <div class="k">furigana</div>
+              <div class="label">furigana</div>
               <!-- 決定事項：フリガナは ナッツシュウトウ -->
-              <p class="v">ナッツシュウトウ</p>
+              <div>ナッツシュウトウ</div>
 
-              <div class="k">presented</div>
-              <!-- 決定事項：⑤は「大安晴美」だけ（装飾なし） -->
-              <p class="v presented">大安晴美</p>
+              <div class="label">presented</div>
+              <!-- 決定事項：⑤は装飾なしで「大安晴美」だけ -->
+              <p class="presented">大安晴美</p>
 
-              <div class="k">base</div>
-              <p class="v">岡山拠点</p>
+              <div class="label">base</div>
+              <div>岡山拠点</div>
+
+              <div class="meta-rule"></div>
+
+              <div class="label">structure</div>
+              <div></div>
             </div>
 
-            <div class="structure">
-              <p class="title">structure</p>
-              <ul>
-                <li>全体像を組み立てる</li>
-                <li>関係性を整理する</li>
-                <li>物事を分解し、再配置する</li>
-              </ul>
-            </div>
-          </aside>
+            <ul>
+              <li>全体像を組み立てる</li>
+              <li>関係性を整理する</li>
+              <li>物事を分解し、再配置する</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
@@ -454,33 +477,45 @@
     <!-- WORKS -->
     <section id="works" class="simple">
       <div class="wrap">
-        <div class="section-head" style="padding-top:0;">
+        <div class="section-head">
           <div class="kicker">WORKS</div>
           <div class="note-right">作品の下に、クレジット（展示ラベル）を置く。</div>
         </div>
-        <p>※作品セクションは次で設計します（作品画像＋画像下のクレジットを“枠外”に固定）。</p>
+        <div class="rule"></div>
+
+        <div class="simple-body">
+          ※作品セクションは次で設計します（作品画像＋画像下のクレジットを“枠外”に固定）。
+        </div>
       </div>
     </section>
 
     <!-- EXHIBITIONS -->
     <section id="exhibitions" class="simple">
       <div class="wrap">
-        <div class="section-head" style="padding-top:0;">
+        <div class="section-head">
           <div class="kicker">EXHIBITIONS</div>
           <div class="note-right">展示は主張よりも、検証できる形で残す。</div>
         </div>
-        <p>※展示セクションは「証拠性（一次情報＋記録＋クレジット）」の構造で設計します。</p>
+        <div class="rule"></div>
+
+        <div class="simple-body">
+          ※展示セクションは「証拠性（一次情報＋記録＋クレジット）」の構造で設計します。
+        </div>
       </div>
     </section>
 
     <!-- CONTACT -->
     <section id="contact" class="simple">
       <div class="wrap">
-        <div class="section-head" style="padding-top:0;">
+        <div class="section-head">
           <div class="kicker">CONTACT</div>
           <div class="note-right">ご相談・ご依頼について</div>
         </div>
-        <p>※お問い合わせ導線（Email / Instagram）と、資料（Portfolio PDF / Press Kit）を次で整えます。</p>
+        <div class="rule"></div>
+
+        <div class="simple-body">
+          ※お問い合わせ導線（Email / Instagram）と、資料（Portfolio PDF / Press Kit）を次で整えます。
+        </div>
       </div>
     </section>
 
@@ -526,7 +561,9 @@
       menu.style.transform = "translateY(-50%)";
       menu.style.zIndex = "70";
       menu.style.background = "rgba(255,255,255,.96)";
+      menu.style.backdropFilter = "blur(10px)";
       menu.style.border = "1px solid rgba(0,0,0,.14)";
+      menu.style.borderRadius = "14px";
       menu.style.boxShadow = "0 12px 26px rgba(0,0,0,.10)";
       menu.style.padding = "10px";
       menu.style.minWidth = "170px";
@@ -537,6 +574,7 @@
         a.textContent = it.label;
         a.style.display = "block";
         a.style.padding = "10px 12px";
+        a.style.borderRadius = "10px";
         a.style.fontSize = "12px";
         a.style.letterSpacing = ".18em";
         a.style.textTransform = "uppercase";
