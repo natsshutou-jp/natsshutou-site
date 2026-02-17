@@ -8,23 +8,18 @@
 
   <style>
     :root{
-      --bg: #ffffff;
-      --ink: #111111;
-      --muted: #666666;
-      --line: rgba(0,0,0,.10);
+      --bg:#fff;
+      --ink:#111;
+      --muted:rgba(0,0,0,.58);
+      --line:rgba(0,0,0,.10);
 
-      --card: rgba(255,255,255,.72);
-      --card-line: rgba(0,0,0,.10);
-      --shadow: 0 10px 28px rgba(0,0,0,.08);
+      /* 決定事項：丸角やめる */
+      --radius:0px;
 
-      /* 角丸は抑える（決定事項） */
-      --radius: 16px;
+      --wrap:min(1120px, calc(100vw - 64px));
+      --section-y:88px;
 
-      --wrap: min(1120px, calc(100vw - 64px));
-      --gutter: 32px;
-      --section-y: 96px;
-
-      --topbar-h: 76px;
+      --topbar-h:76px;
     }
 
     *{ box-sizing:border-box; }
@@ -32,9 +27,7 @@
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", "Yu Gothic", "Segoe UI", sans-serif;
-      background: radial-gradient(900px 420px at 30% 0%, rgba(0,0,0,.045), transparent 65%),
-                  radial-gradient(900px 420px at 70% 30%, rgba(0,0,0,.035), transparent 68%),
-                  var(--bg);
+      background: var(--bg); /* 決定事項：背景は凝りすぎない */
       color:var(--ink);
     }
     a{ color:inherit; text-decoration:none; }
@@ -48,9 +41,9 @@
       height:var(--topbar-h);
       display:flex;
       align-items:center;
-      background: rgba(255,255,255,.78);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(8px);
+      border-bottom:1px solid var(--line);
     }
     .topbar .inner{
       width:var(--wrap);
@@ -75,10 +68,9 @@
     .brand .role{
       font-size:12px;
       letter-spacing:.18em;
-      color:var(--muted);
+      color:rgba(0,0,0,.55);
       text-transform:uppercase;
     }
-
     nav{
       display:flex;
       gap:26px;
@@ -86,10 +78,10 @@
       font-size:12px;
       letter-spacing:.18em;
       text-transform:uppercase;
-      color: rgba(0,0,0,.64);
+      color:rgba(0,0,0,.62);
     }
-    nav a{ padding:10px 6px; border-radius:10px; }
-    nav a:hover{ color: rgba(0,0,0,.92); }
+    nav a{ padding:10px 6px; }
+    nav a:hover{ color:rgba(0,0,0,.92); }
 
     /* Sections */
     section{ scroll-margin-top: calc(var(--topbar-h) + 20px); }
@@ -103,37 +95,38 @@
     .kicker{
       font-size:12px;
       letter-spacing:.22em;
-      color: rgba(0,0,0,.45);
+      color:rgba(0,0,0,.45);
       text-transform:uppercase;
     }
     .note-right{
       font-size:12px;
-      color: rgba(0,0,0,.45);
+      color:rgba(0,0,0,.45);
       letter-spacing:.06em;
       text-align:right;
-      max-width: 52%;
+      max-width:52%;
     }
 
+    /* 角丸なし／影も最小 */
     .card{
-      background: var(--card);
-      border: 1px solid var(--card-line);
+      background:#fff;
+      border:1px solid var(--line);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      box-shadow:none;
     }
 
-    /* HERO (A案：トップにコピーは入れない) */
+    /* HERO (A案固定：ヒーロー内にコピー入れない) */
     .hero{
-      padding: 34px 0 40px;
+      padding: 26px 0 34px;
     }
     .hero-frame{
-      padding: 22px;
-      border-radius: calc(var(--radius) + 8px);
+      padding: 18px;
+      border-radius: var(--radius);
     }
     .hero-media{
-      border-radius: calc(var(--radius) + 8px);
+      border-radius: var(--radius);
       overflow:hidden;
-      background: rgba(0,0,0,.04);
-      border: 1px solid rgba(0,0,0,.08);
+      background: rgba(0,0,0,.03);
+      border:1px solid rgba(0,0,0,.08);
     }
     .hero-media img{
       width:100%;
@@ -144,51 +137,55 @@
       filter: saturate(.98) contrast(.98);
     }
 
-    /* クレジット：画像右下（画像と重ねない／枠外） + 右余白を入れる（決定事項） */
+    /* クレジット：枠外（画像と重ねない） */
     .hero-credit{
       display:flex;
       justify-content:flex-end;
-      padding: 10px 18px 2px 18px;  /* 右余白を確保 */
-      font-size: 12px;
+      padding: 10px 6px 0 6px;
+      font-size:12px;
       letter-spacing:.08em;
-      color: rgba(0,0,0,.62);
+      color:rgba(0,0,0,.58);
       user-select:none;
     }
 
-    /* Copy block under hero */
+    /* Lead under hero */
     .lead{
-      padding: 38px 0 0;
+      padding: 26px 0 0;
     }
     .lead-card{
-      padding: 42px 44px;
-      border-radius: calc(var(--radius) + 8px);
+      padding: 36px 40px;
+      border-radius: var(--radius);
     }
 
-    /* メインコピー：1行固定（決定事項） */
+    /* メインコピー：折り返しOK + 不格好な1文字落ち回避 */
     .headline{
       margin:0;
-      font-weight: 750;                 /* 強すぎる圧を避けつつ芯は残す */
-      letter-spacing: .02em;
-      line-height: 1.08;
-      font-size: clamp(30px, 3.4vw, 52px);
-      white-space: nowrap;              /* 1行固定 */
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-weight: 760;
+      letter-spacing:.01em;
+      line-height:1.12;
+      font-size: clamp(26px, 3.2vw, 50px);
+      /* 日本語の変な割れを避ける */
+      word-break: keep-all;
+      line-break: strict;
     }
+    /* 2つの塊は途中で割れない。必要なら塊間で折り返す。 */
+    .headline .chunk{
+      white-space: nowrap;
+    }
+
     .subline{
       margin: 18px 0 0;
       color: rgba(0,0,0,.62);
-      font-size: 14px;
-      line-height: 1.9;
-      letter-spacing: .02em;
+      font-size:14px;
+      line-height:1.9;
+      letter-spacing:.02em;
       max-width: 72ch;
     }
-    .subline .nowrap{
-      white-space: nowrap; /* 「る。」だけ改行事故を避ける */
-    }
+    .subline .chunk{ white-space: nowrap; }
 
+    /* タグ（装飾控えめ／角丸なし） */
     .chips{
-      margin-top: 22px;
+      margin-top: 20px;
       display:flex;
       gap:12px;
       flex-wrap:wrap;
@@ -197,17 +194,17 @@
       display:inline-flex;
       align-items:center;
       gap:10px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(0,0,0,.12);
-      background: rgba(255,255,255,.55);
-      font-size: 12px;
+      padding: 10px 12px;
+      border-radius: 0;
+      border:1px solid rgba(0,0,0,.12);
+      background:transparent;
+      font-size:12px;
       letter-spacing:.14em;
       text-transform:uppercase;
-      color: rgba(0,0,0,.62);
+      color:rgba(0,0,0,.62);
     }
     .chip .dot{
-      width:6px; height:6px; border-radius:999px;
+      width:6px; height:6px;
       background: rgba(0,0,0,.55);
       display:inline-block;
     }
@@ -223,19 +220,19 @@
       align-items:start;
     }
     .about-left, .about-right{
-      padding: 30px 32px;
-      border-radius: calc(var(--radius) + 8px);
+      padding: 28px 30px;
+      border-radius: var(--radius);
     }
     .about-left p{
       margin:0 0 18px;
       font-size:16px;
       line-height:2.0;
       letter-spacing:.02em;
-      color: rgba(0,0,0,.78);
+      color:rgba(0,0,0,.80);
     }
     .about-left p.strong{
       font-weight:700;
-      color: rgba(0,0,0,.88);
+      color:rgba(0,0,0,.90);
     }
     .about-left .divider{
       margin: 18px 0 22px;
@@ -248,61 +245,73 @@
       letter-spacing:.02em;
     }
 
-    /* 右カラム：過度な装飾をしない（決定事項） */
-    .about-right .label{
+    /* 表/雛型排除：右カラムを“フォームUI”にしない（文章として見せる） */
+    .about-right{
+      color:rgba(0,0,0,.80);
+      font-size:14px;
+      line-height:1.95;
+      letter-spacing:.02em;
+    }
+    .about-right .mini-kicker{
       font-size:12px;
       letter-spacing:.22em;
+      color:rgba(0,0,0,.42);
       text-transform:uppercase;
-      color: rgba(0,0,0,.42);
-      margin: 0 0 8px;
+      margin:0 0 10px;
     }
-    .about-right .value{
-      margin: 0 0 16px;
-      font-size: 14px;
-      letter-spacing:.02em;
-      color: rgba(0,0,0,.80);
+    .about-right .block{
+      margin:0 0 16px;
     }
-    .about-right .line{
-      height:1px;
-      background: var(--line);
-      margin: 14px 0 14px;
-    }
-    .about-right ul{
-      margin: 8px 0 0 18px;
-      padding:0;
-      color: rgba(0,0,0,.78);
-      line-height:1.9;
-      font-size:14px;
+    .about-right .block small{
+      display:block;
+      font-size:12px;
+      letter-spacing:.18em;
+      color:rgba(0,0,0,.42);
+      text-transform:uppercase;
+      margin-bottom:6px;
     }
 
     /* ⑤：装飾なしで「大安晴美」だけ（決定事項） */
     .presented{
-      margin: 0;
-      font-size: 14px;
+      margin:0;
+      font-size:14px;
       letter-spacing:.02em;
-      color: rgba(0,0,0,.80);
+      color:rgba(0,0,0,.80);
     }
 
-    /* WORKS / EXHIBITIONS / CONTACT (placeholder blocks) */
+    .about-right ul{
+      margin: 10px 0 0 18px;
+      padding:0;
+      color:rgba(0,0,0,.78);
+      line-height:1.9;
+      font-size:14px;
+    }
+    .rule{
+      margin: 18px 0;
+      height:1px;
+      background: var(--line);
+    }
+
+    /* WORKS / EXHIBITIONS / CONTACT */
     .simple{
       padding: var(--section-y) 0 0;
     }
     .simple-card{
-      padding: 26px 28px;
-      border-radius: calc(var(--radius) + 8px);
-      color: rgba(0,0,0,.62);
-      font-size: 14px;
-      line-height: 1.9;
+      padding: 22px 24px;
+      border-radius: var(--radius);
+      color:rgba(0,0,0,.62);
+      font-size:14px;
+      line-height:1.9;
       letter-spacing:.02em;
     }
 
     /* Footer */
     footer{
-      padding: 60px 0 34px;
-      border-top: 1px solid var(--line);
-      margin-top: 80px;
-      color: rgba(0,0,0,.55);
-      font-size: 12px;
+      padding: 56px 0 32px;
+      border-top:1px solid var(--line);
+      margin-top: 76px;
+      color:rgba(0,0,0,.55);
+      font-size:12px;
       letter-spacing:.06em;
     }
     .footer-inner{
@@ -312,15 +321,15 @@
       align-items:center;
     }
     .footer-right{
-      color: rgba(0,0,0,.45);
+      color:rgba(0,0,0,.45);
       letter-spacing:.12em;
       text-transform:lowercase;
     }
 
-    /* Floating menu (UI) */
+    /* Floating actions（最小） */
     .fab{
       position: fixed;
-      right: 22px;
+      right: 18px;
       top: 50%;
       transform: translateY(-50%);
       z-index: 60;
@@ -332,42 +341,37 @@
       width: 46px; height: 46px;
       border-radius: 999px;
       border: 1px solid rgba(0,0,0,.18);
-      background: rgba(20,20,20,.78);
-      color: #fff;
+      background: rgba(20,20,20,.80);
+      color:#fff;
       cursor:pointer;
-      box-shadow: 0 10px 22px rgba(0,0,0,.18);
+      box-shadow:none;
     }
-    .fab button:hover{ background: rgba(20,20,20,.88); }
+    .fab button:hover{ background: rgba(20,20,20,.90); }
     .fab svg{ width:20px; height:20px; display:block; margin: 0 auto; }
 
     /* Responsive */
     @media (max-width: 980px){
-      :root{ --wrap: min(980px, calc(100vw - 40px)); --section-y: 72px; }
+      :root{ --wrap: min(980px, calc(100vw - 40px)); --section-y: 68px; }
       nav{ gap:18px; }
       .about-grid{ grid-template-columns: 1fr; }
-      .note-right{ max-width: 100%; }
-      .headline{
-        /* 1行固定を維持しつつ、幅が足りない場合は縮む */
-        font-size: clamp(22px, 4.4vw, 40px);
-      }
+      .note-right{ max-width:100%; }
+      .headline{ font-size: clamp(22px, 4.2vw, 40px); }
+      .lead-card{ padding: 30px 26px; }
     }
     @media (max-width: 560px){
       :root{ --wrap: calc(100vw - 28px); --topbar-h: 68px; }
       .brand .role{ display:none; }
       nav{ display:none; }
-      .hero{ padding: 18px 0 26px; }
-      .hero-frame{ padding: 14px; }
-      .lead-card{ padding: 26px 20px; }
-      .about-left, .about-right{ padding: 22px 18px; }
-
-      /* どうしても1行が苦しい超小画面だけ、破綻回避として縮める */
-      .headline{ font-size: clamp(18px, 5.2vw, 28px); }
+      .hero{ padding: 16px 0 22px; }
+      .hero-frame{ padding: 12px; }
+      .lead-card{ padding: 24px 18px; }
+      .about-left, .about-right{ padding: 20px 18px; }
+      .headline{ font-size: clamp(20px, 5.2vw, 30px); }
     }
   </style>
 </head>
 
 <body>
-  <!-- Topbar -->
   <header class="topbar">
     <div class="inner">
       <a class="brand" href="#top" aria-label="natsshutou home">
@@ -385,7 +389,7 @@
   </header>
 
   <main id="top">
-    <!-- HERO (A案：コピーを入れない) -->
+    <!-- HERO（A案固定：コピーは入れない） -->
     <section class="hero">
       <div class="wrap">
         <div class="card hero-frame">
@@ -393,20 +397,21 @@
             <!-- 決定事項：ヒーロー画像は固定で images/moriya.jpg -->
             <img src="images/moriya.jpg" alt="Hero artwork" />
           </div>
-
-          <!-- 決定事項：画像右下（画像と重ねない／枠外）＋右余白 -->
           <div class="hero-credit">© Tsutomu Moriya</div>
         </div>
       </div>
 
+      <!-- ヒーローの下にコピー（A案） -->
       <div class="wrap lead">
         <div class="card lead-card">
-          <!-- 決定事項：メインコピーは1行で見せる -->
-          <h1 class="headline">作品は、空間の中でどう置かれるかによって見え方が変わります。</h1>
+          <h1 class="headline">
+            <span class="chunk">作品は、空間の中でどう置かれるかによって</span>
+            <span class="chunk">見え方が変わります。</span>
+          </h1>
 
           <p class="subline">
             アーティストと対話を重ねながら、背景を言葉にし、展示としてかたちにしていく。
-            <span class="nowrap">説明ではなく、配置で伝える。</span>
+            <span class="chunk">説明ではなく、配置で伝える。</span>
           </p>
 
           <div class="chips" aria-label="Focus tags">
@@ -429,10 +434,7 @@
 
         <div class="about-grid">
           <div class="card about-left">
-            <p class="strong">
-              私はその関係を読み解き、構造として整えます。
-            </p>
-
+            <p class="strong">私はその関係を読み解き、構造として整えます。</p>
             <div class="divider"></div>
 
             <p>
@@ -440,39 +442,47 @@
               制作段階から関わり、イメージの具現化と作品展開を支える。
             </p>
 
-            <p>
-              展示会のコンセプト設計を行い、空間構成から設営までを担う。
-            </p>
+            <p>展示会のコンセプト設計を行い、空間構成から設営までを担う。</p>
 
-            <p class="keywords">
-              キーワードは、緊張と緩和。余白と集中。
-            </p>
+            <p class="keywords">キーワードは、緊張と緩和。余白と集中。</p>
           </div>
 
-          <div class="card about-right" aria-label="Profile (minimal)">
-            <div class="label">NAME</div>
-            <div class="value">natsshutou</div>
-            <div class="line"></div>
+          <!-- 表/雛型にしない：文章として配置 -->
+          <div class="card about-right" aria-label="Profile (no template)">
+            <div class="mini-kicker">PROFILE</div>
 
-            <div class="label">FURIGANA</div>
-            <!-- 決定事項：フリガナは ナッツシュウトウ -->
-            <div class="value">ナッツシュウトウ</div>
-            <div class="line"></div>
+            <div class="block">
+              <small>NAME</small>
+              natsshutou
+            </div>
 
-            <div class="label">PRESENTED</div>
-            <!-- 決定事項：⑤は装飾なしで「大安晴美」だけ -->
-            <p class="presented">大安晴美</p>
-            <div class="line"></div>
+            <div class="block">
+              <small>FURIGANA</small>
+              <!-- 決定事項：フリガナは ナッツシュウトウ -->
+              ナッツシュウトウ
+            </div>
 
-            <div class="label">BASE</div>
-            <div class="value">岡山拠点</div>
+            <div class="block">
+              <small>PRESENTED</small>
+              <!-- 決定事項：⑤は装飾なしで「大安晴美」だけ -->
+              <p class="presented">大安晴美</p>
+            </div>
 
-            <div class="label" style="margin-top:18px;">STRUCTURE</div>
-            <ul>
-              <li>全体像を組み立てる</li>
-              <li>関係性を整理する</li>
-              <li>物事を分解し、再配置する</li>
-            </ul>
+            <div class="block">
+              <small>BASE</small>
+              岡山拠点
+            </div>
+
+            <div class="rule"></div>
+
+            <div class="block">
+              <small>STRUCTURE</small>
+              <ul>
+                <li>全体像を組み立てる</li>
+                <li>関係性を整理する</li>
+                <li>物事を分解し、再配置する</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -528,78 +538,12 @@
     </footer>
   </main>
 
-  <!-- Floating quick actions -->
   <div class="fab" aria-label="Quick actions">
-    <button type="button" title="Menu" aria-label="Open menu" onclick="toggleQuickMenu()">
-      <svg viewBox="0 0 24 24" fill="none">
-        <path d="M5 7h14M5 12h14M5 17h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </button>
     <button type="button" title="Top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
       <svg viewBox="0 0 24 24" fill="none">
         <path d="M12 5l-7 7m7-7l7 7M12 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </button>
   </div>
-
-  <script>
-    function toggleQuickMenu(){
-      // シンプルに、ナビが非表示（モバイル）でもセクションに飛べる最低限のUI
-      const items = [
-        {label:"ABOUT", id:"about"},
-        {label:"WORKS", id:"works"},
-        {label:"EXHIBITIONS", id:"exhibitions"},
-        {label:"CONTACT", id:"contact"}
-      ];
-
-      const existing = document.getElementById("quickMenu");
-      if(existing){ existing.remove(); return; }
-
-      const menu = document.createElement("div");
-      menu.id = "quickMenu";
-      menu.style.position = "fixed";
-      menu.style.right = "78px";
-      menu.style.top = "50%";
-      menu.style.transform = "translateY(-50%)";
-      menu.style.zIndex = "70";
-      menu.style.background = "rgba(255,255,255,.92)";
-      menu.style.backdropFilter = "blur(10px)";
-      menu.style.border = "1px solid rgba(0,0,0,.14)";
-      menu.style.borderRadius = "14px";
-      menu.style.boxShadow = "0 12px 26px rgba(0,0,0,.12)";
-      menu.style.padding = "10px";
-      menu.style.minWidth = "170px";
-
-      items.forEach(it=>{
-        const a = document.createElement("a");
-        a.href = "#"+it.id;
-        a.textContent = it.label;
-        a.style.display = "block";
-        a.style.padding = "10px 12px";
-        a.style.borderRadius = "10px";
-        a.style.fontSize = "12px";
-        a.style.letterSpacing = ".18em";
-        a.style.textTransform = "uppercase";
-        a.style.color = "rgba(0,0,0,.70)";
-        a.onmouseenter = ()=>a.style.background="rgba(0,0,0,.05)";
-        a.onmouseleave = ()=>a.style.background="transparent";
-        a.onclick = ()=>menu.remove();
-        menu.appendChild(a);
-      });
-
-      document.body.appendChild(menu);
-
-      // 外側クリックで閉じる
-      const closer = (e)=>{
-        if(!menu.contains(e.target)){
-          menu.remove();
-          document.removeEventListener("mousedown", closer);
-        }
-      };
-      setTimeout(()=>document.addEventListener("mousedown", closer), 0);
-    }
-  </script>
 </body>
 </html>
-
-
