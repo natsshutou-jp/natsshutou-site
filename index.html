@@ -114,7 +114,7 @@
       background: var(--line);
     }
 
-    /* HERO (A+B+C 統合：画像 + コピーを同一セクションで、コピーは下揃え) */
+    /* HERO */
     .hero{
       padding: 28px 0 0;
     }
@@ -160,46 +160,48 @@
     .hero-copy{
       display:flex;
       flex-direction:column;
-      justify-content:flex-end; /* 下合わせ */
+      justify-content:flex-end;
       padding: 2px 2px 6px 2px;
       min-height: min(56vh, 520px);
     }
 
-    /* メインコピー：小さく／軽く／広く */
+    /* メインコピー：サイズ↓ / 極細 / 字間・行間↑ / 行替えは意図的に固定 */
     .headline{
       margin:0;
-      font-weight: 520;                 /* 太さを半分寄り */
-      letter-spacing: .08em;            /* 文字間隔を広め */
-      line-height: 1.35;                /* 行間を広め */
-      font-size: clamp(24px, 2.6vw, 38px); /* サイズを下げる */
-      color: rgba(0,0,0,.90);
+      font-weight: 300;
+      letter-spacing: .12em;
+      line-height: 1.9;
+      font-size: clamp(20px, 2.1vw, 32px);
+      color: rgba(0,0,0,.92);
     }
+    .headline br{ line-height: 1.9; }
 
-    /* サブコピー（最後の一文は削除済み） */
+    /* サブコピー：サイズ控えめ / 極細 / 行替え固定 */
     .subline{
-      margin: 18px 0 0;
+      margin: 16px 0 0;
       color: var(--muted);
-      font-size: 13px;
-      line-height: 2.05;
-      letter-spacing: .06em;
-      max-width: 40ch;
+      font-size: 12.5px;
+      font-weight: 300;
+      line-height: 2.1;
+      letter-spacing: .10em;
+      max-width: 44ch;
     }
 
-    /* 下段ラベル：日本語化 + 注釈として静かに */
+    /* 下段ラベル：日本語 / 静かな注釈 */
     .tags{
       margin-top: 22px;
       padding-top: 16px;
       border-top: 1px solid var(--line);
       color: rgba(0,0,0,.46);
-      font-size: 12px;
+      font-size: 11.5px;
       letter-spacing: .18em;
-      text-transform: none;
       line-height: 1.9;
+      text-transform: none;
     }
     .tags span{ white-space: nowrap; }
     .tags .sep{
       padding: 0 10px;
-      color: rgba(0,0,0,.34);
+      color: rgba(0,0,0,.30);
     }
 
     /* ABOUT */
@@ -351,12 +353,17 @@
       .hero{ padding: 18px 0 0; }
       .hero-shell{ padding: 14px; }
       .headline{
-        font-size: clamp(20px, 5.0vw, 30px);
-        letter-spacing: .07em;
-        line-height: 1.42;
+        font-size: clamp(18px, 4.9vw, 26px);
+        letter-spacing: .11em;
+        line-height: 1.9;
+      }
+      .subline{
+        font-size: 12px;
+        letter-spacing: .095em;
       }
       .tags{
-        letter-spacing: .14em;
+        letter-spacing: .16em;
+        font-size: 11px;
       }
       .meta{ grid-template-columns: 120px 1fr; }
     }
@@ -382,7 +389,7 @@
   </header>
 
   <main id="top">
-    <!-- HERO (A+B+C) -->
+    <!-- HERO -->
     <section class="hero">
       <div class="wrap">
         <div class="hero-shell">
@@ -396,15 +403,17 @@
               <div class="hero-credit">© Tsutomu Moriya</div>
             </div>
 
-            <!-- コピーは下合わせ -->
             <div class="hero-copy">
-              <h1 class="headline">作品は、空間の中でどう置かれるかによって見え方が変わります。</h1>
+              <h1 class="headline">
+                作品は、空間の中でどう置かれるかによって<br>
+                見え方が変わります。
+              </h1>
 
               <p class="subline">
-                アーティストと対話を重ねながら、背景を言葉にし、展示としてかたちにしていく。
+                アーティストと対話を重ねながら、背景を言葉にし、<br>
+                展示としてかたちにしていく。
               </p>
 
-              <!-- 下段項目：日本語 -->
               <div class="tags" aria-label="Focus tags">
                 <span>展示設計</span><span class="sep">・</span>
                 <span>空間の物語</span><span class="sep">・</span>
@@ -448,11 +457,9 @@
               <div>natsshutou</div>
 
               <div class="label">furigana</div>
-              <!-- 決定事項：フリガナは ナッツシュウトウ -->
               <div>ナッツシュウトウ</div>
 
               <div class="label">presented</div>
-              <!-- 決定事項：⑤は装飾なしで「大安晴美」だけ -->
               <p class="presented">大安晴美</p>
 
               <div class="label">base</div>
