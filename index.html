@@ -2,277 +2,268 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>natsshutou — Artist / Curator</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>natsshutou</title>
 
   <style>
     :root{
-      --bg:#f7f8f9;
+      --bg:#fbfcfe;
       --panel:#ffffff;
-      --text:rgba(0,0,0,0.86);
-      --muted:rgba(0,0,0,0.60);
-      --line:rgba(0,0,0,0.10);
-      --shadow: 0 18px 60px rgba(0,0,0,0.10);
-      --radius: 28px;
-      --pad: clamp(18px, 3vw, 40px);
-      --max: 1200px;
+      --ink:#111111;
+      --muted:rgba(17,17,17,.62);
+      --line:rgba(17,17,17,.10);
+
+      --max:1120px;
+      --pad:clamp(18px,3.2vw,44px);
+
+      --radius:22px;
+
+      /* hero focal point */
+      --hero-pos-x:50%;
+      --hero-pos-y:35%;
     }
 
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
-      background: radial-gradient(1200px 520px at 50% 15%, rgba(0,0,0,0.06), transparent 70%),
-                  linear-gradient(#fafbfc, #f5f7f8);
-      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Sans",
+                   "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      letter-spacing:.02em;
     }
 
-    a{ color:inherit; text-decoration:none; }
-    a:focus-visible, button:focus-visible{
-      outline: 2px solid rgba(0,0,0,0.55);
-      outline-offset: 3px;
-      border-radius: 10px;
+    a{color:inherit;text-decoration:none}
+    a:hover{opacity:.92}
+
+    .wrap{
+      width:min(var(--max), 100% - (var(--pad) * 2));
+      margin:0 auto;
     }
 
     /* ===== Header ===== */
     header{
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(255,255,255,0.82);
+      position:sticky;
+      top:0;
+      z-index:30;
+      background: rgba(255,255,255,.86);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--line);
     }
-    .header-inner{
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 18px var(--pad);
+    .nav{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap: 18px;
+      padding: 16px 0;
+      gap:16px;
     }
     .brand{
       display:flex;
       align-items:baseline;
-      gap: 12px;
+      gap:12px;
       white-space:nowrap;
     }
     .brand .name{
-      font-weight: 700;
-      letter-spacing: 0.02em;
+      font-weight:650;
+      letter-spacing:.06em;
+      text-transform:lowercase;
     }
     .brand .role{
-      font-size: 12px;
-      letter-spacing: 0.18em;
+      font-size:12px;
+      letter-spacing:.18em;
       color: var(--muted);
-      text-transform: uppercase;
+      text-transform:uppercase;
     }
-    nav{
+    .links{
       display:flex;
-      gap: 22px;
+      gap:18px;
       align-items:center;
       flex-wrap:wrap;
       justify-content:flex-end;
     }
-    nav a{
-      font-size: 12px;
-      letter-spacing: 0.16em;
+    .links a{
+      font-size:12px;
+      letter-spacing:.18em;
       color: var(--muted);
-      text-transform: uppercase;
+      text-transform:uppercase;
       padding: 8px 10px;
       border-radius: 12px;
+      border:1px solid transparent;
     }
-    nav a:hover{ color: rgba(0,0,0,0.78); background: rgba(0,0,0,0.04); }
-
-    /* ===== Layout blocks ===== */
-    .wrap{
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 34px var(--pad) 70px;
+    .links a:hover{
+      color: rgba(17,17,17,.78);
+      background: rgba(17,17,17,.04);
+      border-color: rgba(17,17,17,.08);
     }
 
-    .card{
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-
-    /* ===== HERO ===== */
+    /* ===== HERO (image + white band) ===== */
     .hero{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 26px;
+      padding: 86px 0 120px;
     }
 
     .hero-media{
-      position: relative;
-      background: #fff;
-      /* 画像に重ねない「白帯」をここで確保 */
+      position:relative;
+      /* credit is NOT on the image; reserve a white band below */
       padding-bottom: clamp(28px, 3vw, 44px);
+      background:#fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
       overflow:hidden;
     }
-    .hero-img{
+
+    .hero-media img{
       display:block;
       width:100%;
-      height: clamp(320px, 48vw, 520px);
+      height: clamp(320px, 46vw, 520px);
       object-fit: cover;
-      object-position: center;
+      object-position: var(--hero-pos-x) var(--hero-pos-y);
       background:#eee;
     }
+
     .hero-credit{
       position:absolute;
-      right: clamp(20px, 3vw, 40px); /* 右端余白 */
+      right: clamp(22px, 3vw, 40px); /* ensure right padding */
       bottom: clamp(10px, 1.5vw, 18px);
       font-size: 13px;
-      letter-spacing: 0.06em;
-      color: rgba(0,0,0,0.65);
-      line-height: 1;
-      white-space: nowrap;
+      letter-spacing: .06em;
+      color: rgba(17,17,17,.62);
+      line-height:1;
+      white-space:nowrap;
       user-select:none;
     }
 
     .hero-copy{
-      padding: 0 var(--pad) var(--pad);
+      margin-top: clamp(44px, 5.5vw, 68px);
+      background:#fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: clamp(44px, 6vw, 78px) clamp(26px, 5vw, 80px);
     }
+
     .hero-title{
-      margin: 0 0 18px;
-      font-size: clamp(34px, 5.2vw, 54px);
-      line-height: 1.15;
-      letter-spacing: 0.02em;
+      margin:0 0 22px;
+      font-weight:600;
+      font-size: clamp(28px, 3.6vw, 44px);
+      line-height:1.25;
+      letter-spacing:.02em;
       text-wrap: balance;
     }
+
     .hero-sub{
-      margin: 0 0 18px;
-      max-width: 68ch; /* 行長を制御して不自然な折れを減らす */
-      line-height: 1.9;
-      color: rgba(0,0,0,0.60);
+      margin:0;
+      max-width: 72ch;
+      color: var(--muted);
       font-size: 15px;
+      line-height:1.95;
     }
-    .nowrap{ white-space: nowrap; }
+    .nowrap{white-space:nowrap}
 
     .hero-tags{
+      margin-top: 18px;
       display:flex;
-      gap: 10px;
       flex-wrap:wrap;
-      padding-top: 4px;
+      gap:10px;
     }
     .tag{
       display:inline-flex;
       align-items:center;
-      gap: 8px;
+      gap:8px;
       padding: 10px 14px;
       border-radius: 999px;
-      border: 1px solid rgba(0,0,0,0.12);
-      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(17,17,17,.12);
+      background: rgba(255,255,255,.92);
       font-size: 12px;
-      letter-spacing: 0.08em;
-      color: rgba(0,0,0,0.65);
-      text-transform: uppercase;
+      letter-spacing:.10em;
+      color: rgba(17,17,17,.65);
+      text-transform:uppercase;
     }
     .tag::before{
       content:"";
-      width: 6px;
-      height: 6px;
-      border-radius: 99px;
-      background: rgba(0,0,0,0.45);
+      width:6px;height:6px;border-radius:99px;
+      background: rgba(17,17,17,.48);
       display:inline-block;
     }
 
-    /* ===== Section header ===== */
-    .section{
-      margin-top: 54px;
-    }
-    .section-head{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding: 0 2px 16px;
-      gap: 14px;
-    }
-    .section-label{
-      font-size: 12px;
-      letter-spacing: 0.22em;
-      color: rgba(0,0,0,0.55);
-      text-transform: uppercase;
-    }
-    .section-note{
-      font-size: 12px;
-      letter-spacing: 0.10em;
-      color: rgba(0,0,0,0.50);
-      text-align:right;
+    /* ===== SECTIONS ===== */
+    section{
+      padding: 140px 0 160px; /* per rule */
     }
 
-    /* ===== ABOUT ===== */
-    .about-card{
-      padding: var(--pad);
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap:18px;
+      margin-bottom: 52px;
     }
+    .section-label{
+      font-size:12px;
+      letter-spacing:.24em;
+      color: var(--muted);
+      text-transform:uppercase;
+    }
+
+    /* ===== ABOUT (idea + label) ===== */
+    .about{
+      border-top: 1px solid var(--line);
+    }
+
     .about-grid{
       display:grid;
-      grid-template-columns: 1.25fr 1fr;
-      gap: clamp(18px, 3vw, 40px);
+      grid-template-columns: 60% 40%;
+      gap: clamp(22px, 4vw, 72px);
       align-items:start;
     }
-    .about-body{
+
+    .about-left{
+      font-size: clamp(16px, 1.55vw, 18px);
       line-height: 2.05;
-      color: rgba(0,0,0,0.78);
-      font-size: 15px;
+      color: rgba(17,17,17,.78);
       white-space: pre-line;
     }
 
-    .about-table{
-      width:100%;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 6px 18px;
-      background: rgba(255,255,255,0.86);
-    }
-    .about-row{
-      display:grid;
-      grid-template-columns: 130px 1fr;
-      gap: 16px;
-      padding: 14px 0;
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-    }
-    .about-row:last-child{ border-bottom:none; }
-    .about-label{
-      font-size: 12px;
-      letter-spacing: 0.14em;
-      color: rgba(0,0,0,0.55);
-      text-transform: uppercase;
-    }
-    .about-value{
+    /* Right column: same color, same size; hierarchy only by SPACE */
+    .about-right{
       font-size: 15px;
-      color: rgba(0,0,0,0.85);
-      line-height: 1.65;
+      line-height: 1.9;
+      color: rgba(17,17,17,.78);
+      white-space: pre-line;
     }
 
-    /* ===== Placeholder sections ===== */
-    .placeholder{
-      padding: var(--pad);
-      color: rgba(0,0,0,0.55);
-      line-height: 1.9;
-      font-size: 14px;
+    /* Right column spacing rules (no color change, no size change) */
+    .about-right .r-about{ margin-bottom: 24px; }
+    .about-right .r-brand{ margin-bottom: 32px; }
+    .about-right .r-name{ margin-bottom: 56px; }
+    .about-right .r-method{ margin-bottom: 56px; }
+    .about-right .r-base{ margin-bottom: 0; }
+
+    /* ===== Placeholder cards ===== */
+    .card{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background:#fff;
+      padding: clamp(24px, 3.2vw, 36px);
+      color: var(--muted);
+      line-height:1.9;
+      font-size:14px;
     }
 
     /* ===== Footer ===== */
     footer{
-      margin-top: 70px;
       border-top: 1px solid var(--line);
-      padding: 22px 0 8px;
-      color: rgba(0,0,0,0.55);
-      font-size: 12px;
-      letter-spacing: 0.08em;
+      padding: 28px 0 40px;
+      color: rgba(17,17,17,.56);
+      font-size:12px;
+      letter-spacing:.10em;
     }
-    .footer-inner{
+    .foot{
       display:flex;
       justify-content:space-between;
-      gap: 18px;
+      gap:18px;
       flex-wrap:wrap;
       align-items:center;
     }
@@ -280,150 +271,157 @@
     /* ===== Responsive ===== */
     @media (max-width: 980px){
       .about-grid{ grid-template-columns: 1fr; }
-      nav{ gap: 10px; }
+      section{ padding: 110px 0 130px; }
+      .hero{ padding: 72px 0 92px; }
+      .hero-copy{ padding: 44px 26px; }
     }
   </style>
 </head>
 
 <body>
   <header>
-    <div class="header-inner">
-      <a class="brand" href="#top">
-        <span class="name">natsshutou</span>
-        <span class="role">ARTIST / CURATOR</span>
-      </a>
-
-      <nav aria-label="Primary">
-        <a href="#about">ABOUT</a>
-        <a href="#works">WORKS</a>
-        <a href="#exhibitions">EXHIBITIONS</a>
-        <a href="#contact">CONTACT</a>
-      </nav>
+    <div class="wrap">
+      <div class="nav">
+        <a class="brand" href="#top" aria-label="natsshutou home">
+          <span class="name">natsshutou</span>
+          <span class="role">artist / curator</span>
+        </a>
+        <nav class="links" aria-label="site">
+          <a href="#about">about</a>
+          <a href="#works">works</a>
+          <a href="#exhibitions">exhibitions</a>
+          <a href="#contact">contact</a>
+        </nav>
+      </div>
     </div>
   </header>
 
-  <main class="wrap" id="top">
-    <section class="card hero" aria-label="Hero">
-      <div class="hero-media">
-        <!-- 固定：ヒーロー画像 -->
-        <img class="hero-img" src="images/moriya.jpg" alt="Artwork by Tsutomu Moriya" />
-        <!-- 固定：クレジット（画像に重ねない / 右端に余白） -->
-        <div class="hero-credit">© Tsutomu Moriya</div>
-      </div>
-
-      <div class="hero-copy">
-        <h1 class="hero-title">
-          作品と空間の関係を、かたちに。<br />
-          空間の中でどう見せるかを提示する。
-        </h1>
-
-        <p class="hero-sub">
-          natsshutou。作品を単体で捉えず、空間の中でどう機能するかを構成する。
-          <span class="nowrap">インスタレーションとして提示する。</span>
-        </p>
-
-        <div class="hero-tags" aria-label="Focus tags">
-          <span class="tag">EXHIBITION DESIGN</span>
-          <span class="tag">SPATIAL NARRATIVE</span>
-          <span class="tag">WORK / CONTEXT</span>
-          <span class="tag">DOCUMENTATION</span>
+  <main id="top">
+    <!-- HERO -->
+    <div class="wrap">
+      <section class="hero" aria-label="hero">
+        <div class="hero-media">
+          <!-- 固定：実際の画像ファイル名 -->
+          <img src="images/moriya.jpg" alt="Artwork by Tsutomu Moriya" />
+          <!-- 固定：クレジット（画像と重ねない／右端余白あり） -->
+          <div class="hero-credit">© Tsutomu Moriya</div>
         </div>
-      </div>
-    </section>
+
+        <div class="hero-copy">
+          <h1 class="hero-title">
+            作品は、空間の中でどう置かれるかによって見え方が変わります。<br />
+            私はその関係を読み解き、構造として整えます。
+          </h1>
+
+          <p class="hero-sub">
+            アーティストと対話を重ねながら、背景を言葉にし、展示としてかたちにしていく。
+            <span class="nowrap">説明ではなく、配置で伝える。</span>
+          </p>
+
+          <div class="hero-tags" aria-label="focus tags">
+            <span class="tag">exhibition design</span>
+            <span class="tag">spatial narrative</span>
+            <span class="tag">work / context</span>
+            <span class="tag">documentation</span>
+          </div>
+        </div>
+      </section>
+    </div>
 
     <!-- ABOUT -->
-    <section class="section" id="about">
-      <div class="section-head">
-        <div class="section-label">ABOUT</div>
-        <div class="section-note"></div>
-      </div>
+    <section id="about" class="about" aria-label="about">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-label">about</div>
+        </div>
 
-      <div class="card about-card">
         <div class="about-grid">
-          <div class="about-body">
-アーティストと作品の背景を読み解き、本質を見出して言語化する。アーティストとのコミュニケーションを重視し、制作段階から関わり、イメージの具現化と作品展開を支える。
+          <!-- Left: idea (natural, calm) -->
+          <div class="about-left">
+作品は、空間の中でどう置かれるかによって見え方が変わります。
+私はその関係を読み解き、構造として整えます。
 
-展示会のコンセプト設計を行い、空間構成から設営までを担う。
+アーティストと対話を重ねながら、
+背景を言葉にし、展示としてかたちにしていく。
 
-キーワードは、緊張と緩和。余白と集中。
+説明ではなく、配置で伝える。
+緊張と緩和。余白と集中。
           </div>
 
-          <!-- ここが「赤丸の表」を活かす部分（ラベル形式） -->
-          <div class="about-table" role="table" aria-label="Profile">
-            <div class="about-row" role="row">
-              <div class="about-label" role="cell">NAME</div>
-              <div class="about-value" role="cell">natsshutou</div>
-            </div>
-            <div class="about-row" role="row">
-              <div class="about-label" role="cell">FURIGANA</div>
-              <div class="about-value" role="cell">なっしゅとう</div>
-            </div>
-            <div class="about-row" role="row">
-              <div class="about-label" role="cell">TRADE NAME</div>
-              <div class="about-value" role="cell">大安晴美</div>
-            </div>
-            <div class="about-row" role="row">
-              <div class="about-label" role="cell">TONE</div>
-              <div class="about-value" role="cell">余白が意味を持つ。</div>
-            </div>
+          <!-- Right: label (same color/size; hierarchy only by SPACE) -->
+          <div class="about-right" aria-label="about label">
+            <div class="r-about">ABOUT</div>
+
+            <div class="r-brand">natsshutou
+ナッツシュウトウ</div>
+
+            <div class="r-name">大安晴美</div>
+
+            <div class="r-method">全体像を組み立てる
+関係性を整理する
+物事を分解し、再配置する</div>
+
+            <div class="r-base">岡山拠点</div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- WORKS（仮） -->
-    <section class="section" id="works">
-      <div class="section-head">
-        <div class="section-label">WORKS</div>
-        <div class="section-note">作品の下に、クレジット（展示ラベル）を置く。</div>
-      </div>
-
-      <div class="card placeholder">
-        Work 01 / Work 02 / Work 03 …（画像・キャプションの実データを入れる段で、カードUIを確定します）
+    <section id="works" aria-label="works">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-label">works</div>
+        </div>
+        <div class="card">
+          ※作品セクションは次で設計します（作品画像＋画像下のクレジットを“枠外”に固定）。
+        </div>
       </div>
     </section>
 
     <!-- EXHIBITIONS（仮） -->
-    <section class="section" id="exhibitions">
-      <div class="section-head">
-        <div class="section-label">EXHIBITIONS</div>
-        <div class="section-note">展示は主張よりも、検証できる形で残す。</div>
-      </div>
-
-      <div class="card placeholder">
-        Exhibition cards / Evidence table …（次工程で実データを入れて精度を上げます）
+    <section id="exhibitions" aria-label="exhibitions">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-label">exhibitions</div>
+        </div>
+        <div class="card">
+          ※展示セクションは「証拠性（一次情報＋記録＋クレジット）」の構造で設計します。
+        </div>
       </div>
     </section>
 
     <!-- CONTACT（仮） -->
-    <section class="section" id="contact">
-      <div class="section-head">
-        <div class="section-label">CONTACT</div>
-        <div class="section-note">ご相談・ご依頼について</div>
-      </div>
-
-      <div class="card placeholder">
-        お問い合わせ導線（Email / Instagram）と、資料（Portfolio PDF / Press Kit）をここに配置します。
+    <section id="contact" aria-label="contact">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-label">contact</div>
+        </div>
+        <div class="card">
+          ※お問い合わせ導線（Email / Instagram）と、資料（Portfolio PDF / Press Kit）を次で整えます。
+        </div>
       </div>
     </section>
 
     <footer>
-      <div class="footer-inner">
-        <div>© 2026 natsshutou</div>
-        <div>structure is the message</div>
+      <div class="wrap">
+        <div class="foot">
+          <div>© 2026 natsshutou</div>
+          <div>structure is the message</div>
+        </div>
       </div>
     </footer>
   </main>
 
   <script>
-    // スムーススクロール（軽量）
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', (e) => {
-        const id = a.getAttribute('href');
-        const el = document.querySelector(id);
-        if (!el) return;
+    // smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',(e)=>{
+        const id=a.getAttribute('href');
+        const el=document.querySelector(id);
+        if(!el) return;
         e.preventDefault();
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        el.scrollIntoView({behavior:'smooth', block:'start'});
       });
     });
   </script>
