@@ -3,427 +3,717 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="color-scheme" content="light" />
-  <title>natsshutou</title>
+  <meta name="description" content="natsshutou — Artist / Curator" />
+  <title>natsshutou — Artist / Curator</title>
 
   <style>
     :root{
-      --bg:#fbfcfe;
-      --panel:#ffffff;
-      --ink:#111111;
-      --muted:rgba(17,17,17,.62);
-      --line:rgba(17,17,17,.10);
+      --bg: #ffffff;
+      --surface: rgba(245,246,247,.92);
+      --surface-2: rgba(245,246,247,.75);
+      --text: #111;
+      --muted: rgba(17,17,17,.62);
+      --line: rgba(17,17,17,.12);
+      --shadow: 0 18px 70px rgba(0,0,0,.08);
+      --shadow-soft: 0 12px 48px rgba(0,0,0,.06);
+      --r-xl: 28px;
+      --r-lg: 22px;
+      --r-md: 16px;
 
-      --max:1120px;
-      --pad:clamp(18px,3.2vw,44px);
+      --container: 1160px;
+      --gutter: 24px;
+      --section-gap: 84px;
 
-      --radius:22px;
+      --nav-h: 72px;
 
-      /* hero focal point */
-      --hero-pos-x:50%;
-      --hero-pos-y:35%;
+      --h1: clamp(32px, 3.2vw, 56px);
+      --h2: clamp(18px, 1.5vw, 20px);
+      --body: 16px;
+      --small: 13px;
+
+      --ls-wide: 0.18em;
+      --ls-ui: 0.12em;
+
+      --focus: rgba(17,17,17,.18);
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    *{ box-sizing:border-box; }
+    html, body{ height:100%; }
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Sans",
-                   "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
-      background: var(--bg);
-      color: var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 520px at 50% 120px, rgba(0,0,0,.04), transparent 65%),
+        radial-gradient(900px 520px at 60% 40%, rgba(0,0,0,.03), transparent 60%),
+        var(--bg);
+      line-height:1.85;
+      letter-spacing: .02em;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      letter-spacing:.02em;
+      text-rendering: optimizeLegibility;
     }
 
-    a{color:inherit;text-decoration:none}
-    a:hover{opacity:.92}
-
-    .wrap{
-      width:min(var(--max), 100% - (var(--pad) * 2));
-      margin:0 auto;
+    a{ color:inherit; text-decoration:none; }
+    a:focus-visible, button:focus-visible{
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+      border-radius: 10px;
     }
 
-    /* ===== Header ===== */
-    header{
-      position:sticky;
-      top:0;
-      z-index:30;
-      background: rgba(255,255,255,.86);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--line);
+    /* ====== Layout ====== */
+    .container{
+      width:min(var(--container), calc(100% - (var(--gutter) * 2)));
+      margin-inline:auto;
     }
+
+    .section{
+      padding-block: var(--section-gap);
+    }
+
+    .divider{
+      height:1px;
+      background: var(--line);
+      margin: 0;
+    }
+
+    /* ====== Top Nav ====== */
     .nav{
+      position: sticky;
+      top:0;
+      z-index: 50;
+      height: var(--nav-h);
+      display:flex;
+      align-items:center;
+      background: rgba(255,255,255,.78);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(17,17,17,.08);
+    }
+
+    .nav-inner{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      padding: 16px 0;
-      gap:16px;
+      gap: 24px;
     }
+
     .brand{
       display:flex;
       align-items:baseline;
-      gap:12px;
-      white-space:nowrap;
+      gap: 14px;
+      white-space: nowrap;
     }
+
     .brand .name{
-      font-weight:650;
-      letter-spacing:.06em;
-      text-transform:lowercase;
+      font-weight: 700;
+      letter-spacing: .02em;
+      font-size: 16px;
     }
     .brand .role{
-      font-size:12px;
-      letter-spacing:.18em;
+      font-size: 12px;
+      letter-spacing: var(--ls-ui);
       color: var(--muted);
-      text-transform:uppercase;
     }
-    .links{
+
+    .nav-links{
       display:flex;
-      gap:18px;
       align-items:center;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .links a{
-      font-size:12px;
-      letter-spacing:.18em;
-      color: var(--muted);
-      text-transform:uppercase;
-      padding: 8px 10px;
-      border-radius: 12px;
-      border:1px solid transparent;
-    }
-    .links a:hover{
-      color: rgba(17,17,17,.78);
-      background: rgba(17,17,17,.04);
-      border-color: rgba(17,17,17,.08);
+      gap: 28px;
+      font-size: 12px;
+      letter-spacing: var(--ls-wide);
+      color: rgba(17,17,17,.72);
+      text-transform: uppercase;
     }
 
-    /* ===== HERO (image + white band) ===== */
+    .nav-links a{
+      position: relative;
+      padding: 10px 2px;
+    }
+    .nav-links a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:6px;
+      height:1px;
+      background: transparent;
+      transform: scaleX(.6);
+      transform-origin: center;
+      transition: .18s ease;
+    }
+    .nav-links a:hover::after{
+      background: rgba(17,17,17,.25);
+      transform: scaleX(1);
+    }
+
+    /* ====== Hero ====== */
     .hero{
-      padding: 86px 0 120px;
+      padding-top: 28px;
+      padding-bottom: 26px;
     }
 
-    .hero-media{
-      position:relative;
-      /* credit is NOT on the image; reserve a white band below */
-      padding-bottom: clamp(28px, 3vw, 44px);
-      background:#fff;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
+    .hero-card{
+      background: var(--surface-2);
+      border: 1px solid rgba(17,17,17,.07);
+      border-radius: var(--r-xl);
+      box-shadow: var(--shadow-soft);
       overflow:hidden;
     }
 
-    .hero-media img{
+    .hero-media{
+      padding: 26px;
+    }
+
+    .hero-figure{
+      margin:0;
+      border-radius: var(--r-lg);
+      overflow:hidden;
+      background: #fff;
+      border: 1px solid rgba(17,17,17,.06);
+    }
+
+    .hero-figure img{
       display:block;
       width:100%;
-      height: clamp(320px, 46vw, 520px);
+      height: auto;
+      aspect-ratio: 16 / 7;
       object-fit: cover;
-      object-position: var(--hero-pos-x) var(--hero-pos-y);
-      background:#eee;
+      object-position: center;
+      filter: saturate(.95) contrast(.98);
     }
 
+    /* クレジット：画像の外（重ねない） */
     .hero-credit{
-      position:absolute;
-      right: clamp(22px, 3vw, 40px); /* ensure right padding */
-      bottom: clamp(10px, 1.5vw, 18px);
-      font-size: 13px;
+      display:flex;
+      justify-content:flex-end;
+      padding: 10px 1.1em 0 1.1em; /* 右に“1文字分”の余白感 */
+      color: rgba(17,17,17,.65);
+      font-size: 12px;
       letter-spacing: .06em;
-      color: rgba(17,17,17,.62);
-      line-height:1;
-      white-space:nowrap;
-      user-select:none;
+    }
+    .hero-credit span{
+      padding-right: .2em;
     }
 
-    .hero-copy{
-      margin-top: clamp(44px, 5.5vw, 68px);
-      background:#fff;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: clamp(44px, 6vw, 78px) clamp(26px, 5vw, 80px);
+    /* ====== Statement Card ====== */
+    .statement{
+      padding: 18px 26px 26px 26px;
+      border-top: 1px solid rgba(17,17,17,.06);
     }
 
-    .hero-title{
-      margin:0 0 22px;
-      font-weight:600;
-      font-size: clamp(28px, 3.6vw, 44px);
-      line-height:1.25;
-      letter-spacing:.02em;
-      text-wrap: balance;
+    .statement-card{
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(17,17,17,.07);
+      border-radius: var(--r-xl);
+      box-shadow: var(--shadow);
+      padding: 34px 38px;
     }
 
-    .hero-sub{
-      margin:0;
-      max-width: 72ch;
+    .h1{
+      margin:0 0 14px 0;
+      font-size: var(--h1);
+      line-height: 1.2;
+      letter-spacing: .02em;
+      font-weight: 800;
+    }
+
+    .lead{
+      margin:0 0 22px 0;
       color: var(--muted);
       font-size: 15px;
-      line-height:1.95;
+      line-height: 1.9;
+      letter-spacing: .02em;
+      max-width: 66ch;
+      word-break: keep-all;
+      line-break: strict;
     }
-    .nowrap{white-space:nowrap}
 
-    .hero-tags{
-      margin-top: 18px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
+    /* 「る。」単独改行を防止：PCでは1行固定、狭い幅では自然に折る */
+    @media (min-width: 980px){
+      .lead{
+        white-space: nowrap;
+      }
     }
-    .tag{
+    @media (max-width: 979px){
+      .lead{
+        white-space: normal;
+      }
+    }
+
+    .chips{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-top: 8px;
+    }
+    .chip{
       display:inline-flex;
       align-items:center;
-      gap:8px;
-      padding: 10px 14px;
+      gap: 10px;
+      border: 1px solid rgba(17,17,17,.14);
+      background: rgba(255,255,255,.58);
+      padding: 10px 16px;
       border-radius: 999px;
-      border: 1px solid rgba(17,17,17,.12);
-      background: rgba(255,255,255,.92);
       font-size: 12px;
-      letter-spacing:.10em;
-      color: rgba(17,17,17,.65);
-      text-transform:uppercase;
+      letter-spacing: var(--ls-wide);
+      color: rgba(17,17,17,.72);
+      text-transform: uppercase;
+      user-select:none;
     }
-    .tag::before{
-      content:"";
-      width:6px;height:6px;border-radius:99px;
-      background: rgba(17,17,17,.48);
-      display:inline-block;
-    }
-
-    /* ===== SECTIONS ===== */
-    section{
-      padding: 140px 0 160px; /* per rule */
+    .dot{
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(17,17,17,.55);
     }
 
+    /* ====== Section Headings ====== */
     .section-head{
       display:flex;
-      justify-content:space-between;
-      align-items:baseline;
-      gap:18px;
-      margin-bottom: 52px;
-    }
-    .section-label{
-      font-size:12px;
-      letter-spacing:.24em;
-      color: var(--muted);
-      text-transform:uppercase;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
     }
 
-    /* ===== ABOUT (idea + label) ===== */
-    .about{
-      border-top: 1px solid var(--line);
+    .section-kicker{
+      font-size: 12px;
+      letter-spacing: var(--ls-wide);
+      color: rgba(17,17,17,.55);
+      text-transform: uppercase;
+    }
+
+    .section-note{
+      font-size: 12px;
+      color: rgba(17,17,17,.55);
+      letter-spacing: .06em;
+      text-align:right;
+      max-width: 48ch;
+    }
+
+    /* ====== About ====== */
+    .about-wrap{
+      margin-top: 20px;
     }
 
     .about-grid{
       display:grid;
-      grid-template-columns: 60% 40%;
-      gap: clamp(22px, 4vw, 72px);
+      grid-template-columns: 1.25fr .75fr;
+      gap: 28px;
       align-items:start;
     }
 
-    .about-left{
-      font-size: clamp(16px, 1.55vw, 18px);
-      line-height: 2.05;
-      color: rgba(17,17,17,.78);
-      white-space: pre-line;
-    }
-
-    /* Right column: same color, same size; hierarchy only by SPACE */
-    .about-right{
-      font-size: 15px;
-      line-height: 1.9;
-      color: rgba(17,17,17,.78);
-      white-space: pre-line;
-    }
-
-    /* Right column spacing rules (no color change, no size change) */
-    .about-right .r-about{ margin-bottom: 24px; }
-    .about-right .r-brand{ margin-bottom: 32px; }
-    .about-right .r-name{ margin-bottom: 56px; }
-    .about-right .r-method{ margin-bottom: 56px; }
-    .about-right .r-base{ margin-bottom: 0; }
-
-    /* ===== Placeholder cards ===== */
-    .card{
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      background:#fff;
-      padding: clamp(24px, 3.2vw, 36px);
-      color: var(--muted);
-      line-height:1.9;
-      font-size:14px;
-    }
-
-    /* ===== Footer ===== */
-    footer{
-      border-top: 1px solid var(--line);
-      padding: 28px 0 40px;
-      color: rgba(17,17,17,.56);
-      font-size:12px;
-      letter-spacing:.10em;
-    }
-    .foot{
-      display:flex;
-      justify-content:space-between;
-      gap:18px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-
-    /* ===== Responsive ===== */
     @media (max-width: 980px){
       .about-grid{ grid-template-columns: 1fr; }
-      section{ padding: 110px 0 130px; }
-      .hero{ padding: 72px 0 92px; }
-      .hero-copy{ padding: 44px 26px; }
+    }
+
+    .panel{
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(17,17,17,.08);
+      border-radius: var(--r-xl);
+      box-shadow: var(--shadow);
+      padding: 34px 38px;
+    }
+
+    .about-left p{
+      margin: 0 0 18px 0;
+      font-size: 16px;
+      color: rgba(17,17,17,.78);
+      word-break: keep-all;
+      line-break: strict;
+    }
+    .about-left .strong{
+      color: rgba(17,17,17,.92);
+      font-weight: 700;
+    }
+
+    /* 右カラム（プロフィール表をやめた、最小構造） */
+    .about-right{
+      padding: 26px 28px;
+    }
+    .identity{
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+      padding: 6px 0 2px 0;
+    }
+    .id-row{
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(17,17,17,.08);
+    }
+    .id-row:last-child{
+      border-bottom:none;
+      padding-bottom:0;
+    }
+    .id-label{
+      font-size: 11px;
+      letter-spacing: var(--ls-wide);
+      color: rgba(17,17,17,.52);
+      text-transform: uppercase;
+    }
+    .id-value{
+      font-size: 15px;
+      color: rgba(17,17,17,.82);
+      letter-spacing: .02em;
+      word-break: keep-all;
+      line-break: strict;
+    }
+
+    .list{
+      margin: 18px 0 0 0;
+      padding: 0;
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+    .list li{
+      font-size: 14px;
+      color: rgba(17,17,17,.72);
+      padding-left: 14px;
+      position: relative;
+    }
+    .list li::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top: .72em;
+      width:6px;
+      height:6px;
+      border-radius:999px;
+      background: rgba(17,17,17,.45);
+      transform: translateY(-50%);
+    }
+
+    /* ====== Placeholder Cards ====== */
+    .placeholder{
+      background: rgba(255,255,255,.64);
+      border: 1px solid rgba(17,17,17,.08);
+      border-radius: var(--r-xl);
+      box-shadow: var(--shadow-soft);
+      padding: 30px 34px;
+      color: rgba(17,17,17,.62);
+      font-size: 14px;
+      letter-spacing: .02em;
+    }
+
+    /* ====== Footer ====== */
+    .footer{
+      padding: 26px 0 40px 0;
+      border-top: 1px solid rgba(17,17,17,.08);
+      color: rgba(17,17,17,.55);
+      font-size: 12px;
+      letter-spacing: .06em;
+    }
+    .footer-inner{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    /* ====== Floating Menu Button ====== */
+    .float{
+      position: fixed;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 60;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap: 10px;
+    }
+
+    .fab{
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      border: 1px solid rgba(17,17,17,.15);
+      background: rgba(17,17,17,.85);
+      color: #fff;
+      display:grid;
+      place-items:center;
+      box-shadow: 0 18px 60px rgba(0,0,0,.18);
+      cursor:pointer;
+    }
+
+    .fab svg{ display:block; }
+
+    .float-menu{
+      display:none;
+      min-width: 170px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(17,17,17,.10);
+      border-radius: 16px;
+      overflow:hidden;
+      box-shadow: var(--shadow);
+    }
+    .float-menu a{
+      display:block;
+      padding: 12px 14px;
+      font-size: 12px;
+      letter-spacing: var(--ls-wide);
+      color: rgba(17,17,17,.74);
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(17,17,17,.08);
+    }
+    .float-menu a:last-child{ border-bottom:none; }
+    .float-menu a:hover{ background: rgba(0,0,0,.04); }
+
+    .float[data-open="true"] .float-menu{ display:block; }
+
+    /* ====== Subtle rhythm ====== */
+    .rhythm{
+      margin-top: 22px;
+      height: 1px;
+      background: rgba(17,17,17,.07);
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <div class="wrap">
-      <div class="nav">
-        <a class="brand" href="#top" aria-label="natsshutou home">
-          <span class="name">natsshutou</span>
-          <span class="role">artist / curator</span>
-        </a>
-        <nav class="links" aria-label="site">
-          <a href="#about">about</a>
-          <a href="#works">works</a>
-          <a href="#exhibitions">exhibitions</a>
-          <a href="#contact">contact</a>
-        </nav>
-      </div>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top" aria-label="natsshutou Home">
+        <span class="name">natsshutou</span>
+        <span class="role">ARTIST / CURATOR</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#about">ABOUT</a>
+        <a href="#works">WORKS</a>
+        <a href="#exhibitions">EXHIBITIONS</a>
+        <a href="#contact">CONTACT</a>
+      </nav>
     </div>
   </header>
 
-  <main id="top">
-    <!-- HERO -->
-    <div class="wrap">
-      <section class="hero" aria-label="hero">
-        <div class="hero-media">
-          <!-- 固定：実際の画像ファイル名 -->
-          <img src="images/moriya.jpg" alt="Artwork by Tsutomu Moriya" />
-          <!-- 固定：クレジット（画像と重ねない／右端余白あり） -->
-          <div class="hero-credit">© Tsutomu Moriya</div>
-        </div>
-
-        <div class="hero-copy">
-          <h1 class="hero-title">
-            作品は、空間の中でどう置かれるかによって見え方が変わります。<br />
-            私はその関係を読み解き、構造として整えます。
-          </h1>
-
-          <p class="hero-sub">
-            アーティストと対話を重ねながら、背景を言葉にし、展示としてかたちにしていく。
-            <span class="nowrap">説明ではなく、配置で伝える。</span>
-          </p>
-
-          <div class="hero-tags" aria-label="focus tags">
-            <span class="tag">exhibition design</span>
-            <span class="tag">spatial narrative</span>
-            <span class="tag">work / context</span>
-            <span class="tag">documentation</span>
-          </div>
-        </div>
-      </section>
+  <!-- Floating -->
+  <aside class="float" id="float" data-open="false" aria-label="Quick menu">
+    <button class="fab" id="fab" type="button" aria-label="Open menu" aria-expanded="false">
+      <!-- icon -->
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <div class="float-menu" role="menu" aria-label="Section links">
+      <a role="menuitem" href="#about">ABOUT</a>
+      <a role="menuitem" href="#works">WORKS</a>
+      <a role="menuitem" href="#exhibitions">EXHIBITIONS</a>
+      <a role="menuitem" href="#contact">CONTACT</a>
+      <a role="menuitem" href="#top">TOP</a>
     </div>
+  </aside>
 
-    <!-- ABOUT -->
-    <section id="about" class="about" aria-label="about">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="section-label">about</div>
-        </div>
+  <!-- HERO -->
+  <main id="top" class="hero">
+    <div class="container">
+      <div class="hero-card">
+        <div class="hero-media">
+          <figure class="hero-figure" aria-label="Hero image">
+            <!-- 固定：images/moriya.jpg -->
+            <img src="images/moriya.jpg" alt="Hero image" />
+          </figure>
 
-        <div class="about-grid">
-          <!-- Left: idea (natural, calm) -->
-          <div class="about-left">
-作品は、空間の中でどう置かれるかによって見え方が変わります。
-私はその関係を読み解き、構造として整えます。
-
-アーティストと対話を重ねながら、
-背景を言葉にし、展示としてかたちにしていく。
-
-説明ではなく、配置で伝える。
-緊張と緩和。余白と集中。
-          </div>
-
-          <!-- Right: label (same color/size; hierarchy only by SPACE) -->
-          <div class="about-right" aria-label="about label">
-            <div class="r-about">ABOUT</div>
-
-            <div class="r-brand">natsshutou
-ナッツシュウトウ</div>
-
-            <div class="r-name">大安晴美</div>
-
-            <div class="r-method">全体像を組み立てる
-関係性を整理する
-物事を分解し、再配置する</div>
-
-            <div class="r-base">岡山拠点</div>
+          <!-- クレジット：画像の外、右下（重ねない） -->
+          <div class="hero-credit" aria-label="Image credit">
+            <span>© Tsutomu Moriya</span>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- WORKS（仮） -->
-    <section id="works" aria-label="works">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="section-label">works</div>
-        </div>
-        <div class="card">
-          ※作品セクションは次で設計します（作品画像＋画像下のクレジットを“枠外”に固定）。
-        </div>
-      </div>
-    </section>
+        <div class="statement">
+          <div class="statement-card">
+            <h1 class="h1">
+              作品は、空間の中でどう置かれるかによって見え方が変わります。<br />
+              私はその関係を読み解き、構造として整えます。
+            </h1>
 
-    <!-- EXHIBITIONS（仮） -->
-    <section id="exhibitions" aria-label="exhibitions">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="section-label">exhibitions</div>
-        </div>
-        <div class="card">
-          ※展示セクションは「証拠性（一次情報＋記録＋クレジット）」の構造で設計します。
-        </div>
-      </div>
-    </section>
+            <p class="lead">
+              アーティストと対話を重ねながら、背景を言葉にし、展示としてかたちにしていく。説明ではなく、配置で伝える。
+            </p>
 
-    <!-- CONTACT（仮） -->
-    <section id="contact" aria-label="contact">
-      <div class="wrap">
-        <div class="section-head">
-          <div class="section-label">contact</div>
-        </div>
-        <div class="card">
-          ※お問い合わせ導線（Email / Instagram）と、資料（Portfolio PDF / Press Kit）を次で整えます。
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      <div class="wrap">
-        <div class="foot">
-          <div>© 2026 natsshutou</div>
-          <div>structure is the message</div>
+            <div class="chips" aria-label="Keywords">
+              <div class="chip"><span class="dot" aria-hidden="true"></span> EXHIBITION DESIGN</div>
+              <div class="chip"><span class="dot" aria-hidden="true"></span> SPATIAL NARRATIVE</div>
+              <div class="chip"><span class="dot" aria-hidden="true"></span> WORK / CONTEXT</div>
+              <div class="chip"><span class="dot" aria-hidden="true"></span> DOCUMENTATION</div>
+            </div>
+          </div>
         </div>
       </div>
-    </footer>
+    </div>
   </main>
 
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-kicker">ABOUT</div>
+        <div class="section-note">
+          余白が意味を持つ。緊張と緩和。余白と集中。
+        </div>
+      </div>
+
+      <div class="about-wrap">
+        <div class="about-grid">
+          <!-- LEFT -->
+          <div class="panel about-left">
+            <p class="strong">
+              作品は、空間の中でどう置かれるかによって見え方が変わります。<br />
+              私はその関係を読み解き、構造として整えます。
+            </p>
+
+            <div class="rhythm" aria-hidden="true"></div>
+
+            <p>
+              アーティストと対話を重ねながら、背景を言葉にし、展示としてかたちにしていく。
+            </p>
+
+            <p>
+              <span class="strong">説明ではなく、配置で伝える。</span>
+            </p>
+
+            <p>
+              緊張と緩和。余白と集中。
+            </p>
+          </div>
+
+          <!-- RIGHT (表は廃止：最小構造) -->
+          <div class="panel about-right" aria-label="Identity">
+            <div class="identity">
+              <div class="id-row">
+                <div class="id-label">Name</div>
+                <div class="id-value">natsshutou</div>
+              </div>
+
+              <div class="id-row">
+                <div class="id-label">Furigana</div>
+                <div class="id-value">ナッツシュウトウ</div>
+              </div>
+
+              <div class="id-row">
+                <div class="id-label">Presented</div>
+                <div class="id-value">Presented by 大安晴美</div>
+              </div>
+
+              <div class="id-row">
+                <div class="id-label">Base</div>
+                <div class="id-value">岡山拠点</div>
+              </div>
+            </div>
+
+            <ul class="list" aria-label="Strengths (structure thinking)">
+              <li>全体像を組み立てる</li>
+              <li>関係性を整理する</li>
+              <li>物事を分解し、再配置する</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WORKS -->
+  <section id="works" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-kicker">WORKS</div>
+        <div class="section-note">作品の下に、クレジット（展示ラベル）を置く。</div>
+      </div>
+
+      <div class="placeholder">
+        ※作品セクションは次で設計します（作品画像＋画像下のクレジットを“枠外”に固定）。
+      </div>
+    </div>
+  </section>
+
+  <!-- EXHIBITIONS -->
+  <section id="exhibitions" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-kicker">EXHIBITIONS</div>
+        <div class="section-note">展示は主張よりも、検証できる形で残す。</div>
+      </div>
+
+      <div class="placeholder">
+        ※展示セクションは「証拠性（一次情報＋記録＋クレジット）」の構造で設計します。
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-kicker">CONTACT</div>
+        <div class="section-note">ご相談・ご依頼について</div>
+      </div>
+
+      <div class="placeholder">
+        ※お問い合わせ導線（Email / Instagram）と、資料（Portfolio PDF / Press Kit）を次で整えます。
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>© 2026 natsshutou</div>
+      <div>structure is the message</div>
+    </div>
+  </footer>
+
   <script>
-    // smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click',(e)=>{
-        const id=a.getAttribute('href');
-        const el=document.querySelector(id);
-        if(!el) return;
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if (!id || id === '#') return;
+        const el = document.querySelector(id);
+        if (!el) return;
+
         e.preventDefault();
-        el.scrollIntoView({behavior:'smooth', block:'start'});
+        const y = el.getBoundingClientRect().top + window.scrollY - 72;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+
+        // close floating menu if open
+        const float = document.getElementById('float');
+        if (float) {
+          float.dataset.open = "false";
+          const fab = document.getElementById('fab');
+          if (fab) fab.setAttribute('aria-expanded', 'false');
+        }
       });
     });
+
+    // Floating menu toggle
+    const float = document.getElementById('float');
+    const fab = document.getElementById('fab');
+    if (float && fab) {
+      fab.addEventListener('click', () => {
+        const open = float.dataset.open === "true";
+        float.dataset.open = open ? "false" : "true";
+        fab.setAttribute('aria-expanded', open ? "false" : "true");
+      });
+
+      // Close when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!float.contains(e.target)) {
+          float.dataset.open = "false";
+          fab.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
   </script>
 </body>
 </html>
+
+
